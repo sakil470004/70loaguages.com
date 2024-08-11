@@ -7,8 +7,9 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import { app, server } from "./socket/socket.js";
 
-const app = express();
+
 dotenv.config();
 
 app.use(express.json());// to parse the body of the request
@@ -22,9 +23,10 @@ const PORT = process.env.PORT || 5000;
 // });
 // it going catch all the routes that start with /api/auth/xxx** */
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });
