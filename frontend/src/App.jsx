@@ -6,6 +6,7 @@ import SignUp from "./pages/signup/SignUp";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 import Dashboard from "./pages/dashboard/Dashboard";
+import DashboardHome from "./pages/dashboard/dashboardHome/DashboardHome";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -24,10 +25,15 @@ function App() {
           path="/signup"
           element={authUser ? <Navigate to={"/"} /> : <SignUp />}
         />
+        {/* dashboard route */}
         <Route
           path="/dashboard"
-          element={authUser ? <Dashboard  /> : <Navigate to={"/login"} />}
-        />
+          element={authUser ? <Dashboard /> : <Navigate to={"/login"} />}
+        >
+          {/* nested route */}
+          <Route path="" element={<DashboardHome />} />
+          <Route path="home" element={<DashboardHome />} />
+        </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
     </div>
