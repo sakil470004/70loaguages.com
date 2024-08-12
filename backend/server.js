@@ -28,6 +28,7 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
+
 // static files in production
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
 // any file without the routes above will be served from the frontend/dist folder
