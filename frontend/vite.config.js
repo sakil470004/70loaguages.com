@@ -8,9 +8,13 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        // target: 'http://localhost:5000',
         target: 'https://seven0loaguages-com.onrender.com',
       },
     },
   },
 })
+
+// For local 
+// target: 'http://localhost:5000',
+// For production
+// target: 'https://seven0loaguages-com.onrender.com',
