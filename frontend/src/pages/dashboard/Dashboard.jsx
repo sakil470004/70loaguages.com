@@ -16,7 +16,7 @@ const Dashboard = () => {
         >
           <GiHamburgerMenu />
         </label>
-<DashboardContent />
+        <DashboardContent />
       </div>
 
       {/* Sidebar */}
@@ -24,5 +24,4 @@ const Dashboard = () => {
     </div>
   );
 };
-
 export default Dashboard;
