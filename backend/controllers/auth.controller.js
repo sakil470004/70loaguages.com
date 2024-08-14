@@ -24,6 +24,7 @@ export const signup = async (req, res) => {
     const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
     const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
+    // create a new user
     const newUser = new User({
       fullName,
       username,
@@ -32,9 +33,12 @@ export const signup = async (req, res) => {
       profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
     });
 
+    // check if the user is created successfully
     if (newUser) {
       // Generate JWT token here
+      // add extra staff in res object
       generateTokenAndSetCookie(newUser._id, res);
+      // save the user to the database
       await newUser.save();
 
       res.status(201).json({
@@ -60,9 +64,11 @@ export const login = async (req, res) => {
       password,
       user.password || ""
     );
+    // to handle the case when the user is not found or the password is incorrect
     if (!user || !isPasswordCorrect) {
       return res.status(400).json({ error: "Invalid username or password" });
     }
+    // generate JWT token here and set it in the cookie
     generateTokenAndSetCookie(user._id, res);
     res.status(200).json({
       _id: user._id,
@@ -79,6 +85,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
+    // clear the cookie//it will remove the jwt cookie // and automatically logout the user from the application
     res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "User Logout Successfully" });
   } catch (error) {

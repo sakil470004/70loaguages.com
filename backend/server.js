@@ -10,7 +10,7 @@ import userRoutes from "./routes/user.routes.js";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
 
-//  it will give the current directory name
+//  it will give the current root directory name
 const __dirname = path.resolve();
 
 dotenv.config();
