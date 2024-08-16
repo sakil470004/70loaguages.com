@@ -38,7 +38,7 @@ export const sendMessages = async (req, res) => {
     // get receiver socket id
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
-      // io.to(<receiver socket id>).emit(); used to send message to specific user
+      // io.to(<receiver socket id>).emit(); used to send message to specific user//for sound or notification
       io.to(receiverSocketId).emit("newMessage", newMessage);
     }
     res.status(201).json(newMessage);
