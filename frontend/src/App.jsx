@@ -7,15 +7,20 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardHome from "./pages/dashboard/dashboardHome/DashboardHome";
+import Chat from "./pages/Chat/Chat";
 
 function App() {
   const { authUser } = useAuthContext();
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="">
       <Routes>
         <Route
           path="/"
           element={authUser ? <Home /> : <Navigate to={"/login"} />}
+        />
+        <Route
+          path="/chat"
+          element={authUser ? <Chat /> : <Navigate to={"/login"} />}
         />
         <Route
           path="/login"
