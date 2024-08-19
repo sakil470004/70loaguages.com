@@ -33,7 +33,7 @@ const Accordion = () => {
   ];
   return (
     <div className="py-14">
-    <h2 className="text-2xl font-bold text-blue-400 uppercase">
+    <h2 className="text-3xl font-bold text-blue-400 uppercase">
       FAQ
     </h2>
       <div className="mt-6 flex flex-col gap-5 border-l-4 pl-3 border-l-blue-200">

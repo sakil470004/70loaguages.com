@@ -3,6 +3,7 @@ import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
 import About from "./AboutUs";
 import Accordion from "./Accordian";
+import PostedJobs from "./PostedJobs";
 import WhatOurUserSays from "./WhatOurUserSays";
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
       <Slider />
       <About />
       {/* JOBS */}
+      <PostedJobs/>
       <WhatOurUserSays/>
       <Accordion/>
       <Footer/>
