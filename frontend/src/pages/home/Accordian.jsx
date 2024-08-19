@@ -33,8 +33,8 @@ const Accordion = () => {
   ];
   return (
     <div className="py-14">
-    <h2 className="text-3xl font-bold text-blue-400 uppercase">
-      FAQ
+    <h2 className="text-3xl text-center font-bold text-blue-400 uppercase mb-8">
+      Frequently Asked Questions
     </h2>
       <div className="mt-6 flex flex-col gap-5 border-l-4 pl-3 border-l-blue-200">
         {faqArray.map((faq) => (
