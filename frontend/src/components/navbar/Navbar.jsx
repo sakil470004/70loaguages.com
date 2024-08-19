@@ -148,7 +148,7 @@ const Navbar = ({ setSearchText, searchText }) => {
             )}
           </ul>
         </div>
-        <Link to={"/"} className="cursor-pointer w-36 h-auto font-bold">
+        <Link to={"/"} className="cursor-pointer w-16 bg-black rounded-full h-auto font-bold">
           <img className="w-full h-full" src={logo} alt="logo" />
         </Link>
       </div>

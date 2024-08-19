@@ -2,43 +2,43 @@ const Accordion = () => {
   const faqArray = [
     {
       id: 1,
-      question: "Do you offer international shipping?",
+      question: "What is 70Languages?",
       answer:
-        "Yes, we ship worldwide. Shipping costs will be added at checkout.",
+        "70Languages is an online platform that connects clients in need of translation services with skilled translators. Whether you need documents translated, interpreted, or localized, 70Languages helps you find the right expert for the job.",
     },
     {
       id: 2,
-      question: "What is the delivery time for orders?",
+      question: "How do I post a job on 70Languages?",
       answer:
-        "UK orders are delivered within 3-5 working days. International delivery times may vary.",
+        "To post a job, sign up as a client, navigate to the 'Post a Job' section, and fill out the required details, such as the language pair, type of service, deadline, and budget. Once submitted, your job will be visible to qualified translators.",
     },
     {
       id: 3,
-      question: "Can I return my product?",
+      question: "How do translators apply for jobs?",
       answer:
-        "Yes, you can return your order within 45 days. Use the returns form provided.",
+        "Translators can browse the job listings, apply for the jobs that match their skills, and communicate directly with the job posters through the platform. Simply click 'Apply' on a job listing, and submit your application with any relevant information.",
     },
     {
       id: 4,
-      question: "Do you allow exchanges?",
+      question: "How are translators rated on the platform?",
       answer:
-        "Unfortunately, we do not offer exchanges. Please return the item for a refund and place a new order.",
+        "After a job is completed, clients can rate the translator based on their performance. Translators with higher ratings are more likely to get hired for future jobs. The rating system helps maintain quality and trust within the community",
     },
     {
       id: 5,
-      question: "Can I return items to a physical store?",
+      question: "What languages are supported on 70Languages?",
       answer:
-        "Yes, you can return items to any Pavers store within 45 days of receiving them.",
+        "70Languages supports a wide range of languages, covering all major global languages and many regional ones. If you have a specific language requirement, you can specify it when posting your job.",
     },
   ];
   return (
     <div className="py-14">
-    <h2 className="text-2xl font-bold text-orange-400 uppercase">
+    <h2 className="text-2xl font-bold text-blue-400 uppercase">
       FAQ
     </h2>
-      <div className="mt-6 flex flex-col gap-5 border-l-4 pl-3 border-l-orange-200">
+      <div className="mt-6 flex flex-col gap-5 border-l-4 pl-3 border-l-blue-200">
         {faqArray.map((faq) => (
-          <div className="collapse collapse-arrow bg-gray-50 shadow-sm border-2 border-orange-100" key={faq.id}>
+          <div className="collapse collapse-arrow bg-gray-50 shadow-sm border-2 border-blue-100" key={faq.id}>
             <input type="radio" name="my-accordion-2" defaultChecked />
             <div className="collapse-title text-xl font-medium">
               {faq.question}
