@@ -16,7 +16,7 @@ const DashboardSidebar = () => {
         aria-label="close sidebar"
         className="drawer-overlay"
       ></label>
-      <ul className="menu bg-purple-600 text-white min-h-full w-80 p-4">
+      <ul className="menu bg-purple-500 text-white min-h-full w-80 p-4">
         <div className="mb-8">
           <div className="flex items-center mb-4">
             <div className="w-10 h-10 rounded-full bg-white p-2 mr-2">
@@ -25,13 +25,13 @@ const DashboardSidebar = () => {
             <span className="text-2xl font-bold">Dashboard</span>
           </div>
           <li className="mb-4">
-            <Link to="/dashboard" className="flex items-center">
+            <Link to="/dashboard/jobList" className="flex items-center">
               <MdWork className="text-xl" />
               <span className="ml-2">Job Postings</span>
             </Link>
           </li>
           <li className="mb-4">
-            <Link to="/dashboard" className="flex items-center">
+            <Link to="/dashboard/addJob" className="flex items-center">
               <MdPostAdd className="text-xl" />
               <span className="ml-2">Post a Job</span>
             </Link>
@@ -51,7 +51,7 @@ const DashboardSidebar = () => {
 
           {/* add purple divider */}
 
-          <div className="divider bg-purple-800 divide-gray-600"></div>
+          <div className="divider bg-purple-600 rounded-full divide-gray-600">--------</div>
           <li>
             <Link to="/" className="flex items-center">
               <MdHome className="text-xl" />

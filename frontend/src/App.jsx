@@ -7,6 +7,9 @@ import { useAuthContext } from "./context/AuthContext";
 import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardHome from "./pages/dashboard/dashboardHome/DashboardHome";
 import Chat from "./pages/Chat/Chat";
+import AddJob from "./pages/dashboard/AddJob/AddJob";
+import DashboardJobList from "./pages/dashboard/DashboardJobList/DashboardJobList";
+import ViewJobPage from "./pages/ViewJobPage/ViewJobPage";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -26,6 +29,10 @@ function App() {
           element={authUser ? <Navigate to={"/"} /> : <Login />}
         />
         <Route
+          path="/jobDetail/:id"
+          element={authUser ? <ViewJobPage/> : <Login />}
+        />
+        <Route
           path="/signup"
           element={authUser ? <Navigate to={"/"} /> : <SignUp />}
         />
@@ -37,6 +44,8 @@ function App() {
           {/* nested route */}
           <Route path="" element={<DashboardHome />} />
           <Route path="home" element={<DashboardHome />} />
+          <Route path="addJob" element={<AddJob />} />
+          <Route path="jobList" element={<DashboardJobList />} />
         </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />

@@ -8,7 +8,7 @@ const Dashboard = () => {
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       {/* Main Content Area */}
-      <div className="drawer-content relative bg-gray-100  p-8 ">
+      <div className="drawer-content relative bg-gray-100 max-h-screen  p-8 ">
         {/* Close Button for Mobile View */}
         <label
           htmlFor="my-drawer-2"
