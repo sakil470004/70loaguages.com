@@ -16,9 +16,13 @@ function App() {
   return (
     <div className="">
       <Routes>
-        <Route
+        {/* <Route
           path="/"
           element={authUser ? <Home /> : <Navigate to={"/login"} />}
+        /> */}
+        <Route
+          path="/"
+          element={<Home />}
         />
         <Route
           path="/chat"
