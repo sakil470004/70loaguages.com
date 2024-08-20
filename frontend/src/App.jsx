@@ -9,7 +9,7 @@ import DashboardHome from "./pages/dashboard/dashboardHome/DashboardHome";
 import AddJob from "./pages/dashboard/AddJob/AddJob";
 import DashboardJobList from "./pages/dashboard/DashboardJobList/DashboardJobList";
 import ViewJobPage from "./pages/ViewJobPage/ViewJobPage";
-import Chat from "./pages/Chat/Chat";
+// import Chat from "./pages/Chat/Chat";
 
 function App() {
   const { authUser } = useAuthContext();
