@@ -20,10 +20,10 @@ function App() {
           path="/"
           element={authUser ? <Home /> : <Navigate to={"/login"} />}
         />
-        <Route
+        {/* <Route
           path="/chat"
           element={authUser ? <Chat/> : <Navigate to={"/login"} />}
-        />
+        /> */}
         <Route
           path="/login"
           element={authUser ? <Navigate to={"/"} /> : <Login />}
