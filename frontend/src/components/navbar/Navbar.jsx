@@ -1,39 +1,28 @@
 import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo.png";
-import { BiExit } from "react-icons/bi";
 
-
-import { GiCrossMark } from "react-icons/gi";
 import { useAuthContext } from "../../context/AuthContext";
 import LogoutButton from "../sidebar/LogoutButton";
+import { BiConversation } from "react-icons/bi";
 
-const Navbar = ({ setSearchText, searchText }) => {
+const Navbar = () => {
   const { authUser } = useAuthContext();
-  console.log(authUser
-
-  )
+  
   //   const { logout, cartTotalType } = useAuth();
   //   demo functions
-  const user=null;
+
 //   const user = {
 //     email: "sk.470004@gmail.com",
 //     photoURL:
 //       "https://lh3.googleusercontent.com/a-/AOh14GgZ1j6n7HwXz9G9FwJr0wZ5z7q3Gq6F2sVzWx9K=s96-c",
 //     displayName: "Sourav Kumar",
 //   };
-  const logout = () => {};
-  const cartTotalType = () => { return 0; };
+  // const cartTotalType = () => { return 0; };
 
   const navigate = useNavigate();
 
 
-
-  const handleLogout = async () => {
-    await logout().then(() => {
-      localStorage.removeItem("token");
-    });
-  };
   const handleProfile = () => {
     navigate("/dashboard/profile");
   };
@@ -117,7 +106,7 @@ const Navbar = ({ setSearchText, searchText }) => {
             <li>
               <Link to={"/about"}>About</Link>
             </li>
-            {!user && (
+            {!authUser && (
               <>
                 <li>
                   <Link to={"/login"}>Login</Link>
@@ -126,6 +115,11 @@ const Navbar = ({ setSearchText, searchText }) => {
                   <Link to={"/signup"}>Sign Up</Link>
                 </li>
               </>
+            )}
+            {authUser && (
+              <li>
+                <Link to={"/chat"}>Chat  <BiConversation className="text-blue-400"/></Link>
+              </li>
             )}
             {authUser && (
               <li>
@@ -160,9 +154,16 @@ const Navbar = ({ setSearchText, searchText }) => {
             </li>
           )}
           {authUser && (
+            <>
+            <li>
+              <Link  to={"/chat"}>Chat <BiConversation className="text-blue-400"/></Link>
+            </li>
             <li>
               <Link to={"/dashboard"}>Dashboard</Link>
             </li>
+
+            </>
+
           )}
           {/* todo: fix search Function */}
           {/* <li>{searchComponent}</li> */}
