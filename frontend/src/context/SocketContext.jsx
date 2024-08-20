@@ -44,3 +44,18 @@ export const SocketContextProvider = ({ children }) => {
     </SocketContext.Provider>
   );
 };
+
+
+//! In frontend/src/SocketContext.jsx file
+//? For local
+// const socket = io("http://localhost:5000", {
+//   query: {
+//     userId: authUser._id,
+//   },
+// });
+//? For production
+// const socket = io("https://seven0loaguages-com.onrender.com", {
+//   query: {
+//     userId: authUser._id,
+//   },
+// });
