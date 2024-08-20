@@ -11,10 +11,10 @@ const About = () => {
       <div className="grid md:grid-cols-2 gap-5 items-center ">
         <div className="grid grid-cols-2 gap-2 rounded overflow-hidden">
           {images.map((img, index) => (
-            <div className=" " key={index}>
+            <div className="group overflow-hidden" key={index}>
               <img
                 src={img}
-                className="w-full h-full object-cover max-h-[240px] object-top"
+                className="group-hover:transform group-hover:scale-125 transition-all  duration-700 w-full h-full object-cover max-h-[240px] object-top"
                 alt="about"
               />
             </div>

@@ -21,7 +21,7 @@ const SignUp = () => {
     await signup(inputs);
   };
   return (
-    <div className="h-screen px-4 md:px-0 bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-700">
+    <div className="h-screen px-2 md:px-0 bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-700">
     <div className=" flex flex-col items-center justify-center min-w-96 my-auto max-w-xl min-h-full mx-auto">
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 bg-gradient-to-r from-gray-700 via-gray-800 to-black">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
