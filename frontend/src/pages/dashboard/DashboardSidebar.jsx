@@ -7,6 +7,7 @@ import {
   MdHome,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const DashboardSidebar = () => {
   return (
@@ -18,11 +19,11 @@ const DashboardSidebar = () => {
       ></label>
       <ul className="menu bg-purple-500 text-white min-h-full w-80 p-4">
         <div className="mb-8">
-          <div className="flex items-center mb-4">
-            <div className="w-10 h-10 rounded-full bg-white p-2 mr-2">
-              <img src="/path/to/icon" alt="Dashboard Icon" />
+          <div className="flex items-center mb-4 cursor-pointer">
+            <div className="w-16  rounded-full bg-black  mr-2">
+              <img src={logo} alt="Dashboard Icon" />
             </div>
-            <span className="text-2xl font-bold">Dashboard</span>
+            <span className="text-2xl font-bold">70Language</span>
           </div>
           <li className="mb-4">
             <Link to="/dashboard/jobList" className="flex items-center">
