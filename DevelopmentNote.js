@@ -17,3 +17,11 @@
 //     userId: authUser._id,
 //   },
 // });
+
+const liveLink= "https://seven0loaguages-com.onrender.com"
+// (optional) it not needed if you are using the default port
+//! In backend/socket/socket.js file
+//? For local
+// origin: ["http://localhost:3000"],
+//? For production
+// origin: ["https://seven0loaguages-com.onrender.com"],

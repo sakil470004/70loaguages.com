@@ -6,10 +6,10 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardHome from "./pages/dashboard/dashboardHome/DashboardHome";
-import Chat from "./pages/Chat/Chat";
 import AddJob from "./pages/dashboard/AddJob/AddJob";
 import DashboardJobList from "./pages/dashboard/DashboardJobList/DashboardJobList";
 import ViewJobPage from "./pages/ViewJobPage/ViewJobPage";
+import Chat from "./pages/Chat/Chat";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -22,7 +22,7 @@ function App() {
         />
         <Route
           path="/chat"
-          element={authUser ? <Chat /> : <Navigate to={"/login"} />}
+          element={authUser ? <Chat/> : <Navigate to={"/login"} />}
         />
         <Route
           path="/login"
