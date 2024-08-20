@@ -9,7 +9,7 @@ import DashboardHome from "./pages/dashboard/dashboardHome/DashboardHome";
 import AddJob from "./pages/dashboard/AddJob/AddJob";
 import DashboardJobList from "./pages/dashboard/DashboardJobList/DashboardJobList";
 import ViewJobPage from "./pages/ViewJobPage/ViewJobPage";
-// import Chat from "./pages/Chat/Chat";
+import Chat from "./pages/chat/Chat";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -20,10 +20,10 @@ function App() {
           path="/"
           element={authUser ? <Home /> : <Navigate to={"/login"} />}
         />
-        {/* <Route
+        <Route
           path="/chat"
           element={authUser ? <Chat/> : <Navigate to={"/login"} />}
-        /> */}
+        />
         <Route
           path="/login"
           element={authUser ? <Navigate to={"/"} /> : <Login />}
