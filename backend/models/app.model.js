@@ -4,25 +4,26 @@ import mongoose from "mongoose";
 // fullName
 // username
 // password
-// gender 
+// gender
 // referredBy (userId)
 // commissions (array of userIds)
 const appSchema = new mongoose.Schema(
-    {
-        userCommission: {
-          type: Number,
-          required: true,
-          default: 0,
-        },
-        bossCommission: {
-          type: Number,
-          required: true,
-          default: 0,
-        },
-    
-      },
-      { timestamps: true }
-    );
+  {
+    // this is for percentage of commission for mer user merchant
+    userCommission: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    // this is for percentage of commission for boss
+    bossCommission: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+  },
+  { timestamps: true }
+);
 
 const App = mongoose.model("App", appSchema);
 
