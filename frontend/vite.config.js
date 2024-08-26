@@ -13,7 +13,7 @@ export default defineConfig({
     },
   },
 });
-
+//? to fix error delete node_modules and run npm install it fix 99% of the errors
 // For local
 // target: 'http://localhost:5000',
 // For production
