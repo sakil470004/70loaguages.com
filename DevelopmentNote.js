@@ -4,7 +4,7 @@
 //? For production
 // target: 'https://seven0loaguages-com.onrender.com',
 
-//! In frontend/src/SocketContext.jsx file
+//! In frontend/src/context/SocketContext.jsx file
 //? For local
 // const socket = io("http://localhost:5000", {
 //   query: {

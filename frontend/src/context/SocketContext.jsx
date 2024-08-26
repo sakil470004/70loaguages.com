@@ -16,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("https://seven0loaguages-com.onrender.com", {
+      const socket = io("http://localhost:5000", {
         query: {
           userId: authUser._id,
         },
@@ -44,7 +44,6 @@ export const SocketContextProvider = ({ children }) => {
     </SocketContext.Provider>
   );
 };
-
 
 //! In frontend/src/SocketContext.jsx file
 //? For local

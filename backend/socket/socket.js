@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
 
   //   socket.handshake.query is used to get the query parameters from the client side
   const userId = socket.handshake.query.userId;
-    // if the userId is not undefined, then store the userId and socketId in the map // add new user to the map
+  // if the userId is not undefined, then store the userId and socketId in the map // add new user to the map
   if (userId != "undefined") userSocketMap[userId] = socket.id;
 
   // io.emit() is used to send events to all the connected clients
