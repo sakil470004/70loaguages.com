@@ -19,7 +19,6 @@ export const getUsersForSidebar = async (req, res) => {
 export const makeAdmin = async (req, res) => {
   try {
     const { userId } = req.body;
-console.log(userId)
     const user = await User.findOne({_id : userId});
 
     if (!user) {
