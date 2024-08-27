@@ -4,8 +4,8 @@ import { setBossCommission,setUserCommission } from "../controllers/app.controll
 
 const router = express.Router();
 
-router.post("/usercommission", setUserCommission);
-router.post('/bosscommission', setBossCommission)
+router.post("/usercommission",protectRoute, setUserCommission);
+router.post('/bosscommission',protectRoute, setBossCommission)
 
 
 
