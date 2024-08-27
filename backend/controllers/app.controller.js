@@ -1,22 +1,6 @@
 import App from "../models/app.model.js";
 import User from "../models/user.model.js";
 
-export const getUsersForSidebar = async (req, res) => {
-  try {
-    // get current logged in user id
-    const loggedInUserId = req.user._id;
-
-    // get all users except the logged in user// remove password from the response
-    const filteredUsers = await App.find({
-      _id: { $ne: loggedInUserId },
-    }).select("-password");
-
-    res.status(200).json(filteredUsers);
-  } catch (error) {
-    console.log("Error in getUsersForSidebar controller", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
 export const setBossCommission = async (req, res) => {
   try {
     const { bossCommission, _id } = req.body;
@@ -29,7 +13,7 @@ export const setBossCommission = async (req, res) => {
     if (!appData) {
       // create new app
       // create a new user
-      const newApp = new User({});
+      const newApp = new App({ bossCommission });
 
       // check if the user is created successfully
       if (newApp) {
@@ -41,8 +25,9 @@ export const setBossCommission = async (req, res) => {
       }
     } else {
       // update existing app data
-      appData.bossCommission = true;
+      appData.bossCommission = bossCommission;
       await appData.save();
+      res.status(200).json({ message: "Variable Update Successfully" });
     }
   } catch (error) {
     console.log("Error in app controller", error.message);
@@ -51,7 +36,7 @@ export const setBossCommission = async (req, res) => {
 };
 export const setUserCommission = async (req, res) => {
   try {
-    const {  userCommission, _id } = req.body;
+    const { userCommission, _id } = req.body;
     const user = await User.findOne({ _id });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -61,7 +46,9 @@ export const setUserCommission = async (req, res) => {
     if (!appData) {
       // create new app
       // create a new user
-      const newApp = new User({});
+      const newApp = new App({
+        userCommission,
+      });
 
       // check if the user is created successfully
       if (newApp) {
@@ -73,8 +60,9 @@ export const setUserCommission = async (req, res) => {
       }
     } else {
       // update existing app data
-      appData.bossCommission = true;
+      appData.userCommission = userCommission;
       await appData.save();
+      res.status(200).json({ message: "Variable Update Successfully" });
     }
   } catch (error) {
     console.log("Error in app controller", error.message);
