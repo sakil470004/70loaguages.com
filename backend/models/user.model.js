@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-	// for commission based system
+    // for commission based system
     referredBy: {
       type: mongoose.Schema.Types.ObjectId,
       userId: {
@@ -48,6 +48,10 @@ const userSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    admin: {
+      type: Boolean,
+      default: false,
+    },
     // createdAt, updatedAt => Member since <createdAt>
   },
   { timestamps: true }
