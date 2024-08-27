@@ -10,6 +10,8 @@ import AddJob from "./pages/dashboard/AddJob/AddJob";
 import DashboardJobList from "./pages/dashboard/DashboardJobList/DashboardJobList";
 import ViewJobPage from "./pages/ViewJobPage/ViewJobPage";
 import Chat from "./pages/chat/Chat";
+import MakeAdmin from "./pages/dashboard/MakeAdmin/MakeAdmin";
+import AdjustVariable from "./pages/dashboard/AdjustVariable/AdjustVariable";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -50,6 +52,8 @@ function App() {
           <Route path="home" element={<DashboardHome />} />
           <Route path="addJob" element={<AddJob />} />
           <Route path="jobList" element={<DashboardJobList />} />
+          <Route path="makeadmin" element={<MakeAdmin />} />
+          <Route path="adjustvariable" element={<AdjustVariable />} />
         </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />

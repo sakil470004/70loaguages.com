@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 const AddJob = () => {
   const [jobTitle, setJobTitle] = useState('');
@@ -28,7 +28,7 @@ const AddJob = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
-      <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-full p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Post a New Job</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

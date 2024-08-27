@@ -6,6 +6,8 @@ import {
   MdAccountCircle,
   MdHome,
 } from "react-icons/md";
+import { GrUserAdmin } from "react-icons/gr";
+import { BsWrenchAdjustableCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
@@ -49,7 +51,18 @@ const DashboardSidebar = () => {
               <span className="ml-2">Profile</span>
             </Link>
           </li>
-
+          <li className="mb-4">
+            <Link to="/dashboard/adjustvariable" className="flex items-center">
+              <BsWrenchAdjustableCircle className="text-xl" />
+              <span className="ml-2">Adjust Variable</span>
+            </Link>
+          </li>
+          <li className="mb-4">
+            <Link to="/dashboard/makeadmin" className="flex items-center">
+              <GrUserAdmin className="text-xl" />
+              <span className="ml-2">Make Admin</span>
+            </Link>
+          </li>
           {/* add purple divider */}
 
           <div className="divider bg-purple-600 rounded-full divide-gray-600">--------</div>
