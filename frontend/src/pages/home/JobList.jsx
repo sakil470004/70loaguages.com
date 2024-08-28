@@ -3,26 +3,33 @@ import { FaMoneyBillWave, FaChevronRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 const JobCard = ({ job }) => {
-
   return (
     <div className="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300 relative">
       <div className="flex items-center mb-3">
         <MdOutlineWork className="text-2xl text-blue-500 mr-2" />
-        <h2 className="text-xl font-bold text-gray-800">{job.title}</h2>
+        <h2 className="text-xl font-bold text-gray-800">{job?.title}</h2>
       </div>
-      <p className="text-gray-600 mb-4">{job.description}</p>
+      <p className="text-gray-600 mb-4">
+        {job?.description.length > 80
+          ? job?.description?.slice(0, 80)+"..."
+          : job?.description}
+      </p>
       <div className="flex justify-between items-center text-gray-500">
         <div className="flex items-center">
           <MdLanguage className="text-lg text-green-500 mr-1" />
-          <span>{job?.languagePair.map(lg=>lg+" ,")}</span>
+          <span>
+            {job?.languagePair.map((lg, index) =>
+              index !== job.languagePair.length - 1 ? lg + ", " : lg
+            )}
+          </span>
         </div>
         <div className="flex items-center">
           <MdAccessTime className="text-lg text-yellow-500 mr-1" />
-          <span>{job?.deadline?.split('T')[0]}</span>
+          <span>{job?.deadline?.split("T")[0]}</span>
         </div>
         <div className="flex items-center">
           <FaMoneyBillWave className="text-lg text-purple-500 mr-1" />
-          <span>${job.budget}</span>
+          <span>${job?.budget}</span>
         </div>
       </div>
       <button className="btn btn-primary btn-block mt-5 flex items-center justify-center">
