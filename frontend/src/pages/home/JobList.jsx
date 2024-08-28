@@ -7,7 +7,9 @@ const JobCard = ({ job }) => {
     <div className="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300 relative">
       <div className="flex items-center mb-3">
         <MdOutlineWork className="text-2xl text-blue-500 mr-2" />
-        <h2 className="text-xl font-bold text-gray-800">{job?.title}</h2>
+        <h2 className="text-xl font-bold text-gray-800">{job?.title.length > 40
+          ? job?.title?.slice(0, 40)+"..."
+          : job?.title}</h2>
       </div>
       <p className="text-gray-600 mb-4">
         {job?.description.length > 80
@@ -41,6 +43,7 @@ const JobCard = ({ job }) => {
 };
 
 const JobList = () => {
+  // demo data for jobs
   // const jobs = [
   //   {
   //     title: "Translate English to Spanish",
@@ -49,20 +52,7 @@ const JobList = () => {
   //     deadline: "2024-09-01",
   //     budget: 200,
   //   },
-  //   {
-  //     title: "French to German Translation",
-  //     description: "Looking for a translator for a technical manual from French to German.",
-  //     languagePair: "French - German",
-  //     deadline: "2024-08-28",
-  //     budget: 350,
-  //   },
-  //   {
-  //     title: "Chinese Website Localization",
-  //     description: "Localization of a website from English to Chinese.",
-  //     languagePair: "English - Chinese",
-  //     deadline: "2024-09-10",
-  //     budget: 500,
-  //   },
+  //  
   // ];
   const [jobs, setJobs] = useState([]);
   useEffect(() => {

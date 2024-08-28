@@ -1,28 +1,39 @@
-import React from 'react';
 import { MdOutlineWork, MdAccessTime, MdLanguage } from "react-icons/md";
 import { FaMoneyBillWave, FaChevronRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
-// JobCard component
 const JobCard = ({ job }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300 relative">
       <div className="flex items-center mb-3">
         <MdOutlineWork className="text-2xl text-blue-500 mr-2" />
-        <h2 className="text-xl font-bold text-gray-800">{job.title}</h2>
+        <h2 className="text-xl font-bold text-gray-800">
+          {job?.title.length > 40
+            ? job?.title?.slice(0, 40) + "..."
+            : job?.title}
+        </h2>
       </div>
-      <p className="text-gray-600 mb-4">{job.description}</p>
+      <p className="text-gray-600 mb-4">
+        {job?.description.length > 60
+          ? job?.description?.slice(0, 60) + "..."
+          : job?.description}
+      </p>
       <div className="flex justify-between items-center text-gray-500">
         <div className="flex items-center">
           <MdLanguage className="text-lg text-green-500 mr-1" />
-          <span>{job.languagePair}</span>
+          <span>
+            {job?.languagePair.map((lg, index) =>
+              index !== job.languagePair.length - 1 ? lg + ", " : lg
+            )}
+          </span>
         </div>
         <div className="flex items-center">
           <MdAccessTime className="text-lg text-yellow-500 mr-1" />
-          <span>{job.deadline}</span>
+          <span>{job?.deadline?.split("T")[0]}</span>
         </div>
         <div className="flex items-center">
           <FaMoneyBillWave className="text-lg text-purple-500 mr-1" />
-          <span>${job.budget}</span>
+          <span>${job?.budget}</span>
         </div>
       </div>
       <button className="btn btn-primary btn-block mt-5 flex items-center justify-center">
@@ -33,45 +44,39 @@ const JobCard = ({ job }) => {
   );
 };
 
-// DashboardJobList component
 const DashboardJobList = () => {
-  // Demo data for jobs
-  const jobs = [
-    {
-      id: 1,
-      title: 'English to Spanish Translation',
-      description: 'Translate a 5,000-word document from English to Spanish.',
-      languagePair: 'English to Spanish',
-      deadline: '2024-08-20',
-      budget: 500,
-    },
-    {
-      id: 2,
-      title: 'French to German Legal Document Translation',
-      description: 'Translate a legal document from French to German. Experience in legal translation is required.',
-      languagePair: 'French to German',
-      deadline: '2024-08-25',
-      budget: 800,
-    },
-    {
-      id: 3,
-      title: 'Website Localization: English to Japanese',
-      description: 'Localize a website from English to Japanese. Experience in SEO translation is preferred.',
-      languagePair: 'English to Japanese',
-      deadline: '2024-08-30',
-      budget: 1200,
-    },
-  ];
+  // demo data for jobs
+  // const jobs = [
+  //   {
+  //     title: "Translate English to Spanish",
+  //     description: "Need a translation of a legal document from English to Spanish.",
+  //     languagePair: "English - Spanish",
+  //     deadline: "2024-09-01",
+  //     budget: 200,
+  //   },
+  //
+  // ];
+
+  const [jobs, setJobs] = useState([]);
+  useEffect(() => {
+    //get current user id
+    const posterData = localStorage.getItem("chat-user");
+    // convert posterData to object
+    const posterId = JSON.parse(posterData)._id;
+    fetch(`/api/job/getCurrentUserJob/${posterId}`)
+      .then((res) => res.json())
+      .then((data) => setJobs(data));
+  }, []);
 
   return (
-    <div className="min-h-screen p-6  justify-center">
-      <div className="">
-        <h2 className="text-3xl font-bold text-gray-600 mb-6 text-center">My Posted Jobs</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
-          {jobs.map((job) => (
-            <JobCard key={job.id} job={job} />
-          ))}
-        </div>
+    <div className="py-10">
+      <h2 className="text-2xl font-bold text-gray-500 uppercase mb-8 text-center">
+        Posted Jobs
+      </h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {jobs.map((job, index) => (
+          <JobCard key={index} job={job} />
+        ))}
       </div>
     </div>
   );
