@@ -10,58 +10,68 @@ const AdjustVariable = () => {
   const bossCommissionRef = useRef(null);
 
   const saveUserCommission = () => {
-    const userCommission = parseInt(userCommissionRef.current.value);
-    if (
-      userCommission < 0 ||
-      userCommission > 100 ||
-      isNaN(userCommission) ||
-      userCommission === null
-    ) {
-      toast.error("Invalid Commission");
-      return;
-    }
-    setIsLoading(true);
-    fetch("/api/app/usercommission", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userCommission }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        toast.success(data.message);
-        // console.log(data);
-        setUserCommission(userCommission);
+    const confirmBox = confirm(
+      "Are you sure you want to update the user commission?"
+    );
+    if (confirmBox) {
+      const userCommission = parseInt(userCommissionRef.current.value);
+      if (
+        userCommission < 0 ||
+        userCommission > 100 ||
+        isNaN(userCommission) ||
+        userCommission === null
+      ) {
+        toast.error("Invalid Commission");
+        return;
+      }
+      setIsLoading(true);
+      fetch("/api/app/usercommission", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userCommission }),
       })
-      .finally(() => setIsLoading(false));
+        .then((res) => res.json())
+        .then((data) => {
+          toast.success(data.message);
+          // console.log(data);
+          setUserCommission(userCommission);
+        })
+        .finally(() => setIsLoading(false));
+    }
   };
   const saveBossCommission = () => {
-    const bossCommission = parseInt(bossCommissionRef.current.value);
-    if (
-      bossCommission < 0 ||
-      bossCommission > 100 ||
-      isNaN(bossCommission) ||
-      bossCommission === null
-    ) {
-      toast.error("Invalid Commission");
-      return;
-    }
-    setIsLoading(true);
-    fetch("/api/app/bosscommission", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ bossCommission }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        toast.success(data.message);
-        // console.log(data);
-        setBossCommission(bossCommission);
+    const confirmBox = confirm(
+      "Are you sure you want to update the Organization commission?"
+    );
+    if (confirmBox) {
+      const bossCommission = parseInt(bossCommissionRef.current.value);
+      if (
+        bossCommission < 0 ||
+        bossCommission > 100 ||
+        isNaN(bossCommission) ||
+        bossCommission === null
+      ) {
+        toast.error("Invalid Commission");
+        return;
+      }
+      setIsLoading(true);
+      fetch("/api/app/bosscommission", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bossCommission }),
       })
-      .finally(() => setIsLoading(false));
+        .then((res) => res.json())
+        .then((data) => {
+          toast.success(data.message);
+          // console.log(data);
+          setBossCommission(bossCommission);
+        })
+        .finally(() => setIsLoading(false));
+    }
   };
 
   useEffect(() => {
@@ -105,7 +115,9 @@ const AdjustVariable = () => {
           </label>
           <button
             onClick={saveUserCommission}
-            className={`btn btn-sm mt-4 btn-success text-white ${isLoading ? "loading loading-spinner" : ""}`}
+            className={`btn btn-sm mt-4 btn-success text-white ${
+              isLoading ? "loading loading-spinner" : ""
+            }`}
             disabled={isLoading}
           >
             Save
@@ -113,10 +125,10 @@ const AdjustVariable = () => {
         </div>
         <div className="card   shadow-lg bg-gray-50 p-10">
           <h2 className="text-2xl mb-4 flex gap-2 items-center">
-            <RiGitRepositoryCommitsFill /> Current Boss Commission :{" "}
+            <RiGitRepositoryCommitsFill /> Current Organization Commission :{" "}
             {bossCommission} %
           </h2>
-          <label className="form-control w-full ">
+          <label className="form-control w-full">
             <div className="label">
               <span className="label-text">Update Commission </span>
             </div>
@@ -129,7 +141,9 @@ const AdjustVariable = () => {
           </label>
           <button
             onClick={saveBossCommission}
-            className={`btn btn-sm mt-4  btn-success text-white ${isLoading ? "loading loading-spinner" : ""}`}
+            className={`btn btn-sm mt-4  btn-success text-white ${
+              isLoading ? "loading loading-spinner" : ""
+            }`}
             disabled={isLoading}
           >
             Save

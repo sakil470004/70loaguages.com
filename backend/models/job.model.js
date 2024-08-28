@@ -16,11 +16,11 @@ const jobSchema = new mongoose.Schema(
       required: true, // e.g., ["English", "Spanish"]
       validate: [arrayLimit, 'Language pair should be a non-empty array']
     },
-    jobType: {
-      type: String,
-      enum: ['Translation', 'Interpretation', 'Transcription', 'Localization'],
-      required: true
-    },
+    // jobType: {
+    //   type: String,
+    //   enum: ['Translation', 'Interpretation', 'Transcription', 'Localization'],
+    //   required: true
+    // },
     deadline: {
       type: Date,
       required: true
@@ -35,9 +35,9 @@ const jobSchema = new mongoose.Schema(
       ref: "User",
       required: true
     },
-    attachments: [{
-      type: String // Store file URLs or paths
-    }],
+    // attachments: [{
+    //   type: String // Store file URLs or paths
+    // }],
     status: {
       type: String,
       enum: ['Open', 'In Progress', 'Completed', 'Closed'],
