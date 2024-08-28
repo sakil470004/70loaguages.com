@@ -1,4 +1,6 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddJob = () => {
   const [title, setTittle] = useState("");
@@ -6,29 +8,62 @@ const AddJob = () => {
   const [languagePair, setLanguagePair] = useState("");
   const [deadline, setDeadline] = useState("");
   const [budget, setBudget] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  // adding navigation to the dashboard after job submission
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     //get current user id
-    const posterData =localStorage.getItem("chat-user");
+    const posterData = localStorage.getItem("chat-user");
     // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
     // Handle the form submission logic here
-    console.log({
-      title,
-      description,
-      languagePair: languagePair.split(",").map((lang) => lang.trim()),
-      deadline,
-      budget,
-      posterId,
-    });
+    // console.log({
+    //   title,
+    //   description,
+    //   languagePair: languagePair.split(",").map((lang) => lang.trim()),
+    //   deadline,
+    //   budget,
+    //   posterId,
+    // });
+    // adding job to the database
+    fetch("/api/job/addJOb", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        languagePair: languagePair.split(",").map((lang) => lang.trim()),
+        deadline,
+        budget,
+        posterId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data?._id) {
+          // Clear the form after submission
 
-    // Clear the form after submission
-    // setTittle('');
-    // setDescription('');
-    // setLanguagePair('');
-    // setDeadline('');
-    // setBudget('');
+          setTittle("");
+          setDescription("");
+          setLanguagePair("");
+          setDeadline("");
+          setBudget("");
+          // Redirect to the dashboard
+          navigate("/dashboard/jobList");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Failed to add job");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -105,7 +140,8 @@ const AddJob = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="btn btn-primary w-full mt-4 py-3 px-5"
+              className={`btn btn-primary w-full mt-4 py-3 px-5 ${loading ? "loading loading-dots" : ""}`}
+              disabled={loading}
             >
               Submit Job
             </button>

@@ -7,7 +7,7 @@ import {
   MdHome,
 } from "react-icons/md";
 import { GrUserAdmin } from "react-icons/gr";
-import { BsWrenchAdjustableCircle } from "react-icons/bs";
+import { BsPeople, BsWrenchAdjustableCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
@@ -30,7 +30,7 @@ const DashboardSidebar = () => {
           <li className="mb-4">
             <Link to="/dashboard/jobList" className="flex items-center">
               <MdWork className="text-xl" />
-              <span className="ml-2">Job Postings</span>
+              <span className="ml-2">My Posted Job</span>
             </Link>
           </li>
           <li className="mb-4">
@@ -43,6 +43,12 @@ const DashboardSidebar = () => {
             <Link to="/dashboard" className="flex items-center">
               <MdMessage className="text-xl" />
               <span className="ml-2">Responses</span>
+            </Link>
+          </li>
+          <li className="mb-4">
+            <Link to="/dashboard" className="flex items-center">
+              <BsPeople className="text-xl" />
+              <span className="ml-2">Refered People</span>
             </Link>
           </li>
           <li className="mb-4">
