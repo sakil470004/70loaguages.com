@@ -1,49 +1,60 @@
-import  { useState } from 'react';
+import { useState } from "react";
 
 const AddJob = () => {
-  const [jobTitle, setJobTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [languagePair, setLanguagePair] = useState('');
-  const [deadline, setDeadline] = useState('');
-  const [budget, setBudget] = useState('');
+  const [title, setTittle] = useState("");
+  const [description, setDescription] = useState("");
+  const [languagePair, setLanguagePair] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [budget, setBudget] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //get current user id
+    const posterData =localStorage.getItem("chat-user");
+    // convert posterData to object
+    const posterId = JSON.parse(posterData)._id;
     // Handle the form submission logic here
     console.log({
-      jobTitle,
+      title,
       description,
-      languagePair,
+      languagePair: languagePair.split(",").map((lang) => lang.trim()),
       deadline,
       budget,
+      posterId,
     });
 
     // Clear the form after submission
-    setJobTitle('');
-    setDescription('');
-    setLanguagePair('');
-    setDeadline('');
-    setBudget('');
+    // setTittle('');
+    // setDescription('');
+    // setLanguagePair('');
+    // setDeadline('');
+    // setBudget('');
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="w-full max-w-full p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Post a New Job</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+          Post a New Job
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Job Title</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Job Title
+            </label>
             <input
               type="text"
-              value={jobTitle}
-              onChange={(e) => setJobTitle(e.target.value)}
+              value={title}
+              onChange={(e) => setTittle(e.target.value)}
               className="input input-bordered w-full mt-1"
               placeholder="Enter the job title"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -54,18 +65,22 @@ const AddJob = () => {
             ></textarea>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Language Pair</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Language Pair
+            </label>
             <input
               type="text"
               value={languagePair}
               onChange={(e) => setLanguagePair(e.target.value)}
               className="input input-bordered w-full mt-1"
-              placeholder="e.g., English to Spanish"
+              placeholder="e.g., English , Spanish"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Deadline</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Deadline
+            </label>
             <input
               type="date"
               value={deadline}
@@ -75,7 +90,9 @@ const AddJob = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Budget ($)</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Budget ($)
+            </label>
             <input
               type="number"
               value={budget}

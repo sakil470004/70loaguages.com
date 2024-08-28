@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import appRoutes from "./routes/app.routes.js";
-import jobRoutes from "./routes/app.routes.js";
+import jobRoutes from "./routes/job.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
