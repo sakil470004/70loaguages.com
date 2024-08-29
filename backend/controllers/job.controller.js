@@ -69,3 +69,40 @@ export const addJob = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+export const deleteJob = async (req, res) => {
+  try {
+    //  get id from params
+    let { id } = req.params;
+    // find job by id and delete
+    let job = await Job.findByIdAndDelete(id);
+    if (!job) {
+      res.status(400).json({ message: "Job not found" });
+    } else {
+      res.status(200).json({ message: "Job Deleted" });
+    }
+  } catch (error) {
+    console.log("Error in job controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const updateJob = async (req, res) => {
+  try {
+    //  get id from params
+    let { id } = req.params;
+    // get updated job object
+    let job = req.body;
+    // find job using id and update
+    let updatedJob = await Job.findByIdAndUpdate(id, job, {
+      new: true,
+    });
+    if (!updatedJob) {
+      res.status(400).json({ message: "Job not found" });
+    } else {
+      res.status(200).json({ ...updatedJob, message: "Job Updated" });
+    }
+  } catch (error) {
+    console.log("Error in job controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

@@ -1,9 +1,16 @@
-import { MdOutlineWork, MdAccessTime, MdLanguage } from "react-icons/md";
+import {
+  MdOutlineWork,
+  MdAccessTime,
+  MdLanguage,
+  MdDeleteOutline,
+} from "react-icons/md";
 import { FaMoneyBillWave, FaChevronRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BiEdit } from "react-icons/bi";
+import toast from "react-hot-toast";
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, handleDelete }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300 relative">
       <div className="flex items-center mb-3">
@@ -37,10 +44,28 @@ const JobCard = ({ job }) => {
           <span>${job?.budget}</span>
         </div>
       </div>
-      <Link to={`/jobDetail/${job?._id}`} className="btn cursor-pointer btn-primary btn-block mt-5 flex items-center justify-center">
-        View Details <FaChevronRight className="ml-2" />
-      </Link>
-  
+      <div className="mt-5 flex justify-between">
+        <Link
+          to={`/jobDetail/${job?._id}`}
+          className="btn cursor-pointer btn-primary   flex items-center justify-center"
+        >
+          View Details <FaChevronRight className="ml-2" />
+        </Link>
+        <Link
+          to={`/dashboard/edit/${job?._id}`}
+          className="btn cursor-pointer btn-accent   flex items-center justify-center"
+        >
+          Edit <BiEdit className="ml-2" />
+        </Link>
+        <button
+          onClick={() => {
+            handleDelete(job._id);
+          }}
+          className="btn cursor-pointer btn-error btn-outline   flex items-center justify-center"
+        >
+          <MdDeleteOutline className="text-2xl" />
+        </button>
+      </div>
     </div>
   );
 };
@@ -59,6 +84,25 @@ const DashboardJobList = () => {
   // ];
 
   const [jobs, setJobs] = useState([]);
+
+  const handleDelete = (id) => {
+    const isConfirmed = confirm("Are you sure you want to delete this job?");
+    if (isConfirmed) {
+      fetch(`/api/job/delete/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message === "Job Deleted") {
+            const newJobs = jobs.filter((job) => job._id !== id);
+            setJobs(newJobs);
+            toast.success("Job Deleted Successfully");
+          }else{
+            toast.error(data?.message);
+          }
+        });
+    }
+  };
   useEffect(() => {
     //get current user id
     const posterData = localStorage.getItem("chat-user");
@@ -74,9 +118,9 @@ const DashboardJobList = () => {
       <h2 className="text-2xl font-bold text-gray-500 uppercase mb-8 text-center">
         Posted Jobs
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         {jobs.map((job, index) => (
-          <JobCard key={index} job={job} />
+          <JobCard key={index} job={job} handleDelete={handleDelete} />
         ))}
       </div>
     </div>
