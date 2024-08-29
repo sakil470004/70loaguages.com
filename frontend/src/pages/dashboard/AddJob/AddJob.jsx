@@ -38,13 +38,14 @@ const AddJob = () => {
         // console.log(data);
         if (data?._id) {
           // Clear the form after submission
-
+        
           setTittle("");
           setDescription("");
           setLanguagePair("");
           setDeadline("");
           setBudget("");
           // Redirect to the dashboard
+          toast.success("Job added successfully");
           navigate("/dashboard/jobList");
         }
       })
