@@ -1,6 +1,7 @@
 import { MdOutlineWork, MdAccessTime, MdLanguage } from "react-icons/md";
 import { FaMoneyBillWave, FaChevronRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   return (
@@ -34,10 +35,10 @@ const JobCard = ({ job }) => {
           <span>${job?.budget}</span>
         </div>
       </div>
-      <button className="btn btn-primary btn-block mt-5 flex items-center justify-center">
+      <Link to={`/jobDetail/${job?._id}`} className="btn cursor-pointer btn-primary btn-block mt-5 flex items-center justify-center">
         View Details <FaChevronRight className="ml-2" />
-      </button>
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 opacity-0 hover:opacity-10 transition-opacity duration-300 rounded-lg"></div>
+      </Link>
+      {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 opacity-0 hover:opacity-10 transition-opacity duration-300 rounded-lg"></div> */}
     </div>
   );
 };
