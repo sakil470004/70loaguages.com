@@ -13,6 +13,7 @@ import Chat from "./pages/chat/Chat";
 import MakeAdmin from "./pages/dashboard/MakeAdmin/MakeAdmin";
 import AdjustVariable from "./pages/dashboard/AdjustVariable/AdjustVariable";
 import EditJob from "./pages/dashboard/EditJob/EditJob";
+import ReferredPeople from "./pages/dashboard/ReferredPeople/ReferedPeople";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -51,6 +52,7 @@ function App() {
           {/* nested route */}
           <Route path="" element={<DashboardHome />} />
           <Route path="home" element={<DashboardHome />} />
+          <Route path="refer" element={<ReferredPeople />} />
           <Route path="addJob" element={<AddJob />} />
           <Route path="edit/:jobId" element={<EditJob />} />
           <Route path="jobList" element={<DashboardJobList />} />

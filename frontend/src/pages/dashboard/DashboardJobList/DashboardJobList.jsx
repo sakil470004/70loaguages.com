@@ -47,13 +47,13 @@ const JobCard = ({ job, handleDelete }) => {
       <div className="mt-5 flex justify-between">
         <Link
           to={`/jobDetail/${job?._id}`}
-          className="btn cursor-pointer btn-primary   flex items-center justify-center"
+          className="btn btn-sm cursor-pointer btn-primary  flex items-center justify-center"
         >
           View Details <FaChevronRight className="ml-2" />
         </Link>
         <Link
           to={`/dashboard/edit/${job?._id}`}
-          className="btn cursor-pointer btn-accent   flex items-center justify-center"
+          className="btn btn-sm cursor-pointer btn-accent   flex items-center justify-center"
         >
           Edit <BiEdit className="ml-2" />
         </Link>
@@ -61,7 +61,7 @@ const JobCard = ({ job, handleDelete }) => {
           onClick={() => {
             handleDelete(job._id);
           }}
-          className="btn cursor-pointer btn-error btn-outline   flex items-center justify-center"
+          className="btn cursor-pointer btn-sm btn-error btn-outline   flex items-center justify-center"
         >
           <MdDeleteOutline className="text-2xl" />
         </button>

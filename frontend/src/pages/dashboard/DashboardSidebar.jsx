@@ -46,9 +46,9 @@ const DashboardSidebar = () => {
             </Link>
           </li>
           <li className="mb-4">
-            <Link to="/dashboard" className="flex items-center">
+            <Link to="/dashboard/refer" className="flex items-center">
               <BsPeople className="text-xl" />
-              <span className="ml-2">Refered People</span>
+              <span className="ml-2">Referred People</span>
             </Link>
           </li>
           <li className="mb-4">

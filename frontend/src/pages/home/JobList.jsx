@@ -35,7 +35,7 @@ const JobCard = ({ job }) => {
           <span>${job?.budget}</span>
         </div>
       </div>
-      <Link to={`/jobDetail/${job?._id}`} className="btn cursor-pointer btn-primary btn-block mt-5 flex items-center justify-center">
+      <Link to={`/jobDetail/${job?._id}`} className="btn btn-sm cursor-pointer btn-primary btn-block mt-5 flex items-center justify-center">
         View Details <FaChevronRight className="ml-2" />
       </Link>
       {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 opacity-0 hover:opacity-10 transition-opacity duration-300 rounded-lg"></div> */}
