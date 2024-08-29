@@ -11,10 +11,14 @@ import { GrUserAdmin } from "react-icons/gr";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { AiFillPicture } from "react-icons/ai";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../../../context/AuthContext";
 const MakeAdmin = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { authUser } = useAuthContext();
+  const [admin, setAdmin] = useState(false);
   const handleChangeRole = (user) => {
+    // if user is already an admin no need to make him admin again
     if (user?.admin) {
       return;
     }
@@ -52,21 +56,34 @@ const MakeAdmin = () => {
   };
 
   useEffect(() => {
-    const fetchAdmins = async () => {
+    const fetchUsers = async () => {
       try {
         const res = await fetch("/api/users/");
         const data = await res.json();
-        setUsers(data);
+        setUsers(data?.reverse());
       } catch (error) {
         console.log(error);
       }
     };
-    fetchAdmins();
+    fetchUsers();
+    // check if user is admin
+
+    fetch(`/api/users/checkadmin/${authUser._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data?.admin) {
+          // toast.success("You are an admin Can make other users admin");
+          setAdmin(true);
+        } else {
+          toast.error("You are not an admin");
+        }
+      });
   }, []);
 
   return (
     <div>
-      <h1 className="text-3xl">List of Admins</h1>
+      <h1 className="text-3xl uppercase mb-4">List of User</h1>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -135,7 +152,7 @@ const MakeAdmin = () => {
                   <button
                     className="btn btn-ghost btn-xs flex items-center gap-1"
                     onClick={() => handleChangeRole(user)}
-                    disabled={isLoading || user?.admin}
+                    disabled={isLoading || user?.admin || !admin}
                   >
                     <FaInfoCircle />
                     {user?.admin ? "Remove Admin" : "Make Admin"}

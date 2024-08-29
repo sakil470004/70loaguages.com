@@ -67,3 +67,17 @@ export const referUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const checkAdmin = async (req, res) => {
+  try {
+    const { adminId } = req.params;
+    const user = await User.findOne({ _id: adminId });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({ admin: user.admin });
+  } catch (error) {
+    console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
