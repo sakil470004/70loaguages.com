@@ -6,7 +6,7 @@ import {
   FaInfoCircle,
   FaUserEdit,
 } from "react-icons/fa";
-import { BsGenderAmbiguous } from "react-icons/bs";
+import { BsClipboard, BsClipboard2DataFill, BsGenderAmbiguous } from "react-icons/bs";
 import { GrUserAdmin } from "react-icons/gr";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { AiFillPicture } from "react-icons/ai";
@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useAuthContext } from "../../../context/AuthContext";
 import { HiIdentification } from "react-icons/hi";
 const ReferredPeople = () => {
+  const { authUser } = useAuthContext();
   return (
     <div>
       <div>
@@ -37,14 +38,14 @@ const ReferredPeople = () => {
             name="my_tabs_2"
             role="tab"
             className="tab"
-            aria-label="Refer"
+            aria-label="My Refer Link"
             defaultChecked
           />
           <div
             role="tabpanel"
             className="tab-content bg-base-100 border-base-300 rounded-box p-6"
           >
-            Tab content 2
+            <ReferLink />
           </div>
 
           <input
@@ -58,11 +59,11 @@ const ReferredPeople = () => {
             role="tabpanel"
             className="tab-content bg-base-100 border-base-300 rounded-box p-6"
           >
-            Tab content 3
+          {/* 3rd tab staff */}
+          <p className=" bg-gray-100 px-4 py-2 rounded-full text-center">{authUser?.referredBy ?"You got Referred By "+ authUser?.referredBy:"You got yourself in our Website"}</p>
           </div>
         </div>
       </div>
-    
     </div>
   );
 };
@@ -139,9 +140,9 @@ const ReferredTable = () => {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-x-auto">
       <h1 className="text-3xl uppercase mb-4">List of Referred People</h1>
-      <div className="overflow-x-auto">
+      <div className="">
         <table className="table">
           <thead>
             <tr>
@@ -227,6 +228,35 @@ const ReferredTable = () => {
           </tfoot>
         </table>
       </div>
+    </div>
+  );
+};
+// ReferLink component
+
+const ReferLink = () => {
+  const [link, setLink] = useState("");
+  const { authUser } = useAuthContext();
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(link);
+    toast.success("Link copied to clipboard");
+  };
+  
+  useEffect(() => {
+    // get automatically 
+    setLink(`${window.location.origin}/signup/${authUser._id}`);
+  }, [authUser._id]);
+  return (
+    <div className=" space-x-2 flex items-center justify-center">
+      <p className="text-blue-500 hover:underline bg-gray-100 px-4 py-2 rounded-full">
+        {" "}
+        {link}
+      </p>
+      <button
+        onClick={handleCopyClick}
+        className=" btn btn-outline btn-sm text-lg px-2 outline-none rounded "
+      >
+        <BsClipboard2DataFill/>
+      </button>
     </div>
   );
 };
