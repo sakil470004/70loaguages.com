@@ -13,9 +13,9 @@ const router = express.Router();
 
 router.get("/getAllJob", getAllJob);
 router.get("/getCurrentJob/:id", getCurrentJob);
-router.get("/getCurrentUserJob/:userId",getCurrentUserJob)
+router.get("/getCurrentUserJob/:userId",protectRoute,getCurrentUserJob)
 
-router.post("/addJob", addJob);
+router.post("/addJob",protectRoute, addJob);
 
 // update by jobId
 router.put("/updateJob/:id", protectRoute, updateJob);
