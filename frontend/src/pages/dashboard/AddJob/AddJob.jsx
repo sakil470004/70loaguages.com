@@ -18,15 +18,6 @@ const AddJob = () => {
     const posterData = localStorage.getItem("chat-user");
     // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
-    // Handle the form submission logic here
-    // console.log({
-    //   title,
-    //   description,
-    //   languagePair: languagePair.split(",").map((lang) => lang.trim()),
-    //   deadline,
-    //   budget,
-    //   posterId,
-    // });
     // adding job to the database
     fetch("/api/job/addJOb", {
       method: "POST",

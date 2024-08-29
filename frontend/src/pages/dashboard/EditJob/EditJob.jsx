@@ -63,7 +63,7 @@ const EditJob = () => {
           toast.success(data?.message);
           navigate("/dashboard/jobList");
         }
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
         console.log(error);
