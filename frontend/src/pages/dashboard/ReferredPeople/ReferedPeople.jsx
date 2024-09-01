@@ -60,7 +60,7 @@ const ReferredPeople = () => {
             className="tab-content bg-base-100 border-base-300 rounded-box p-6"
           >
           {/* 3rd tab staff */}
-          <p className=" bg-gray-100 px-4 py-2 rounded-full text-center">{authUser?.referredBy ?"You got Referred By "+ authUser?.referredBy:"You got yourself in our Website"}</p>
+          <p className=" bg-gray-100 px-4 py-2 rounded-full text-center">{authUser?.referredBy ?"You got Referred By 'User ID' "+ authUser?.referredBy:"You got yourself in our Website"}</p>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@ const ReferredTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/users/");
+        const res = await fetch("/api/users/myreferredusers/" + authUser._id);
         const data = await res.json();
         setUsers(data?.reverse());
       } catch (error) {

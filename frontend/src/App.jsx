@@ -44,6 +44,10 @@ function App() {
           path="/signup"
           element={authUser ? <Navigate to={"/"} /> : <SignUp />}
         />
+        <Route
+          path="/signup/:referralId"
+          element={authUser ? <Navigate to={"/"} /> : <SignUp />}
+        />
         {/* dashboard route */}
         <Route
           path="/dashboard"
