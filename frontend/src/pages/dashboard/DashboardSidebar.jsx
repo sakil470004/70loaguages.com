@@ -10,8 +10,22 @@ import { GrUserAdmin } from "react-icons/gr";
 import { BsPeople, BsWrenchAdjustableCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { useAuthContext } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 
 const DashboardSidebar = () => {
+  // check if user is admin
+  const [admin, setAdmin] = useState(false);
+  const { authUser } = useAuthContext();
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const res = await fetch(`/api/users/checkadmin/${authUser._id}`);
+      const data = await res.json();
+      setAdmin(data.admin);
+    };
+    checkAdmin();
+  }, [authUser._id]);
+
   return (
     <div className="drawer-side">
       <label
@@ -57,21 +71,30 @@ const DashboardSidebar = () => {
               <span className="ml-2">Profile</span>
             </Link>
           </li>
-          <li className="mb-4">
-            <Link to="/dashboard/adjustvariable" className="flex items-center">
-              <BsWrenchAdjustableCircle className="text-xl" />
-              <span className="ml-2">Adjust Variable</span>
-            </Link>
-          </li>
-          <li className="mb-4">
-            <Link to="/dashboard/makeadmin" className="flex items-center">
-              <GrUserAdmin className="text-xl" />
-              <span className="ml-2">Make Admin</span>
-            </Link>
-          </li>
+          {admin && (
+            <li className="mb-4">
+              <Link
+                to="/dashboard/adjustvariable"
+                className="flex items-center"
+              >
+                <BsWrenchAdjustableCircle className="text-xl" />
+                <span className="ml-2">Adjust Variable</span>
+              </Link>
+            </li>
+          )}
+          {admin && (
+            <li className="mb-4">
+              <Link to="/dashboard/makeadmin" className="flex items-center">
+                <GrUserAdmin className="text-xl" />
+                <span className="ml-2">Make Admin</span>
+              </Link>
+            </li>
+          )}
           {/* add purple divider */}
 
-          <div className="divider bg-purple-600 rounded-full divide-gray-600">--------</div>
+          <div className="divider bg-purple-600 rounded-full divide-gray-600">
+            --------
+          </div>
           <li>
             <Link to="/" className="flex items-center">
               <MdHome className="text-xl" />

@@ -97,7 +97,7 @@ const DashboardJobList = () => {
             const newJobs = jobs.filter((job) => job._id !== id);
             setJobs(newJobs);
             toast.success("Job Deleted Successfully");
-          }else{
+          } else {
             toast.error(data?.message);
           }
         });
@@ -110,7 +110,7 @@ const DashboardJobList = () => {
     const posterId = JSON.parse(posterData)._id;
     fetch(`/api/job/getCurrentUserJob/${posterId}`)
       .then((res) => res.json())
-      .then((data) => setJobs(data));
+      .then((data) => setJobs(data.reverse()));
   }, []);
 
   return (
@@ -118,11 +118,15 @@ const DashboardJobList = () => {
       <h2 className="text-2xl font-bold text-gray-500 uppercase mb-8 text-center">
         Posted Jobs
       </h2>
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-        {jobs.map((job, index) => (
-          <JobCard key={index} job={job} handleDelete={handleDelete} />
-        ))}
-      </div>
+      {jobs?.length === 0 ? (
+        "No Posted Job Found"
+      ) : (
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          {jobs.map((job, index) => (
+            <JobCard key={index} job={job} handleDelete={handleDelete} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

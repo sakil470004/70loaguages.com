@@ -47,7 +47,7 @@ export const signup = async (req, res) => {
         username: newUser.username,
         profilePic: newUser.profilePic,
         message: "User Created Successfully",
-        referredBy: newUser.referredBy || "",
+        referredBy: newUser?.referredBy || "",
       });
     } else {
       res.status(400).json({ error: "Invalid user data" });
@@ -78,7 +78,7 @@ export const login = async (req, res) => {
       username: user.username,
       profilePic: user.profilePic,
       message: "User Login Successfully",
-      referredBy: user.referredBy || "",
+      referredBy: user?.referredBy || "",
     });
   } catch (error) {
     console.log("Error in login controller", error.message);

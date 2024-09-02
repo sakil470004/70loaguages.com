@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   FaUser,
-  FaCheck,
-  FaTimes,
-  FaInfoCircle,
+
   FaUserEdit,
 } from "react-icons/fa";
-import { BsClipboard, BsClipboard2DataFill, BsGenderAmbiguous } from "react-icons/bs";
-import { GrUserAdmin } from "react-icons/gr";
-import { IoCheckmarkDoneSharp } from "react-icons/io5";
+import { BsClipboard2DataFill, BsGenderAmbiguous } from "react-icons/bs";
 import { AiFillPicture } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../../../context/AuthContext";
@@ -72,51 +68,14 @@ export default ReferredPeople;
 
 const ReferredTable = () => {
   const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAuthContext();
-  const [admin, setAdmin] = useState(false);
-  const handleChangeRole = (user) => {
-    // if user is already an admin no need to make him admin again
-    if (user?.admin) {
-      return;
-    }
-    setIsLoading(true);
-    // confirm box
-    const confirmBox = confirm(
-      `Are you sure you want to make "${user?.username}" an admin?`
-    );
-    if (confirmBox) {
-      fetch("/api/users/makeadmin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: user._id }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          toast.success(data.message);
-          const newUsers = users.map((u) => {
-            if (u._id === user._id) {
-              u.admin = true;
-            }
-            return u;
-          });
-          setUsers(newUsers);
-        })
-        .catch((error) => {
-          toast.error(error.message);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  };
+
+  
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/users/myreferredusers/" + authUser._id);
+        const res = await fetch("/api/users/myreferredusers/" + authUser?._id);
         const data = await res.json();
         setUsers(data?.reverse());
       } catch (error) {
@@ -124,20 +83,8 @@ const ReferredTable = () => {
       }
     };
     fetchUsers();
-    // // check if user is admin
-
-    // fetch(`/api/users/checkadmin/${authUser._id}`)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     // console.log(data);
-    //     if (data?.admin) {
-    //       // toast.success("You are an admin Can make other users admin");
-    //       setAdmin(true);
-    //     } else {
-    //       toast.error("You are not an admin");
-    //     }
-    //   });
-  }, []);
+  
+  }, [authUser?._id]);
 
   return (
     <div className="overflow-x-auto">

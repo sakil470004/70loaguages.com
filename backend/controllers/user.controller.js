@@ -1,4 +1,6 @@
 import User from "../models/user.model.js";
+import nodemailer from "nodemailer";
+import { transporter } from "../server.js";
 
 export const getUsersForSidebar = async (req, res) => {
   try {
@@ -106,6 +108,29 @@ export const getUserById = async (req, res) => {
     }
     // get current user by id
     res.status(200).json(user);
+  } catch (error) {
+    console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
+export const sendReferByEmail = async (req, res) => {
+  try {
+    const data = req.body;
+    console.log(data);
+    console.log(process.env.EMAIL_USER, process.env.APP_PASSWORD);
+    const mailOptions = await {
+      from: {
+        name: "Referral App",
+        address: data?.referrerEmail,
+      },
+      to: data?.refereeEmail,
+      subject: "You have been referred!",
+      text: `Hi New User,\n\n${data?.referrerName} has referred you to our app 70Language. Click on the link below to sign up.\n\n${data?.link}\n\nThanks`,
+    };
+   const result= await transporter.sendMail(mailOptions);
+    res.json({ message: "Referral Send SuccessFully", data: result }); // Send the created user object as a response
   } catch (error) {
     console.log("Error in user controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });

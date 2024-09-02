@@ -2,6 +2,7 @@ import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import nodemailer from "nodemailer";
 
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
@@ -21,6 +22,17 @@ app.use(express.json()); // to parse the body of the request
 app.use(cookieParser()); // to parse the cookies
 
 const PORT = process.env.PORT || 5000;
+// node mailer for sending email //it's need to create in root directory.otherwise it will not work
+export const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  service: "gmail",
+  port: 587,
+  secure: false, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.APP_PASSWORD,
+  },
+});
 
 // app.get("/", (req, res) => {
 //   // root route
