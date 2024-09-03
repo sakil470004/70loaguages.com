@@ -41,3 +41,6 @@ const vercelLink= "https://70loaguages-com-b4cb.vercel.app/"
 // origin: ["https://seven0loaguages-com.onrender.com"],
 //? for vercel
 // origin: ["https://70loaguages-com-b4cb.vercel.app/"],
+
+//! delete package.json line 
+//   "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
