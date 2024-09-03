@@ -118,8 +118,7 @@ export const getUserById = async (req, res) => {
 export const sendReferByEmail = async (req, res) => {
   try {
     const data = req.body;
-    console.log(data);
-    console.log(process.env.EMAIL_USER, process.env.APP_PASSWORD);
+
     const mailOptions = await {
       from: {
         name: "Referral App",
