@@ -4,10 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon backend/server.js",
-    "dev": "nodemon backend/server.js",
-    "start": "node backend/server.js"
-  
+    "server": "nodemon server.js",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "type": "module",
   "keywords": [],
@@ -26,4 +25,3 @@
     "socket.io": "^4.7.5"
   }
 }
-
