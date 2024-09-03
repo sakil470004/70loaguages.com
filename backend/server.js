@@ -34,10 +34,10 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-// app.get("/", (req, res) => {
-//   // root route
-//   res.send(`API is running.... ${PORT}`);
-// });
+app.get("/", (req, res) => {
+  // root route
+  res.send(`API is running.... ${PORT}`);
+});
 // it going catch all the routes that start with /api/auth/xxx** */
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
