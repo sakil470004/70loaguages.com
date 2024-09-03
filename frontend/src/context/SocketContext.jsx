@@ -16,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("https://seven0loaguages-com.vercel.app", {
+      const socket = io("https://70loaguages-com-b4cb.vercel.app/", {
         query: {
           userId: authUser._id,
         },
@@ -59,7 +59,7 @@ export const SocketContextProvider = ({ children }) => {
 //   },
 // });
 // ?for vercel
-// const socket = io("https://seven0loaguages-com.vercel.app", {
+// const socket = io("https://70loaguages-com-b4cb.vercel.app/", {
 //   query: {
 //     userId: authUser._id,
 //   },

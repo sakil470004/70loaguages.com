@@ -10,7 +10,7 @@ const server = http.createServer(app);
 // and the methods that are allowed
 const io = new Server(server, {
   cors: {
-    origin: ["https://seven0loaguages-com.vercel.app"],
+    origin: ["https://70loaguages-com-b4cb.vercel.app/"],
     methods: ["GET", "POST"],
   },
 });
@@ -52,4 +52,4 @@ export { app, io, server };
 //? For production
 // origin: ["https://seven0loaguages-com.onrender.com"],
 //? for vercel
-// origin: ["https://seven0loaguages-com.vercel.app"],
+// origin: ["https://70loaguages-com-b4cb.vercel.app/"],
