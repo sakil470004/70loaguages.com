@@ -34,24 +34,25 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-app.get("/", (req, res) => {
-  // root route
-  res.send(`API is running.... ${PORT}`);
-});
+
 // it going catch all the routes that start with /api/auth/xxx** */
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/app", appRoutes);
 app.use("/api/job", jobRoutes);
-
-// static files in production
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
-// any file without the routes above will be served from the frontend/dist folder
-// redirect backend server to frontend server
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+app.get("/", (req, res) => {
+  // root route
+  res.send(`API is running.... ${PORT}`);
 });
+
+// static files in production remove for vercel
+// app.use(express.static(path.join(__dirname, "/frontend/dist")));
+// // any file without the routes above will be served from the frontend/dist folder
+// // redirect backend server to frontend server
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// });
 
 server.listen(PORT, () => {
   connectToMongoDB();
