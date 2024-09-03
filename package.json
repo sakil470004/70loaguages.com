@@ -6,8 +6,8 @@
   "scripts": {
     "server": "nodemon backend/server.js",
     "dev": "nodemon backend/server.js",
-    "start": "node backend/server.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "start": "node backend/server.js"
+  
   },
   "type": "module",
   "keywords": [],
@@ -26,3 +26,4 @@
     "socket.io": "^4.7.5"
   }
 }
+
