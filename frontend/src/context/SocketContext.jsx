@@ -16,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("http://localhost:5000", {
+      const socket = io("https://seven0loaguages-com.vercel.app", {
         query: {
           userId: authUser._id,
         },
@@ -54,6 +54,12 @@ export const SocketContextProvider = ({ children }) => {
 // });
 //? For production
 // const socket = io("https://seven0loaguages-com.onrender.com", {
+//   query: {
+//     userId: authUser._id,
+//   },
+// });
+// ?for vercel
+// const socket = io("https://seven0loaguages-com.vercel.app", {
 //   query: {
 //     userId: authUser._id,
 //   },

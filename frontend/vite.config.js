@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "https://seven0loaguages-com.vercel.app",
       },
     },
   },
@@ -18,3 +18,5 @@ export default defineConfig({
 // target: 'http://localhost:5000',
 // For production
 // target: 'https://seven0loaguages-com.onrender.com',
+// for vercel
+// target: 'https://seven0loaguages-com.vercel.app',

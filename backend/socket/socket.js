@@ -10,7 +10,7 @@ const server = http.createServer(app);
 // and the methods that are allowed
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: ["https://seven0loaguages-com.vercel.app"],
     methods: ["GET", "POST"],
   },
 });
@@ -44,3 +44,12 @@ io.on("connection", (socket) => {
 });
 
 export { app, io, server };
+
+// (optional) it not needed if you are using the default port
+//! In backend/socket/socket.js file
+//? For local
+// origin: ["http://localhost:3000"],
+//? For production
+// origin: ["https://seven0loaguages-com.onrender.com"],
+//? for vercel
+// origin: ["https://seven0loaguages-com.vercel.app"],
