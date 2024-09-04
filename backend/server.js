@@ -1,4 +1,4 @@
-import path from "path";
+// import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -9,12 +9,13 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import appRoutes from "./routes/app.routes.js";
 import jobRoutes from "./routes/job.routes.js";
+import cors from "cors";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
-
+app.use(cors())
 //  it will give the current root directory name
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 dotenv.config();
 

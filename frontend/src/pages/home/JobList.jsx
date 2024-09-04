@@ -8,13 +8,15 @@ const JobCard = ({ job }) => {
     <div className="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300 relative">
       <div className="flex items-center mb-3">
         <MdOutlineWork className="text-2xl text-blue-500 mr-2" />
-        <h2 className="text-xl font-bold text-gray-800">{job?.title.length > 40
-          ? job?.title?.slice(0, 40)+"..."
-          : job?.title}</h2>
+        <h2 className="text-xl font-bold text-gray-800">
+          {job?.title.length > 40
+            ? job?.title?.slice(0, 40) + "..."
+            : job?.title}
+        </h2>
       </div>
       <p className="text-gray-600 mb-4">
         {job?.description.length > 80
-          ? job?.description?.slice(0, 80)+"..."
+          ? job?.description?.slice(0, 80) + "..."
           : job?.description}
       </p>
       <div className="flex justify-between items-center text-gray-500">
@@ -35,7 +37,10 @@ const JobCard = ({ job }) => {
           <span>${job?.budget}</span>
         </div>
       </div>
-      <Link to={`/jobDetail/${job?._id}`} className="btn btn-sm cursor-pointer btn-primary btn-block mt-5 flex items-center justify-center">
+      <Link
+        to={`/jobDetail/${job?._id}`}
+        className="btn btn-sm cursor-pointer btn-primary btn-block mt-5 flex items-center justify-center"
+      >
         View Details <FaChevronRight className="ml-2" />
       </Link>
       {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 opacity-0 hover:opacity-10 transition-opacity duration-300 rounded-lg"></div> */}
@@ -53,7 +58,7 @@ const JobList = () => {
   //     deadline: "2024-09-01",
   //     budget: 200,
   //   },
-  //  
+  //
   // ];
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
@@ -62,6 +67,9 @@ const JobList = () => {
       .then((data) => {
         data.reverse();
         setJobs(data.slice(0, 6));
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
