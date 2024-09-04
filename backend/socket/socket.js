@@ -1,12 +1,9 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
-import cors from "cors";
 
 const app = express();
-app.use(cors({
-  origin: '*', // Allow all origins
-}));
+
 
 const server = http.createServer(app);
 // create new server based on port of the frontend server

@@ -13,8 +13,17 @@ import cors from "cors";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
+// app.use(cors({
+//   origin: '*', // Allow all origins
+// }));
 app.use(cors({
-  origin: '*', // Allow all origins
+  origin: '*', // This allows requests from any origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  exposedHeaders: ['Content-Type', 'Authorization'], // Exposed headers
+  credentials: true, // Allow credentials (cookies, HTTP authentication)
+  preflightContinue: false, // Pass the CORS preflight response to the next handler
+  optionsSuccessStatus: 204 // Status code for successful OPTIONS request
 }));
 //  it will give the current root directory name
 // const __dirname = path.resolve();
