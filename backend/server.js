@@ -11,10 +11,13 @@ import appRoutes from "./routes/app.routes.js";
 import jobRoutes from "./routes/job.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
-import { app, server } from "./socket/socket.js";
-// app.use(cors({
-//   origin: '*', // Allow all origins
-// }));
+// import { app, server } from "./socket/socket.js";
+import cors from "cors";
+
+const app = express();
+app.use(cors({
+  origin: '*', // Allow all origins
+}));
 
 //  it will give the current root directory name
 // const __dirname = path.resolve();
@@ -63,7 +66,7 @@ app.use("/api/job", jobRoutes);
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // });
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });
