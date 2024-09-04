@@ -2,7 +2,7 @@
   "name": "chat-app-yt",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
     "dev": "nodemon index.js",
