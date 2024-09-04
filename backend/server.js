@@ -13,7 +13,7 @@ import cors from "cors";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
-app.use(cors())
+app.use(cors());
 //  it will give the current root directory name
 // const __dirname = path.resolve();
 
@@ -34,7 +34,6 @@ export const transporter = nodemailer.createTransport({
     pass: process.env.APP_PASSWORD,
   },
 });
-
 
 // it going catch all the routes that start with /api/auth/xxx** */
 app.get("/check", (req, res) => {
@@ -60,3 +59,5 @@ server.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });
+
+export default app;
