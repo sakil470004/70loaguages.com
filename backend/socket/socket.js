@@ -10,7 +10,7 @@ const server = http.createServer(app);
 // and the methods that are allowed
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: ["https://70loaguages-frontend.vercel.app/"],
     methods: ["GET", "POST"],
   },
 });

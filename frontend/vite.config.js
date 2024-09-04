@@ -8,7 +8,9 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "https://70loaguages-server.vercel.app",
+        changeOrigin: true,  // Add this line
+        secure: false,       // Add this line to ignore self-signed certificates
       },
     },
   },
@@ -18,5 +20,5 @@ export default defineConfig({
 // target: 'http://localhost:5000',
 // For production
 // target: 'https://seven0loaguages-com.onrender.com',
-// for vercel
-// target: 'https://70loaguages-com-b4cb.vercel.app/',
+// for vercel //backend link
+// target: 'https://70loaguages-server.vercel.app/',
