@@ -6,7 +6,7 @@ const router = express.Router();
 // check if user is admin 
 router.get("/checkadmin/:adminId",protectRoute, checkAdmin);
 // this route is used to get all users for the sidebar
-router.get("/",protectRoute, getUsersForSidebar);
+router.get("/", getUsersForSidebar);
 // get all my referred users
 router.get("/myreferredusers/:currentId",protectRoute,myReferredUsers); 
 // get user by user id
