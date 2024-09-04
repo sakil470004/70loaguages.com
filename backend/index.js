@@ -10,6 +10,7 @@ app.use(cors({
   optionsSuccessStatus: 204 // Status code for successful OPTIONS request
 }));
 
+
 export default function (req, res) {
   app(req, res);
 };
