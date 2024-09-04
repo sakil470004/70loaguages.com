@@ -42,6 +42,11 @@ app.get("/check", (req, res) => {
   // root route
   res.send(`API is running.... ${PORT}`);
 });
+app.get("/", (req, res) => {
+  // root route
+  res.send(`API is running.... ${PORT}`);
+}
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
