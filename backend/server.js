@@ -37,15 +37,16 @@ export const transporter = nodemailer.createTransport({
 
 
 // it going catch all the routes that start with /api/auth/xxx** */
+app.get("/check", (req, res) => {
+  // root route
+  res.send(`API is running.... ${PORT}`);
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/app", appRoutes);
 app.use("/api/job", jobRoutes);
-app.get("/", (req, res) => {
-  // root route
-  res.send(`API is running.... ${PORT}`);
-});
 
 // static files in production remove for vercel
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));
