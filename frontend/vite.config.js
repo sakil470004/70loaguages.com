@@ -10,6 +10,7 @@ export default defineConfig({
       "/api": {
         target: "https://70loaguages-server.vercel.app",
         changeOrigin: true,  // Add this line
+        rewrite: (path) => path.replace(/^\/api/, ''),
         secure: false,       // Add this line to ignore self-signed certificates
       },
     },
