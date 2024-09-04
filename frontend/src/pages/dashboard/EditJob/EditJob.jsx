@@ -16,7 +16,7 @@ const EditJob = () => {
     // Fetch the existing job details and populate the form fields
     const fetchJobDetails = async () => {
       try {
-        const res = await fetch(`/api/job/getCurrentJob/${jobId}`);
+        const res = await fetch(`https://70loaguages-server.vercel.app/api/job/getCurrentJob/${jobId}`);
         const data = await res.json();
         setTittle(data.title);
         setDescription(data.description);
@@ -43,7 +43,7 @@ const EditJob = () => {
     const posterId = JSON.parse(posterData)._id;
 
     // Update the job details in the database
-    fetch(`/api/job/updateJob/${jobId}`, {
+    fetch(`https://70loaguages-server.vercel.app/api/job/updateJob/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

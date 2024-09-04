@@ -73,7 +73,7 @@ const ViewJobPage = () => {
   const [job, setJob] = useState({});
 
   useEffect(() => {
-    fetch(`/api/job/getCurrentJob/${id}`)
+    fetch(`https://70loaguages-server.vercel.app/api/job/getCurrentJob/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

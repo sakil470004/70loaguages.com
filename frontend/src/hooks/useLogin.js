@@ -11,7 +11,7 @@ const useLogin = () => {
     const success = handleInputError(username, password);
     if (!success) return;
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("https://70loaguages-server.vercel.app/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

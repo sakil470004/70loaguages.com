@@ -28,7 +28,7 @@ const MakeAdmin = () => {
       `Are you sure you want to make "${user?.username}" an admin?`
     );
     if (confirmBox) {
-      fetch("/api/users/makeadmin", {
+      fetch("https://70loaguages-server.vercel.app/api/users/makeadmin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const MakeAdmin = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/users/");
+        const res = await fetch("https://70loaguages-server.vercel.app/api/users/");
         const data = await res.json();
         setUsers(data?.reverse());
       } catch (error) {
@@ -68,7 +68,7 @@ const MakeAdmin = () => {
     fetchUsers();
     // check if user is admin
 
-    fetch(`/api/users/checkadmin/${authUser._id}`)
+    fetch(`https://70loaguages-server.vercel.app/api/users/checkadmin/${authUser._id}`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

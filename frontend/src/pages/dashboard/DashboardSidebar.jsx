@@ -19,7 +19,7 @@ const DashboardSidebar = () => {
   const { authUser } = useAuthContext();
   useEffect(() => {
     const checkAdmin = async () => {
-      const res = await fetch(`/api/users/checkadmin/${authUser._id}`);
+      const res = await fetch(`https://70loaguages-server.vercel.app/api/users/checkadmin/${authUser._id}`);
       const data = await res.json();
       setAdmin(data.admin);
     };

@@ -9,7 +9,7 @@ const useGetConversation = () => {
     const getConversations = async () => {
       setLoading(true);
       try {
-        const res = await fetch("/api/users", {
+        const res = await fetch("https://70loaguages-server.vercel.app/api/users", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

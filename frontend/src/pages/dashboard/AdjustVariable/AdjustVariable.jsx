@@ -25,7 +25,7 @@ const AdjustVariable = () => {
         return;
       }
       setIsLoading(true);
-      fetch("/api/app/usercommission", {
+      fetch("https://70loaguages-server.vercel.app/api/app/usercommission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const AdjustVariable = () => {
         return;
       }
       setIsLoading(true);
-      fetch("/api/app/bosscommission", {
+      fetch("https://70loaguages-server.vercel.app/api/app/bosscommission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const AdjustVariable = () => {
     setIsLoading(true);
     const fetchVariables = async () => {
       try {
-        const res = await fetch("/api/app/variables");
+        const res = await fetch("https://70loaguages-server.vercel.app/api/app/variables");
         const data = await res.json();
         // console.log(data);
         setUserCommission(data.userCommission);

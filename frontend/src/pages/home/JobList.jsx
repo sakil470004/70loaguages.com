@@ -62,7 +62,7 @@ const JobList = () => {
   // ];
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    fetch(`/api/job/getAllJob`)
+    fetch(`https://70loaguages-server.vercel.app/api/job/getAllJob`)
       .then((res) => res.json())
       .then((data) => {
         data.reverse();

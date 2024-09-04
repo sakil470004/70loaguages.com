@@ -24,7 +24,7 @@ const SignUp = () => {
     const data = await signup(inputs);
     // push userId to commissions array of referredBy
     if (referralId) {
-      const res= await fetch("/api/users/refer", {
+      const res= await fetch("https://70loaguages-server.vercel.app/api/users/refer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

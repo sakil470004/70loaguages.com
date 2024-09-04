@@ -74,7 +74,7 @@ const ReferredTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/users/myreferredusers/" + authUser?._id);
+        const res = await fetch("https://70loaguages-server.vercel.app/api/users/myreferredusers/" + authUser?._id);
         const data = await res.json();
         setUsers(data?.reverse());
       } catch (error) {
@@ -189,7 +189,7 @@ const ReferLink = () => {
     // adding send email logic here
     const sendEmail = async () => {
       try {
-        const res = await fetch("/api/users/sendReferByEmail", {
+        const res = await fetch("https://70loaguages-server.vercel.app/api/users/sendReferByEmail", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

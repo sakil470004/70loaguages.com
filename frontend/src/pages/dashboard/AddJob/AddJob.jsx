@@ -19,7 +19,7 @@ const AddJob = () => {
     // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
     // adding job to the database
-    fetch("/api/job/addJOb", {
+    fetch("https://70loaguages-server.vercel.app/api/job/addJOb", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

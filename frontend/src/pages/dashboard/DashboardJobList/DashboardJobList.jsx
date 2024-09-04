@@ -88,7 +88,7 @@ const DashboardJobList = () => {
   const handleDelete = (id) => {
     const isConfirmed = confirm("Are you sure you want to delete this job?");
     if (isConfirmed) {
-      fetch(`/api/job/delete/${id}`, {
+      fetch(`https://70loaguages-server.vercel.app/api/job/delete/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -108,7 +108,7 @@ const DashboardJobList = () => {
     const posterData = localStorage.getItem("chat-user");
     // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
-    fetch(`/api/job/getCurrentUserJob/${posterId}`)
+    fetch(`https://70loaguages-server.vercel.app/api/job/getCurrentUserJob/${posterId}`)
       .then((res) => res.json())
       .then((data) => setJobs(data.reverse()));
   }, []);
