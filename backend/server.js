@@ -13,7 +13,9 @@ import cors from "cors";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow all origins
+}));
 //  it will give the current root directory name
 // const __dirname = path.resolve();
 
