@@ -56,7 +56,6 @@ export const addJob = async (req, res) => {
   try {
     // get object from body
     let job = req.body;
-    console.log('adding job')
     // create new job
     let newJob = new Job(job);
     // save job

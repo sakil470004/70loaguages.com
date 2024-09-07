@@ -74,7 +74,6 @@ export const referUser = async (req, res) => {
 export const checkAdmin = async (req, res) => {
   try {
     const { adminId } = req.params;
-    console.log(adminId);
     // console.log(adminId)
     const user = await User.findById({ _id: adminId });
     if (!user) {

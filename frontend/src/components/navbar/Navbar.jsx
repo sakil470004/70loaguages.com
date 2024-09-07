@@ -103,9 +103,9 @@ const Navbar = () => {
             <li>
               <Link to={"/"}>Home</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to={"/about"}>About</Link>
-            </li>
+            </li> */}
             {!authUser && (
               <>
                 <li>
@@ -116,11 +116,11 @@ const Navbar = () => {
                 </li>
               </>
             )}
-            {authUser && (
+            {/* {authUser && (
               <li>
                 <Link to={"/chat"}>Chat  <BiConversation className="text-blue-400"/></Link>
               </li>
-            )}
+            )} */}
             {authUser && (
               <li>
                 <Link to={"/dashboard"}>Dashboard</Link>
