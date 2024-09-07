@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import toast from "react-hot-toast";
+import APP_URL from "../../../../APP_URL";
 
 const JobCard = ({ job, handleDelete }) => {
   return (
@@ -88,7 +89,7 @@ const DashboardJobList = () => {
   const handleDelete = (id) => {
     const isConfirmed = confirm("Are you sure you want to delete this job?");
     if (isConfirmed) {
-      fetch(`https://70loaguages-server.vercel.app/api/job/delete/${id}`, {
+      fetch(`${APP_URL}/api/job/delete/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -108,9 +109,9 @@ const DashboardJobList = () => {
     const posterData = localStorage.getItem("chat-user");
     // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
-    fetch(`https://70loaguages-server.vercel.app/api/job/getCurrentUserJob/${posterId}`)
+    fetch(`${APP_URL}/api/job/getCurrentUserJob/${posterId}`)
       .then((res) => res.json())
-      .then((data) => setJobs(data.reverse()));
+      .then((data) => setJobs(data));
   }, []);
 
   return (
@@ -122,7 +123,7 @@ const DashboardJobList = () => {
         "No Posted Job Found"
       ) : (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          {jobs.map((job, index) => (
+          {jobs?.map((job, index) => (
             <JobCard key={index} job={job} handleDelete={handleDelete} />
           ))}
         </div>

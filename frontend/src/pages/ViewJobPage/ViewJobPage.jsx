@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { BsPeople } from "react-icons/bs";
 import { SiStatuspage } from "react-icons/si";
 import Footer from "../../components/Footer/Footer";
+import APP_URL from "../../../APP_URL";
 
 const JobDetails = ({ job }) => {
   const navigate = useNavigate();
@@ -73,10 +74,10 @@ const ViewJobPage = () => {
   const [job, setJob] = useState({});
 
   useEffect(() => {
-    fetch(`https://70loaguages-server.vercel.app/api/job/getCurrentJob/${id}`)
+    fetch(`${APP_URL}/api/job/getCurrentJob/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setJob(data);
       });
   }, [id]);

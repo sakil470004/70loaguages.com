@@ -1,5 +1,5 @@
 import express from "express";
-import protectRoute from "../middleware/protectRoute.js";
+// import protectRoute from "../middleware/protectRoute.js";
 import {
   addJob,
   getAllJob,
@@ -13,15 +13,15 @@ const router = express.Router();
 
 router.get("/getAllJob", getAllJob);
 router.get("/getCurrentJob/:id", getCurrentJob);
-router.get("/getCurrentUserJob/:userId",protectRoute,getCurrentUserJob)
+router.get("/getCurrentUserJob/:userId",getCurrentUserJob)
 
-router.post("/addJob",protectRoute, addJob);
+router.post("/addJob", addJob);
 
 // update by jobId
-router.put("/updateJob/:id", protectRoute, updateJob);
+router.put("/updateJob/:id", updateJob);
 
 // delete by jobId
-router.delete("/delete/:id", protectRoute, deleteJob);
+router.delete("/delete/:id", deleteJob);
 
 
 export default router;

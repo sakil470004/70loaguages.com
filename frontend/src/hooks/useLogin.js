@@ -1,6 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
+import APP_URL from "../../APP_URL";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ const useLogin = () => {
     const success = handleInputError(username, password);
     if (!success) return;
     try {
-      const res = await fetch("https://70loaguages-server.vercel.app/api/auth/login", {
+      const res = await fetch(`${APP_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

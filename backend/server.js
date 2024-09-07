@@ -16,9 +16,7 @@ import cors from "cors";
 
 
 const app = express();
-app.use(cors({
-  origin: '*', // Allow all origins
-}));
+app.use(cors());
 
 //  it will give the current root directory name
 // const __dirname = path.resolve();

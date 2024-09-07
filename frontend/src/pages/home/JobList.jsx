@@ -2,6 +2,7 @@ import { MdOutlineWork, MdAccessTime, MdLanguage } from "react-icons/md";
 import { FaMoneyBillWave, FaChevronRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import APP_URL from "../../../APP_URL";
 
 const JobCard = ({ job }) => {
   return (
@@ -62,7 +63,7 @@ const JobList = () => {
   // ];
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    fetch(`https://70loaguages-server.vercel.app/api/job/getAllJob`)
+    fetch(`${APP_URL}/api/job/getAllJob`)
       .then((res) => res.json())
       .then((data) => {
         data.reverse();

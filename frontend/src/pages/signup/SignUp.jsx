@@ -3,6 +3,7 @@ import GenderCheckbox from "./GenderCheckbox";
 import { useState } from "react";
 import useSignup from "../../hooks/useSignup";
 import toast from "react-hot-toast";
+import APP_URL from "../../../APP_URL";
 
 const SignUp = () => {
   const { referralId } = useParams();
@@ -24,7 +25,7 @@ const SignUp = () => {
     const data = await signup(inputs);
     // push userId to commissions array of referredBy
     if (referralId) {
-      const res= await fetch("https://70loaguages-server.vercel.app/api/users/refer", {
+      const res= await fetch(`${APP_URL}/api/users/refer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

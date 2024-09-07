@@ -1,6 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import APP_URL from "../../../../APP_URL";
 
 const AddJob = () => {
   const [title, setTittle] = useState("");
@@ -19,7 +20,7 @@ const AddJob = () => {
     // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
     // adding job to the database
-    fetch("https://70loaguages-server.vercel.app/api/job/addJOb", {
+    fetch(`${APP_URL}/api/job/addJOb`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

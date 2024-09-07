@@ -12,6 +12,7 @@ import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { AiFillPicture } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../../../context/AuthContext";
+import APP_URL from "../../../../APP_URL";
 const MakeAdmin = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,7 @@ const MakeAdmin = () => {
       `Are you sure you want to make "${user?.username}" an admin?`
     );
     if (confirmBox) {
-      fetch("https://70loaguages-server.vercel.app/api/users/makeadmin", {
+      fetch(`${APP_URL}/api/users/makeadmin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +59,7 @@ const MakeAdmin = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("https://70loaguages-server.vercel.app/api/users/");
+        const res = await fetch(`${APP_URL}/api/users/`);
         const data = await res.json();
         setUsers(data?.reverse());
       } catch (error) {
@@ -68,7 +69,7 @@ const MakeAdmin = () => {
     fetchUsers();
     // check if user is admin
 
-    fetch(`https://70loaguages-server.vercel.app/api/users/checkadmin/${authUser._id}`)
+    fetch(`${APP_URL}/api/users/checkadmin/${authUser._id}`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

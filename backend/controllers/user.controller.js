@@ -73,7 +73,8 @@ export const referUser = async (req, res) => {
 export const checkAdmin = async (req, res) => {
   try {
     const { adminId } = req.params;
-    const user = await User.findOne({ _id: adminId });
+    // console.log(adminId)
+    const user = await User.findById({_id:adminId});
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }

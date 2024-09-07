@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import APP_URL from "../../APP_URL";
 
 const useGetConversation = () => {
   const [loading, setLoading] = useState(false);
@@ -9,7 +10,7 @@ const useGetConversation = () => {
     const getConversations = async () => {
       setLoading(true);
       try {
-        const res = await fetch("https://70loaguages-server.vercel.app/api/users", {
+        const res = await fetch(`${APP_URL}/api/users`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

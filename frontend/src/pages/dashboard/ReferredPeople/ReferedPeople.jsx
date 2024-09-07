@@ -6,6 +6,7 @@ import { AiFillPicture, AiOutlineMail } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../../../context/AuthContext";
 import { HiIdentification } from "react-icons/hi";
+import APP_URL from "../../../../APP_URL";
 const ReferredPeople = () => {
   const { authUser } = useAuthContext();
   return (
@@ -74,7 +75,7 @@ const ReferredTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("https://70loaguages-server.vercel.app/api/users/myreferredusers/" + authUser?._id);
+        const res = await fetch(`${APP_URL}/api/users/myreferredusers/` + authUser?._id);
         const data = await res.json();
         setUsers(data?.reverse());
       } catch (error) {
@@ -189,7 +190,7 @@ const ReferLink = () => {
     // adding send email logic here
     const sendEmail = async () => {
       try {
-        const res = await fetch("https://70loaguages-server.vercel.app/api/users/sendReferByEmail", {
+        const res = await fetch(`${APP_URL}/api/users/sendReferByEmail`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

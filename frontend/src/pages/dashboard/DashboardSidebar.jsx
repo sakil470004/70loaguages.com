@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useAuthContext } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
+import APP_URL from "../../../APP_URL";
 
 const DashboardSidebar = () => {
   // check if user is admin
@@ -19,7 +20,7 @@ const DashboardSidebar = () => {
   const { authUser } = useAuthContext();
   useEffect(() => {
     const checkAdmin = async () => {
-      const res = await fetch(`https://70loaguages-server.vercel.app/api/users/checkadmin/${authUser._id}`);
+      const res = await fetch(`${APP_URL}/api/users/checkadmin/${authUser._id}`);
       const data = await res.json();
       setAdmin(data.admin);
     };

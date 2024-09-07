@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
     if (newUser) {
       // Generate JWT token here
       // add extra staff in res object
-      generateTokenAndSetCookie(newUser._id, res);
+      await generateTokenAndSetCookie(newUser._id, res);
       // save the user to the database
       await newUser.save();
 
@@ -71,7 +71,8 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid username or password" });
     }
     // generate JWT token here and set it in the cookie
-    generateTokenAndSetCookie(user._id, res);
+    await generateTokenAndSetCookie(user._id, res);
+    
     res.status(200).json({
       _id: user._id,
       fullName: user.fullName,

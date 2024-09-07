@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { RiGitRepositoryCommitsFill } from "react-icons/ri";
+import APP_URL from "../../../../APP_URL";
 
 const AdjustVariable = () => {
   const [userCommission, setUserCommission] = useState(0);
@@ -25,7 +26,7 @@ const AdjustVariable = () => {
         return;
       }
       setIsLoading(true);
-      fetch("https://70loaguages-server.vercel.app/api/app/usercommission", {
+      fetch(`${APP_URL}/api/app/usercommission`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +58,7 @@ const AdjustVariable = () => {
         return;
       }
       setIsLoading(true);
-      fetch("https://70loaguages-server.vercel.app/api/app/bosscommission", {
+      fetch(`${APP_URL}/api/app/bosscommission`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +79,7 @@ const AdjustVariable = () => {
     setIsLoading(true);
     const fetchVariables = async () => {
       try {
-        const res = await fetch("https://70loaguages-server.vercel.app/api/app/variables");
+        const res = await fetch(`${APP_URL}/api/app/variables`);
         const data = await res.json();
         // console.log(data);
         setUserCommission(data.userCommission);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import APP_URL from "../../../../APP_URL";
 
 const EditJob = () => {
   const { jobId } = useParams(); // Get the job ID from the route parameters
@@ -16,7 +17,7 @@ const EditJob = () => {
     // Fetch the existing job details and populate the form fields
     const fetchJobDetails = async () => {
       try {
-        const res = await fetch(`https://70loaguages-server.vercel.app/api/job/getCurrentJob/${jobId}`);
+        const res = await fetch(`${APP_URL}/api/job/getCurrentJob/${jobId}`);
         const data = await res.json();
         setTittle(data.title);
         setDescription(data.description);
@@ -43,7 +44,7 @@ const EditJob = () => {
     const posterId = JSON.parse(posterData)._id;
 
     // Update the job details in the database
-    fetch(`https://70loaguages-server.vercel.app/api/job/updateJob/${jobId}`, {
+    fetch(`${APP_URL}/api/job/updateJob/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

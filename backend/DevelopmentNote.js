@@ -1,3 +1,5 @@
+//! AWS public link 
+// http://3.25.92.116/ 
 //! vercel link 
 // backend : https://70loaguages-server.vercel.app/
 // frontend : https://70loaguages-frontend.vercel.app/
