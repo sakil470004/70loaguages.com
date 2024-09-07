@@ -5,7 +5,8 @@ import { transporter } from "../server.js";
 export const getUsersForSidebar = async (req, res) => {
   try {
     // get current logged in user id
-    const loggedInUserId = req.user._id;
+    const { uid } = req.params;
+    const loggedInUserId = uid;
 
     // get all users except the logged in user// remove password from the response
     const filteredUsers = await User.find({
@@ -73,8 +74,9 @@ export const referUser = async (req, res) => {
 export const checkAdmin = async (req, res) => {
   try {
     const { adminId } = req.params;
+    console.log(adminId);
     // console.log(adminId)
-    const user = await User.findById({_id:adminId});
+    const user = await User.findById({ _id: adminId });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -115,7 +117,6 @@ export const getUserById = async (req, res) => {
   }
 };
 
-
 export const sendReferByEmail = async (req, res) => {
   try {
     const data = req.body;
@@ -129,7 +130,7 @@ export const sendReferByEmail = async (req, res) => {
       subject: "You have been referred!",
       text: `Hi New User,\n\n${data?.referrerName} has referred you to our app 70Language. Click on the link below to sign up.\n\n${data?.link}\n\nThanks`,
     };
-   const result= await transporter.sendMail(mailOptions);
+    const result = await transporter.sendMail(mailOptions);
     res.json({ message: "Referral Send SuccessFully", data: result }); // Send the created user object as a response
   } catch (error) {
     console.log("Error in user controller", error.message);

@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import APP_URL from "../../APP_URL";
+import {  useAuthContext } from "../context/AuthContext";
 
 const useGetConversation = () => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
+  const {authUser}=useAuthContext()
 
   useEffect(() => {
     const getConversations = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${APP_URL}/api/users`, {
+        const res = await fetch(`${APP_URL}/api/users/${authUser._id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -28,7 +30,7 @@ const useGetConversation = () => {
       }
     };
     getConversations();
-  }, []);
+  }, [authUser._id]);
 
   return { loading, conversations };
 };

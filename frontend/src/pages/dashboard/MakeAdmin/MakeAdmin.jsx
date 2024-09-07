@@ -59,7 +59,7 @@ const MakeAdmin = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`${APP_URL}/api/users/`);
+        const res = await fetch(`${APP_URL}/api/users/${authUser._id}`);
         const data = await res.json();
         setUsers(data?.reverse());
       } catch (error) {
