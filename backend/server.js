@@ -14,6 +14,7 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 // import { app, server } from "./socket/socket.js";
 import cors from "cors";
 
+
 const app = express();
 app.use(cors({
   origin: '*', // Allow all origins
