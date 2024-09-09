@@ -4,7 +4,7 @@ import {
   MdLanguage,
   MdDeleteOutline,
 } from "react-icons/md";
-import { FaMoneyBillWave, FaChevronRight } from "react-icons/fa";
+import { FaMoneyBillWave, FaChevronRight, FaRegCheckCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
@@ -13,58 +13,60 @@ import APP_URL from "../../../../APP_URL";
 
 const JobCard = ({ job, handleDelete }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300 relative">
-      <div className="flex items-center mb-3">
-        <MdOutlineWork className="text-2xl text-blue-500 mr-2" />
-        <h2 className="text-xl font-bold text-gray-800">
+    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-6 relative border border-gray-100 hover:border-blue-500">
+      <div className="flex items-center mb-4">
+        <MdOutlineWork className="text-3xl text-blue-500 mr-3" />
+        <h2 className="text-xl font-bold text-gray-800 truncate">
           {job?.title.length > 40
             ? job?.title?.slice(0, 40) + "..."
             : job?.title}
         </h2>
       </div>
       <p className="text-gray-600 mb-4">
-        {job?.description.length > 60
-          ? job?.description?.slice(0, 60) + "..."
+        {job?.description.length > 80
+          ? job?.description?.slice(0, 80) + "..."
           : job?.description}
       </p>
-      <div className="flex justify-between items-center text-gray-500">
+      <div className="flex justify-between items-center text-gray-500 mb-3">
         <div className="flex items-center">
-          <MdLanguage className="text-lg text-green-500 mr-1" />
+          <MdLanguage className="text-xl text-green-500 mr-2" />
           <span>
-            {job?.languagePair.map((lg, index) =>
-              index !== job.languagePair.length - 1 ? lg + ", " : lg
-            )}
+            {job?.languageName} - ${job?.languageCost}/word
           </span>
         </div>
         <div className="flex items-center">
-          <MdAccessTime className="text-lg text-yellow-500 mr-1" />
+          <FaRegCheckCircle className="text-xl text-gray-400 mr-2" />
+          <span> {job?.status}</span>
+        </div>
+      </div>
+      <div className="flex justify-between items-center text-gray-500 mb-4">
+        <div className="flex items-center">
+          <MdAccessTime className="text-xl text-yellow-500 mr-2" />
           <span>{job?.deadline?.split("T")[0]}</span>
         </div>
         <div className="flex items-center">
-          <FaMoneyBillWave className="text-lg text-purple-500 mr-1" />
+          <FaMoneyBillWave className="text-xl text-purple-500 mr-2" />
           <span>${job?.budget}</span>
         </div>
       </div>
-      <div className="mt-5 flex justify-between">
+      <div className="flex justify-between">
         <Link
           to={`/jobDetail/${job?._id}`}
-          className="btn btn-sm cursor-pointer btn-primary  flex items-center justify-center"
+          className="btn btn-sm btn-primary  flex justify-center items-center py-2 hover:bg-blue-600 transition-all duration-300"
         >
           View Details <FaChevronRight className="ml-2" />
         </Link>
         <Link
           to={`/dashboard/edit/${job?._id}`}
-          className="btn btn-sm cursor-pointer btn-accent   flex items-center justify-center"
+          className="btn btn-sm btn-accent  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
         >
           Edit <BiEdit className="ml-2" />
         </Link>
         <button
-          onClick={() => {
-            handleDelete(job._id);
-          }}
-          className="btn cursor-pointer btn-sm btn-error btn-outline   flex items-center justify-center"
+          onClick={() => handleDelete(job?._id)}
+          className="btn btn-sm btn-error flex justify-center items-center py-2 hover:bg-red-600 transition-all duration-300"
         >
-          <MdDeleteOutline className="text-2xl" />
+         Delete  <MdDeleteOutline className="text-xl" /> 
         </button>
       </div>
     </div>
@@ -72,18 +74,6 @@ const JobCard = ({ job, handleDelete }) => {
 };
 
 const DashboardJobList = () => {
-  // demo data for jobs
-  // const jobs = [
-  //   {
-  //     title: "Translate English to Spanish",
-  //     description: "Need a translation of a legal document from English to Spanish.",
-  //     languagePair: "English - Spanish",
-  //     deadline: "2024-09-01",
-  //     budget: 200,
-  //   },
-  //
-  // ];
-
   const [jobs, setJobs] = useState([]);
 
   const handleDelete = (id) => {
@@ -104,10 +94,9 @@ const DashboardJobList = () => {
         });
     }
   };
+
   useEffect(() => {
-    //get current user id
     const posterData = localStorage.getItem("chat-user");
-    // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
     fetch(`${APP_URL}/api/job/getCurrentUserJob/${posterId}`)
       .then((res) => res.json())
@@ -115,14 +104,14 @@ const DashboardJobList = () => {
   }, []);
 
   return (
-    <div className="py-10">
-      <h2 className="text-2xl font-bold text-gray-500 uppercase mb-8 text-center">
-        Posted Jobs
+    <div className="py-10 bg-gray-50">
+      <h2 className="text-3xl font-extrabold text-blue-600 uppercase mb-8 text-center">
+        Your Posted Jobs
       </h2>
       {jobs?.length === 0 ? (
-       <h2 className="font-bold text-red-500"> No Posted Job Found</h2>
+        <h2 className="font-bold text-red-500 text-center">No Jobs Found</h2>
       ) : (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <div className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-4">
           {jobs?.map((job, index) => (
             <JobCard key={index} job={job} handleDelete={handleDelete} />
           ))}

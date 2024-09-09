@@ -1,51 +1,76 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  FaGlobe,
+  FaCalendarAlt,
+  FaDollarSign,
+  FaLanguage,
+} from "react-icons/fa"; // Icons from react-icons
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import APP_URL from "../../../../APP_URL";
 
 const AddJob = () => {
-  const [title, setTittle] = useState("");
+  const [languages, setLanguages] = useState([]);
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [languagePair, setLanguagePair] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [wordCount, setWordCount] = useState(0);
   const [deadline, setDeadline] = useState("");
-  const [budget, setBudget] = useState("");
+  const [budget, setBudget] = useState(0); // Auto-calculated budget
   const [loading, setLoading] = useState(false);
-  // adding navigation to the dashboard after job submission
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch languages from the database
+    fetch(`${APP_URL}/api/languagecost/all`)
+      .then((res) => res.json())
+      .then((data) => {
+        setLanguages(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // Automatically calculate the budget based on word count and selected language cost
+  useEffect(() => {
+    if (selectedLanguage && wordCount) {
+      setBudget(selectedLanguage.languageCost * wordCount);
+    }
+  }, [selectedLanguage, wordCount]);
+
   const handleSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
-    //get current user id
+    setLoading(true);
+
     const posterData = localStorage.getItem("chat-user");
-    // convert posterData to object
     const posterId = JSON.parse(posterData)._id;
-    // adding job to the database
-    fetch(`${APP_URL}/api/job/addJOb`, {
+    const data = {
+      title,
+      description,
+      languageName: selectedLanguage?.languageName,
+      languageCost: selectedLanguage?.languageCost,
+      deadline,
+      budget,
+      posterId,
+      languageWord:wordCount,
+    };
+    console.log(data)
+    fetch(`${APP_URL}/api/job/addJob`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        title,
-        description,
-        languagePair: languagePair.split(",").map((lang) => lang.trim()),
-        deadline,
-        budget,
-        posterId,
-      }),
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         if (data?._id) {
-          // Clear the form after submission
-        
-          setTittle("");
+          setTitle("");
           setDescription("");
-          setLanguagePair("");
+          setSelectedLanguage(null);
+          setWordCount(0);
           setDeadline("");
-          setBudget("");
-          // Redirect to the dashboard
           toast.success("Job added successfully");
           navigate("/dashboard/jobList");
         }
@@ -60,10 +85,10 @@ const AddJob = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
-      <div className="w-full max-w-full p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
-          Post a New Job
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full  p-8 bg-white rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+          <FaGlobe className="inline mr-2 text-blue-500" /> Post a New Job
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -73,7 +98,7 @@ const AddJob = () => {
             <input
               type="text"
               value={title}
-              onChange={(e) => setTittle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               className="input input-bordered w-full mt-1"
               placeholder="Enter the job title"
               required
@@ -94,20 +119,43 @@ const AddJob = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Language Pair
+              Language{" "}
+              <FaLanguage className="inline ml-1 text-xl text-green-500" />
+            </label>
+            <select
+              value={selectedLanguage?.languageName || ""}
+              onChange={(e) =>
+                setSelectedLanguage(
+                  languages.find((lang) => lang.languageName === e.target.value)
+                )
+              }
+              className="select select-bordered w-full mt-1"
+              required
+            >
+              <option value="">Select Language</option>
+              {languages.map((lang) => (
+                <option key={lang._id} value={lang?.languageName}>
+                  {lang?.languageName} - ${lang.languageCost}/word
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Word Count
             </label>
             <input
-              type="text"
-              value={languagePair}
-              onChange={(e) => setLanguagePair(e.target.value)}
+              type="number"
+              value={wordCount}
+              onChange={(e) => setWordCount(e.target.value)}
               className="input input-bordered w-full mt-1"
-              placeholder="e.g., English , Spanish"
+              placeholder="Enter the word count"
               required
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Deadline
+              Deadline <FaCalendarAlt className="inline ml-1 text-red-500" />
             </label>
             <input
               type="date"
@@ -119,21 +167,23 @@ const AddJob = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Budget ($)
+              Estimated Budget{" "}
+              <FaDollarSign className="inline ml-1 text-yellow-500" />
             </label>
             <input
               type="number"
               value={budget}
-              onChange={(e) => setBudget(e.target.value)}
               className="input input-bordered w-full mt-1"
-              placeholder="Enter your budget"
-              required
+              readOnly
+              placeholder="Budget auto-calculated"
             />
           </div>
           <div className="text-center">
             <button
               type="submit"
-              className={`btn btn-primary w-full mt-4 py-3 px-5 ${loading ? "loading loading-dots" : ""}`}
+              className={`btn btn-primary w-full mt-4 py-3 px-5 ${
+                loading ? "loading loading-dots" : ""
+              }`}
               disabled={loading}
             >
               Submit Job

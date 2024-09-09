@@ -5,7 +5,7 @@ export const getAllJob = async (req, res) => {
     // get all job data
     let jobArray = await Job.find();
     if (jobArray.length === 0) {
-      res.status(200).json({ message: "No Job Found" });
+      res.status(200).json([]);
     } else {
       // job data found
       res.status(200).json(jobArray);
@@ -23,7 +23,7 @@ export const getCurrentJob = async (req, res) => {
     // get current job data
     let currentJob = await Job.findOne({ _id: id });
     if (!currentJob) {
-      res.status(200).json({ message: "No Job Found" });
+      res.status(200).json([]);
     } else {
       // job data found
       res.status(200).json(currentJob);

@@ -33,10 +33,8 @@ const JobDetails = ({ job }) => {
           <div className="space-y-6">
             <div className="flex items-center text-gray-700">
               <MdLanguage className="text-3xl text-green-600 mr-3" />
-              <span className="text-xl">Language Pair: 
-                {job?.languagePair?.map((lg, index) => 
-                  <span key={index} className="text-gray-800">{lg}{index !== job.languagePair.length - 1 ? ", " : ""}</span>
-                )}
+              <span className="text-xl">
+                {job.languageName} - ${job.languageCost}/word
               </span>
             </div>
             <div className="flex items-center text-gray-700">
