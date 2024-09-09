@@ -41,7 +41,7 @@ export const getCurrentUserJob = async (req, res) => {
     let { userId } = req.params;
     let jobArray = await Job.find({ posterId: userId });
     if (jobArray.length === 0) {
-      res.status(200).json({ message: "No Job Posted" });
+      res.status(200).json([]);
     } else {
       // job data found
       res.status(200).json(jobArray);

@@ -120,7 +120,7 @@ const DashboardJobList = () => {
         Posted Jobs
       </h2>
       {jobs?.length === 0 ? (
-        "No Posted Job Found"
+       <h2 className="font-bold text-red-500"> No Posted Job Found</h2>
       ) : (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {jobs?.map((job, index) => (
