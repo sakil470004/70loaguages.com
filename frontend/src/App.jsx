@@ -14,6 +14,7 @@ import MakeAdmin from "./pages/dashboard/MakeAdmin/MakeAdmin";
 import AdjustVariable from "./pages/dashboard/AdjustVariable/AdjustVariable";
 import EditJob from "./pages/dashboard/EditJob/EditJob";
 import ReferredPeople from "./pages/dashboard/ReferredPeople/ReferedPeople";
+import LanguageWordPerCost from "./pages/dashboard/LanguageWordPerCost/LanguageWordPerCost";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -60,6 +61,7 @@ function App() {
           <Route path="addJob" element={<AddJob />} />
           <Route path="edit/:jobId" element={<EditJob />} />
           <Route path="jobList" element={<DashboardJobList />} />
+          <Route path="wordPerCost" element={<LanguageWordPerCost />} />
           <Route path="makeadmin" element={<MakeAdmin />} />
           <Route path="adjustvariable" element={<AdjustVariable />} />
         </Route>

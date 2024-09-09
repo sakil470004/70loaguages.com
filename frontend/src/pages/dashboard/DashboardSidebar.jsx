@@ -6,7 +6,7 @@ import {
   MdAccountCircle,
   MdHome,
 } from "react-icons/md";
-import { GrUserAdmin } from "react-icons/gr";
+import { GrLanguage, GrUserAdmin } from "react-icons/gr";
 import { BsPeople, BsWrenchAdjustableCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
@@ -80,6 +80,17 @@ const DashboardSidebar = () => {
               >
                 <BsWrenchAdjustableCircle className="text-xl" />
                 <span className="ml-2">Adjust Variable</span>
+              </Link>
+            </li>
+          )}
+          {admin && (
+            <li className="mb-4">
+              <Link
+                to="/dashboard/wordPerCost"
+                className="flex items-center"
+              >
+                <GrLanguage className="text-xl" />
+                <span className="ml-2">Language Word/Cost</span>
               </Link>
             </li>
           )}

@@ -29,7 +29,7 @@ export const addLanguageCost = async (req, res) => {
       // create new language cost
       let newLanguageCost = new Languagecost(languageCost);
       await newLanguageCost.save();
-      res.status(200).json({ message: "Language Cost Added" });
+      res.status(200).json({ message: "Language Cost Added",...newLanguageCost });
     } else {
       res.status(200).json({ message: "Language Cost Already Exist" });
     }

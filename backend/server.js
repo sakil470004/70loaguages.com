@@ -56,7 +56,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/app", appRoutes);
 app.use("/api/job", jobRoutes);
-app.use("/api/laguagecost", languageCostRoutes);
+app.use("/api/languagecost", languageCostRoutes);
 
 // static files in production remove for vercel
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));
