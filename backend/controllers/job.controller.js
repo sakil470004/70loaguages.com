@@ -1,5 +1,4 @@
 import Job from "../models/job.model.js";
-import User from "../models/user.model.js";
 
 export const getAllJob = async (req, res) => {
   try {

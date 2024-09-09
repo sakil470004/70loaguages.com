@@ -9,11 +9,11 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import appRoutes from "./routes/app.routes.js";
 import jobRoutes from "./routes/job.routes.js";
+import languageCostRoutes from "./routes/languagecost.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 // import { app, server } from "./socket/socket.js";
 import cors from "cors";
-
 
 const app = express();
 app.use(cors());
@@ -56,6 +56,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/app", appRoutes);
 app.use("/api/job", jobRoutes);
+app.use("/api/laguagecost", languageCostRoutes);
 
 // static files in production remove for vercel
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));
