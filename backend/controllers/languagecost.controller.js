@@ -22,7 +22,7 @@ export const addLanguageCost = async (req, res) => {
     // get object from body
     let languageCost = req.body;
     // get all language cost data
-    let languageCostOld = await Languagecost.find({
+    let languageCostOld = await Languagecost.findOne({
       languageName: languageCost?.languageName,
     });
     if (!languageCostOld) {
@@ -44,15 +44,15 @@ export const editLanguageCost = async (req, res) => {
     // get current object from body
     let languageCost = req.body;
     //  get id from  body :
-    let { id } = languageCost;
+    let { _id } = languageCost;
     // find languageCost using id and update
-    let updatedLanguageCost = await Languagecost.findByIdAndUpdate(id, languageCost, {
+    let updatedLanguageCost = await Languagecost.findByIdAndUpdate(_id, languageCost, {
       new: true,
     });
     if (!updatedLanguageCost) {
       res.status(400).json({ message: "Language Cost Cannot Updated" });
     } else {
-      res.status(200).json({ ...updatedLanguageCost, message: "Job Updated" });
+      res.status(200).json({ ...updatedLanguageCost, message: "Current Language Cost Updated" });
     }
   } catch (error) {
     console.log("Error in Language Cost controller", error.message);
@@ -64,9 +64,9 @@ export const deleteLanguageCost = async (req, res) => {
     // get current object from body
     let languageCost = req.body;
     //  get id from  body :
-    let { id } = languageCost;
+    let { _id } = languageCost;
     // find languageCost using id and update
-    let deletedLanguageCost = await Languagecost.findByIdAndDelete(id);
+    let deletedLanguageCost = await Languagecost.findByIdAndDelete(_id);
     if (!deletedLanguageCost) {
       res.status(400).json({ message: "Language Cost Cannot deleted" });
     } else {
