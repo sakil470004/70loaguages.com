@@ -1,5 +1,6 @@
 //! AWS public link 
-// http://3.25.92.116/ 
+// server : http://3.25.92.116/ 
+// static site : http://70language.s3-website-ap-southeast-2.amazonaws.com/
 //! vercel link 
 // backend : https://70loaguages-server.vercel.app/
 // frontend : https://70loaguages-frontend.vercel.app/
