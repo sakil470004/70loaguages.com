@@ -32,6 +32,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    //  language type array and default value is empty array
+    languages: [
+      {
+        type: String,
+        default: [],
+      },
+    ],
+
     // for commission based system
     referredBy: {
       type: mongoose.Schema.Types.ObjectId,

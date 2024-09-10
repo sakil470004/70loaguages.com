@@ -16,7 +16,6 @@ export const getAllNotificationsForCurrentUser = async (req, res) => {
 // Create a new notification for the current user
 export const createNotification = async (req, res) => {
   const newNotification = req.body;
-  
 
   const notification = await Notification.create(newNotification);
 

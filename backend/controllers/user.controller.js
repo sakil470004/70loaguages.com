@@ -1,5 +1,4 @@
 import User from "../models/user.model.js";
-import nodemailer from "nodemailer";
 import { transporter } from "../server.js";
 
 export const getUsersForSidebar = async (req, res) => {
@@ -136,3 +135,28 @@ export const sendReferByEmail = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+// only for development purpose
+export const getAllUserForRefresh = async (req, res) => {
+  try {
+    const allUsers = await User.find();
+    console.log(allUsers);
+    res.status(200).json(allUsers);
+  } catch (error) {
+    console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+// add all the previous user
+export const addAllThePrevUser = async (req, res) => {
+
+  try {
+    const users=req.body;
+    // add all users to database
+    const result = await User.insertMany(users);
+    res.status(200).json({ message: "All users added successfully", data: result });
+  } catch (error) {
+    console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}

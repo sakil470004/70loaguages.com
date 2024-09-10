@@ -14,6 +14,7 @@ import notification from "./routes/notification.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 // import { app, server } from "./socket/socket.js";
+
 import cors from "cors";
 
 
@@ -61,6 +62,8 @@ app.use("/api/job", jobRoutes);
 app.use("/api/languagecost", languageCostRoutes);
 app.use("/api/notification", notification);
 
+
+
 // static files in production remove for vercel
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));
 // // any file without the routes above will be served from the frontend/dist folder
@@ -71,6 +74,7 @@ app.use("/api/notification", notification);
 
 app.listen(PORT, () => {
   connectToMongoDB();
+
   console.log(`Server running on port ${PORT}`);
 });
 
