@@ -136,7 +136,27 @@ export const sendReferByEmail = async (req, res) => {
   }
 };
 
-// only for development purpose
+export const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const updatedUser = req.body;
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    // update user details
+    const result = await User.updateOne({ _id: userId }, updatedUser);
+    res
+      .status(200)
+      .json({ message: "User updated successfully", data: result });
+  } catch (error) {
+    console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+//! only for development purpose
+// get all users
 export const getAllUserForRefresh = async (req, res) => {
   try {
     const allUsers = await User.find();
@@ -149,14 +169,15 @@ export const getAllUserForRefresh = async (req, res) => {
 };
 // add all the previous user
 export const addAllThePrevUser = async (req, res) => {
-
   try {
-    const users=req.body;
+    const users = req.body;
     // add all users to database
     const result = await User.insertMany(users);
-    res.status(200).json({ message: "All users added successfully", data: result });
+    res
+      .status(200)
+      .json({ message: "All users added successfully", data: result });
   } catch (error) {
     console.log("Error in user controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};

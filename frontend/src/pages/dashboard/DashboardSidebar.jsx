@@ -67,7 +67,7 @@ const DashboardSidebar = () => {
             </Link>
           </li>
           <li className="mb-4">
-            <Link to="/dashboard" className="flex items-center">
+            <Link to="/dashboard/profile" className="flex items-center">
               <MdAccountCircle className="text-xl" />
               <span className="ml-2">Profile</span>
             </Link>

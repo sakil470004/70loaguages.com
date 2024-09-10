@@ -16,6 +16,7 @@ import EditJob from "./pages/dashboard/EditJob/EditJob";
 import ReferredPeople from "./pages/dashboard/ReferredPeople/ReferedPeople";
 import LanguageWordPerCost from "./pages/dashboard/LanguageWordPerCost/LanguageWordPerCost";
 import NotificationsPage from "./pages/dashboard/Notification/Notification";
+import UserProfile from "./pages/dashboard/UserProfile/UserProfile";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -66,6 +67,7 @@ function App() {
           <Route path="makeadmin" element={<MakeAdmin />} />
           <Route path="adjustvariable" element={<AdjustVariable />} />
           <Route path="notification" element={<NotificationsPage />} />
+          <Route path="profile" element={<UserProfile />} />
         </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
