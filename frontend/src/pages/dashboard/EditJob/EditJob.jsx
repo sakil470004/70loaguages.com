@@ -116,6 +116,7 @@ const EditJob = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Job Title
+                
               </label>
               <input
                 type="text"

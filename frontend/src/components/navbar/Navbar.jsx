@@ -8,21 +8,41 @@ import { BiConversation } from "react-icons/bi";
 
 const Navbar = () => {
   const { authUser } = useAuthContext();
-  
+
   //   const { logout, cartTotalType } = useAuth();
   //   demo functions
 
-//   const user = {
-//     email: "sk.470004@gmail.com",
-//     photoURL:
-//       "https://lh3.googleusercontent.com/a-/AOh14GgZ1j6n7HwXz9G9FwJr0wZ5z7q3Gq6F2sVzWx9K=s96-c",
-//     displayName: "Sourav Kumar",
-//   };
+  //   const user = {
+  //     email: "sk.470004@gmail.com",
+  //     photoURL:
+  //       "https://lh3.googleusercontent.com/a-/AOh14GgZ1j6n7HwXz9G9FwJr0wZ5z7q3Gq6F2sVzWx9K=s96-c",
+  //     displayName: "Sourav Kumar",
+  //   };
   // const cartTotalType = () => { return 0; };
 
   const navigate = useNavigate();
-
-
+  const notificationButton = (
+    <Link to={'/dashboard/notification'} className="btn btn-ghost btn-circle">
+      <div className="indicator">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          />
+        </svg>
+        {/* show only when notification has */}
+        {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
+      </div>
+    </Link>
+  );
   const handleProfile = () => {
     navigate("/dashboard/profile");
   };
@@ -127,16 +147,13 @@ const Navbar = () => {
               </li>
             )}
             {/* <li>{searchComponent}</li> */}
-            {authUser && (
-              <>
-                <li>
-                 <LogoutButton/>
-                </li>
-              </>
-            )}
+            
           </ul>
         </div>
-        <Link to={"/"} className="cursor-pointer w-16 bg-black rounded-full h-auto font-bold">
+        <Link
+          to={"/"}
+          className="cursor-pointer w-16 bg-black rounded-full h-auto font-bold"
+        >
           <img className="w-full h-full" src={logo} alt="logo" />
         </Link>
       </div>
@@ -155,15 +172,13 @@ const Navbar = () => {
           )}
           {authUser && (
             <>
-            {/* <li>
+              {/* <li>
               <Link  to={"/chat"}>Chat <BiConversation className="text-blue-400"/></Link>
             </li> */}
-            <li>
-              <Link to={"/dashboard"}>Dashboard</Link>
-            </li>
-
+              <li>
+                <Link to={"/dashboard"}>Dashboard</Link>
+              </li>
             </>
-
           )}
           {/* todo: fix search Function */}
           {/* <li>{searchComponent}</li> */}
@@ -172,9 +187,9 @@ const Navbar = () => {
       <div className="navbar-end space-x-2">
         {authUser ? (
           <>
-            <button
-             >
-             <LogoutButton/>
+            {notificationButton}
+            <button>
+              <LogoutButton />
             </button>
             {/* {cartComponent} */}
             <div className="pl-4 avatar group" title={authUser?.fullName || ""}>
@@ -182,12 +197,7 @@ const Navbar = () => {
                 onClick={handleProfile}
                 className="w-12 rounded-full border-2 border-black group-hover:border-yellow-300"
               >
-                <img
-                  src={
-                    authUser?.profilePic||
-                    "/public/placeholder.jpg"
-                  }
-                />
+                <img src={authUser?.profilePic || "/public/placeholder.jpg"} />
               </div>
             </div>
           </>

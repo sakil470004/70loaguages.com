@@ -15,6 +15,7 @@ import AdjustVariable from "./pages/dashboard/AdjustVariable/AdjustVariable";
 import EditJob from "./pages/dashboard/EditJob/EditJob";
 import ReferredPeople from "./pages/dashboard/ReferredPeople/ReferedPeople";
 import LanguageWordPerCost from "./pages/dashboard/LanguageWordPerCost/LanguageWordPerCost";
+import NotificationsPage from "./pages/dashboard/Notification/Notification";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -64,6 +65,7 @@ function App() {
           <Route path="wordPerCost" element={<LanguageWordPerCost />} />
           <Route path="makeadmin" element={<MakeAdmin />} />
           <Route path="adjustvariable" element={<AdjustVariable />} />
+          <Route path="notification" element={<NotificationsPage />} />
         </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
