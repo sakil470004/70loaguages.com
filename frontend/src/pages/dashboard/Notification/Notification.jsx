@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { FaBell, FaTrashAlt, FaCheckCircle } from "react-icons/fa";
 import { MdClearAll } from "react-icons/md";
+import moment from "moment"; // For time formatting
+import APP_URL from "../../../../APP_URL";
+import { useAuthContext } from "../../../context/AuthContext";
+import toast from "react-hot-toast";
 
 const Notification = ({ notification, handleDelete, handleRead }) => {
   return (
@@ -18,19 +22,23 @@ const Notification = ({ notification, handleDelete, handleRead }) => {
               : notification.title}
           </h4>
           <p className="text-gray-600">{notification.message}</p>
+          <p className="text-sm text-gray-400">
+            {moment(notification.createdAt).fromNow()}
+          </p>{" "}
+          {/* Displaying time */}
         </div>
       </div>
       <div className="flex space-x-2">
         {!notification.isRead && (
           <button
-            onClick={() => handleRead(notification.id)}
+            onClick={() => handleRead(notification._id)}
             className="btn btn-sm bg-green-500 text-white flex items-center justify-center hover:bg-green-600"
           >
             <FaCheckCircle className="mr-1" /> Read
           </button>
         )}
         <button
-          onClick={() => handleDelete(notification.id)}
+          onClick={() => handleDelete(notification._id)}
           className="btn btn-sm bg-red-500 text-white flex items-center justify-center hover:bg-red-600"
         >
           <FaTrashAlt className="mr-1" /> Delete
@@ -42,46 +50,82 @@ const Notification = ({ notification, handleDelete, handleRead }) => {
 
 const NotificationsPage = () => {
   const [notifications, setNotifications] = useState([]);
+  const { authUser } = useAuthContext();
 
+  // Fetch notifications from the backend
   useEffect(() => {
-    // Fetch notifications from API or local storage (dummy data here)
-    const dummyNotifications = [
-      {
-        id: 1,
-        title: "New Job Posted",
-        message: "A new translation job has been posted.",
-        isRead: false,
-      },
-      {
-        id: 2,
-        title: "Job Deadline Reminder",
-        message: "Your job deadline is approaching in 2 days.",
-        isRead: false,
-      },
-      {
-        id: 3,
-        title: "Payment Received",
-        message: "You have received a payment of $150.",
-        isRead: true,
-      },
-    ];
-    setNotifications(dummyNotifications);
-  }, []);
+    const fetchNotifications = async () => {
+      try {
+        const response = await fetch(
+          `${APP_URL}/api/notification/getAllNotificationForCurrentUser/${authUser?._id}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch notifications");
+        }
+        const data = await response.json();
+        setNotifications(data);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
 
-  const handleDelete = (id) => {
-    setNotifications(notifications.filter((n) => n.id !== id));
+    fetchNotifications();
+  }, [authUser?._id]);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${APP_URL}/api/notification/delete/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete notification");
+      }
+      const data = await response.json();
+      if (data.message) {
+        toast.success(data.message);
+      }
+      setNotifications(notifications.filter((n) => n._id !== id));
+    } catch (error) {
+      console.error("Error deleting notification:", error);
+    }
   };
 
-  const handleRead = (id) => {
-    setNotifications(
-      notifications.map((n) =>
-        n.id === id ? { ...n, isRead: true } : n
-      )
-    );
+  const handleRead = async (id) => {
+    try {
+      const response = await fetch(`${APP_URL}/api/notification/read/${id}`, {
+        method: "PATCH",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to mark notification as read");
+      }
+      toast.success("Notification marked as read");
+      setNotifications(
+        notifications.map((n) => (n._id === id ? { ...n, isRead: true } : n))
+      );
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+    }
   };
 
-  const handleClearAll = () => {
-    setNotifications([]);
+  const handleClearAll = async () => {
+    try {
+      const response = await fetch(
+        `${APP_URL}/api/notification/deleteAll/${authUser?._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to clear all notifications");
+      }
+      const data = await response.json();
+      if (data.length === 0) {
+        toast.success("All notifications cleared successfully");
+      }
+      setNotifications([]);
+    } catch (error) {
+      console.error("Error clearing all notifications:", error);
+    }
   };
 
   return (
@@ -97,12 +141,12 @@ const NotificationsPage = () => {
       </div>
 
       {notifications.length === 0 ? (
-        <p className="text-gray-500 text-center">No notifications found.</p>
+        <p className="text-red-500 text-center font-bold ">No notifications found.</p>
       ) : (
         <div>
           {notifications.map((notification) => (
             <Notification
-              key={notification.id}
+              key={notification._id}
               notification={notification}
               handleDelete={handleDelete}
               handleRead={handleRead}
