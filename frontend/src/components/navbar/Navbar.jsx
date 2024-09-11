@@ -5,9 +5,23 @@ import logo from "../../assets/logo.png";
 import { useAuthContext } from "../../context/AuthContext";
 import LogoutButton from "../sidebar/LogoutButton";
 import { BiConversation } from "react-icons/bi";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { authUser } = useAuthContext();
+  const [notification, setNotification] = useState(false);
+
+  useEffect(() => {
+    const fetchNotification = async () => {
+      const res = await fetch(
+        `http://localhost:5000/api/notification/getAllNotificationForCurrentUser/${authUser?._id}`
+      );
+      const data = await res.json();
+      setNotification(data.length > 0);
+    };
+    fetchNotification();
+  }, [authUser?._id]);
+
 
   //   const { logout, cartTotalType } = useAuth();
   //   demo functions
@@ -39,7 +53,7 @@ const Navbar = () => {
           />
         </svg>
         {/* show only when notification has */}
-        {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
+        {notification && <span className="badge badge-xs badge-primary indicator-item"></span>}
       </div>
     </Link>
   );
