@@ -141,7 +141,10 @@ const NotificationsPage = () => {
       </div>
 
       {notifications.length === 0 ? (
-        <p className="text-red-500 text-center font-bold ">No notifications found.</p>
+        <div>
+        <img src="https://img.icons8.com/ios/452/nothing-found.png" alt="No notifications found" className="w-40 h-40 mx-auto" />
+          <h3 className="text-xl text-red-500 font-bold text-center">No notifications found</h3>
+        </div>
       ) : (
         <div>
           {notifications.map((notification) => (

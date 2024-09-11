@@ -13,6 +13,7 @@ import logo from "../../assets/logo.png";
 import { useAuthContext } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import APP_URL from "../../../APP_URL";
+import { SiJamboard } from "react-icons/si";
 
 const DashboardSidebar = () => {
   // check if user is admin
@@ -20,7 +21,9 @@ const DashboardSidebar = () => {
   const { authUser } = useAuthContext();
   useEffect(() => {
     const checkAdmin = async () => {
-      const res = await fetch(`${APP_URL}/api/users/checkadmin/${authUser._id}`);
+      const res = await fetch(
+        `${APP_URL}/api/users/checkadmin/${authUser._id}`
+      );
       const data = await res.json();
       setAdmin(data.admin);
     };
@@ -54,6 +57,14 @@ const DashboardSidebar = () => {
               <span className="ml-2">Post a Job</span>
             </Link>
           </li>
+
+          <li className="mb-4">
+            <Link to="/dashboard/appliedJob" className="flex items-center">
+              <SiJamboard className="text-xl" />
+              <span className="ml-2">Applied Job</span>
+            </Link>
+          </li>
+
           <li className="mb-4">
             <Link to="/dashboard" className="flex items-center">
               <MdMessage className="text-xl" />
@@ -85,10 +96,7 @@ const DashboardSidebar = () => {
           )}
           {admin && (
             <li className="mb-4">
-              <Link
-                to="/dashboard/wordPerCost"
-                className="flex items-center"
-              >
+              <Link to="/dashboard/wordPerCost" className="flex items-center">
                 <GrLanguage className="text-xl" />
                 <span className="ml-2">Language Word/Cost</span>
               </Link>

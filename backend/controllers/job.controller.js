@@ -128,3 +128,22 @@ export const updateJob = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+// get all job by using takerId
+export const getAllTakerJob = async (req, res) => {
+  try {
+    //  get id from params
+    let { takerId } = req.params;
+    // get updated job object
+    let job = req.body;
+    // find job using id and update
+    let takerJObs = await Job.find({ takerId });
+    if (!takerJObs) {
+      res.status(400).json([]);
+    } else {
+      res.status(200).json(takerJObs);
+    }
+  } catch (error) {
+    console.log("Error in job controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

@@ -9,7 +9,7 @@ const useLogin = () => {
 
   const login = async (username, password) => {
     setLoading(true);
-    const success = handleInputError(username, password);
+    const success = handleInputError(username, password,setLoading);
     if (!success) return;
     try {
       const res = await fetch(`${APP_URL}/api/auth/login`, {
@@ -35,14 +35,16 @@ const useLogin = () => {
 };
 
 export default useLogin;
-function handleInputError(username, password) {
+function handleInputError(username, password,setLoading) {
   if (!username || !password) {
     toast.error("Please fill in all fields");
+    setLoading(false);
     return false;
   }
 
   if (password.length < 6) {
     toast.error("Password must be at least 6 characters long");
+    setLoading(false);
     return false;
   }
   return true;

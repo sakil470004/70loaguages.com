@@ -4,7 +4,11 @@ import {
   MdLanguage,
   MdDeleteOutline,
 } from "react-icons/md";
-import { FaMoneyBillWave, FaChevronRight, FaRegCheckCircle } from "react-icons/fa";
+import {
+  FaMoneyBillWave,
+  FaChevronRight,
+  FaRegCheckCircle,
+} from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
@@ -56,18 +60,22 @@ const JobCard = ({ job, handleDelete }) => {
         >
           View Details <FaChevronRight className="ml-2" />
         </Link>
-        <Link
-          to={`/dashboard/edit/${job?._id}`}
-          className="btn btn-sm btn-accent  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
-        >
-          Edit <BiEdit className="ml-2" />
-        </Link>
-        <button
-          onClick={() => handleDelete(job?._id)}
-          className="btn btn-sm btn-error flex justify-center items-center py-2 hover:bg-red-600 transition-all duration-300"
-        >
-         Delete  <MdDeleteOutline className="text-xl" /> 
-        </button>
+        {!job?.takerId && (
+          <>
+            <Link
+              to={`/dashboard/edit/${job?._id}`}
+              className="btn btn-sm btn-accent  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
+            >
+              Edit <BiEdit className="ml-2" />
+            </Link>
+            <button
+              onClick={() => handleDelete(job?._id)}
+              className="btn btn-sm btn-error flex justify-center items-center py-2 hover:bg-red-600 transition-all duration-300"
+            >
+              Delete <MdDeleteOutline className="text-xl" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -75,7 +83,7 @@ const JobCard = ({ job, handleDelete }) => {
 
 const DashboardJobList = () => {
   const [jobs, setJobs] = useState([]);
-
+  const [acceptedJobs, setAcceptedJobs] = useState([]);
   const handleDelete = (id) => {
     const isConfirmed = confirm("Are you sure you want to delete this job?");
     if (isConfirmed) {
@@ -100,7 +108,18 @@ const DashboardJobList = () => {
     const posterId = JSON.parse(posterData)._id;
     fetch(`${APP_URL}/api/job/getCurrentUserJob/${posterId}`)
       .then((res) => res.json())
-      .then((data) => setJobs(data));
+      .then((data) => {
+        let newData = data.filter(
+          (job) =>
+            job?.status?.toLowerCase() === "open" && job?.takerId === null
+        );
+        setJobs(newData.reverse());
+        const acceptedJobs = data.filter(
+          (job) =>
+            job?.status?.toLowerCase() === "open" && job?.takerId !== null
+        );
+        setAcceptedJobs(acceptedJobs);
+      });
   }, []);
 
   return (
@@ -109,12 +128,33 @@ const DashboardJobList = () => {
         Your Posted Jobs
       </h2>
       {jobs?.length === 0 ? (
-        <h2 className="font-bold text-red-500 text-center">No Jobs Found</h2>
+        <div className="text-center">
+          <img
+            src="https://img.icons8.com/ios/452/nothing-found.png"
+            alt="No Posted Jobs Found"
+            className="w-40 h-40 mx-auto"
+          />
+          <h3 className="text-xl text-red-500 font-bold">
+            No Posted Jobs Found
+          </h3>
+        </div>
       ) : (
         <div className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-4">
           {jobs?.map((job, index) => (
             <JobCard key={index} job={job} handleDelete={handleDelete} />
           ))}
+        </div>
+      )}
+      {acceptedJobs?.length > 0 && (
+        <div className="py-10 bg-gray-50">
+          <h2 className="text-3xl font-extrabold text-blue-600 uppercase mb-8 text-center">
+            Your Accepted Jobs
+          </h2>
+          <div className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-4">
+            {acceptedJobs.map((job, index) => (
+              <JobCard key={index} job={job} handleDelete={handleDelete} />
+            ))}
+          </div>
         </div>
       )}
     </div>

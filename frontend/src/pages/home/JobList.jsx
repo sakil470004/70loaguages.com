@@ -1,5 +1,9 @@
 import { MdOutlineWork, MdAccessTime, MdLanguage } from "react-icons/md";
-import { FaMoneyBillWave, FaChevronRight, FaRegCheckCircle } from "react-icons/fa";
+import {
+  FaMoneyBillWave,
+  FaChevronRight,
+  FaRegCheckCircle,
+} from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import APP_URL from "../../../APP_URL";
@@ -59,7 +63,11 @@ const JobList = () => {
     fetch(`${APP_URL}/api/job/getAllJob`)
       .then((res) => res.json())
       .then((data) => {
-        setJobs(data.reverse().slice(0, 6));
+        let newData = data.filter(
+          (job) =>
+            job?.status?.toLowerCase() === "open" && job?.takerId === null
+        );
+        setJobs(newData.reverse().slice(0, 6));
       })
       .catch((err) => {
         console.log(err);
