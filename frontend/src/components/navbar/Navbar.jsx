@@ -4,7 +4,6 @@ import logo from "../../assets/logo.png";
 
 import { useAuthContext } from "../../context/AuthContext";
 import LogoutButton from "../sidebar/LogoutButton";
-import { BiConversation } from "react-icons/bi";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
@@ -22,7 +21,6 @@ const Navbar = () => {
     fetchNotification();
   }, [authUser?._id]);
 
-
   //   const { logout, cartTotalType } = useAuth();
   //   demo functions
 
@@ -36,7 +34,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const notificationButton = (
-    <Link to={'/dashboard/notification'} className="btn btn-ghost btn-circle">
+    <Link to={"/dashboard/notification"} className="btn btn-ghost btn-circle">
       <div className="indicator">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +51,9 @@ const Navbar = () => {
           />
         </svg>
         {/* show only when notification has */}
-        {notification && <span className="badge badge-xs badge-primary indicator-item"></span>}
+        {notification && (
+          <span className="badge badge-xs badge-primary indicator-item"></span>
+        )}
       </div>
     </Link>
   );
@@ -161,7 +161,6 @@ const Navbar = () => {
               </li>
             )}
             {/* <li>{searchComponent}</li> */}
-            
           </ul>
         </div>
         <Link
