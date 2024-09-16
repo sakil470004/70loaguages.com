@@ -15,8 +15,13 @@ import notification from "./routes/notification.routes.js";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 // import { app, server } from "./socket/socket.js";
 
-import cors from "cors";
+// payment gateway
+import Stripe from "stripe";
+const stripe = new Stripe(process.env.PAYMENT_SECRET_KEY,{
+  apiVersion: '2020-08-27',
+});
 
+import cors from "cors";
 
 const app = express();
 app.use(cors());
@@ -42,17 +47,48 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-
-
 app.get("/", (req, res) => {
   // root route
   res.send(`Root API is running.... ${PORT}`);
-}
-);
+});
 app.get("/check", (req, res) => {
   // root route
   res.send(`Check API is running.... ${PORT}`);
 });
+// for initial payment
+app.post("/create-payment-intent", async (req, res) => {
+  try {
+    const { price } = req.body;
+
+    // Ensure that price is a valid number and greater than 0
+    if (!price || isNaN(price) || price <= 0) {
+      return res.status(400).json({ error: "Invalid price" });
+    }
+
+    // Convert price to cents (Stripe requires amounts in the smallest currency unit)
+    const amount = parseInt(price * 100);
+
+    // Create a payment intent with Stripe
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "usd",
+      payment_method_types: ["card"],
+    });
+
+    // Send back the client secret from the payment intent
+    res.status(200).json({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (err) {
+    console.error("Error creating payment intent: ", err);
+
+    // Respond with an error status and message
+    res.status(500).json({
+      error: "Payment intent creation failed. Please try again.",
+    });
+  }
+});
+
 // it going catch all the routes that start with /api/auth/xxx** */
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
@@ -61,8 +97,6 @@ app.use("/api/app", appRoutes);
 app.use("/api/job", jobRoutes);
 app.use("/api/languagecost", languageCostRoutes);
 app.use("/api/notification", notification);
-
-
 
 // static files in production remove for vercel
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));

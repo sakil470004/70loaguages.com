@@ -1,29 +1,32 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import "./CheckoutForm.css";
 
 import { toast } from "react-hot-toast";
-import useAuth from "../../../hooks/useAuth";
+
 import { Link } from "react-router-dom";
 import APP_URL from "../../../../APP_URL";
+import { useAuthContext } from "../../../context/AuthContext";
 
-const CheckoutForm = ({ cart, price }) => {
+const CheckoutForm = ({ job, price }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const { user } = useAuth();
+  const { authUser } = useAuthContext();
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
+    console.log("price", price);
+    console.log("job", job);
+    console.log("key", import.meta.env.VITE_Payment_Gateway_PK);
     if (price > 0) {
-      const token = localStorage.getItem("token");
       fetch(`${APP_URL}/create-payment-intent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization: "Bearer " + token,
+          "Authorization": `Bearer ${import.meta.env.VITE_Payment_Gateway_PK}`,
         },
         body: JSON.stringify({ price: price * 100 }),
       })
@@ -67,8 +70,8 @@ const CheckoutForm = ({ cart, price }) => {
         payment_method: {
           card: card,
           billing_details: {
-            email: user?.email || "unknown",
-            name: user?.displayName || "anonymous",
+            email: authUser?.email || "unknown",
+            name: authUser?.fullName || "anonymous",
           },
         },
       });
@@ -83,28 +86,31 @@ const CheckoutForm = ({ cart, price }) => {
       setTransactionId(paymentIntent.id);
       // save payment information to the server
       const payment = {
-        email: user?.email,
+        user: authUser?.username,
+        userId: authUser?._id,
         transactionId: paymentIntent.id,
         price,
         date: new Date(),
         quantity: 1,
-        itemId: cart._id,
+        jobId: job._id,
         status: "service pending",
-        curseDetails: cart,
+        jobDetails: job,
       };
-      fetch(`${APP_URL}/payments`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(payment),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data?.result?.insertedId) {
-            toast.success("Payment Completed");
-          }
-        });
+    //   adding payment to the database
+      // fetch(`${APP_URL}/payments`, {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify(payment),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     if (data?.result?.insertedId) {
+      //       toast.success("Payment Completed");
+      //     }
+      //   });
+      console.log('payment', payment)
     }
   };
 

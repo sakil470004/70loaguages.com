@@ -10,18 +10,18 @@ import APP_URL from "../../../../APP_URL";
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 const Payment = () => {
     let { paymentId } = useParams();
-    const [ticket, setTicket] = useState({});
+    const [job, setJob] = useState({});
     useEffect(() => {
-        fetch(`${APP_URL}/singleSitBook/${paymentId}`)
+        fetch(`${APP_URL}/api/job/getCurrentJob/${paymentId}`)
         .then(res=>res.json())
-        .then(data=>setTicket(data))
+        .then(data=>setJob(data))
     }, [paymentId])
     // const total = cart.reduce((sum, item) => sum + item.price, 0);
     // const price = parseFloat(total.toFixed(2))
     return (
         <div className="container mx-auto">
             <Elements stripe={stripePromise}>
-                <CheckoutForm cart={ticket} price={ticket.price}></CheckoutForm>
+                <CheckoutForm job={job} price={job.budget}></CheckoutForm>
             </Elements>
         </div>
     );

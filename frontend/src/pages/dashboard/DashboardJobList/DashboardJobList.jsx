@@ -3,6 +3,7 @@ import {
   MdAccessTime,
   MdLanguage,
   MdDeleteOutline,
+  MdPayments,
 } from "react-icons/md";
 import {
   FaMoneyBillWave,
@@ -78,9 +79,9 @@ const JobCard = ({ job, handleDelete }) => {
         ) : (
           <Link
             to={`/dashboard/payment/${job?._id}`}
-            className="btn btn-sm btn-accent  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
+            className="btn btn-sm btn-warning text-white  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
           >
-            Edit <BiEdit className="ml-2" />
+            PAY <MdPayments className="ml-2" />
           </Link>
         )}
       </div>
