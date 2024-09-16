@@ -198,13 +198,11 @@ const ReferLink = () => {
           body: JSON.stringify({ refereeEmail:email, link , referrerName: authUser?.fullName }),
         });
         const data = await res.json();
-        if (data) {
-          toast.success(data.message);
+          toast.success("Email sent successfully");
           // clear the input field
+          
           setEmail("");
-        } else {
-          toast.error(data.message);
-        }
+     
       } catch (error) {
         console.log(error);
       }

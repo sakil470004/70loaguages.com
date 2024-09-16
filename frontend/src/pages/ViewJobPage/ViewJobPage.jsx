@@ -47,8 +47,8 @@ const JobDetails = ({ job }) => {
           body: JSON.stringify(newNotification),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data)),
-          toast.success("Job Applied Successfully");
+          .then((data) =>toast.success(data.message)),
+          
         navigate(-1);
       });
   };

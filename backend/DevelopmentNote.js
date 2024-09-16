@@ -1,3 +1,5 @@
+//! APP_URL need to change for production and development
+
 //! AWS public link 
 // server : http://3.25.92.116/ 
 // static site : http://70language.s3-website-ap-southeast-2.amazonaws.com/
