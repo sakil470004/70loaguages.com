@@ -60,7 +60,7 @@ const JobCard = ({ job, handleDelete }) => {
         >
           View Details <FaChevronRight className="ml-2" />
         </Link>
-        {!job?.takerId && (
+        {!job?.takerId ? (
           <>
             <Link
               to={`/dashboard/edit/${job?._id}`}
@@ -75,6 +75,13 @@ const JobCard = ({ job, handleDelete }) => {
               Delete <MdDeleteOutline className="text-xl" />
             </button>
           </>
+        ) : (
+          <Link
+            to={`/dashboard/payment/${job?._id}`}
+            className="btn btn-sm btn-accent  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
+          >
+            Edit <BiEdit className="ml-2" />
+          </Link>
         )}
       </div>
     </div>

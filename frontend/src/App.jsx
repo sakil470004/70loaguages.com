@@ -71,7 +71,7 @@ function App() {
           <Route path="notification" element={<NotificationsPage />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="appliedJob" element={<AppliedJob />} />
-          <Route path="payment" element={<Payment />} />
+          <Route path="payment/:paymentId" element={<Payment />} />
         </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
