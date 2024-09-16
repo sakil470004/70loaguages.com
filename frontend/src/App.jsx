@@ -18,6 +18,7 @@ import LanguageWordPerCost from "./pages/dashboard/LanguageWordPerCost/LanguageW
 import NotificationsPage from "./pages/dashboard/Notification/Notification";
 import UserProfile from "./pages/dashboard/UserProfile/UserProfile";
 import AppliedJob from "./pages/dashboard/AppliedJob/AppliedJob";
+import Payment from "./pages/dashboard/DashboardPayment/Payment";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -70,6 +71,7 @@ function App() {
           <Route path="notification" element={<NotificationsPage />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="appliedJob" element={<AppliedJob />} />
+          <Route path="payment" element={<Payment />} />
         </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
