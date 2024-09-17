@@ -35,7 +35,7 @@ const AddJob = () => {
   // Automatically calculate the budget based on word count and selected language cost
   useEffect(() => {
     if (selectedLanguage && wordCount) {
-      setBudget(selectedLanguage.languageCost * wordCount);
+      setBudget((selectedLanguage.languageCost * wordCount).toFixed(2));
     }
   }, [selectedLanguage, wordCount]);
 

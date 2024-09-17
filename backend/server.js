@@ -17,9 +17,7 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 
 // payment gateway
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.PAYMENT_SECRET_KEY,{
-  apiVersion: '2020-08-27',
-});
+
 
 import cors from "cors";
 
@@ -56,9 +54,12 @@ app.get("/check", (req, res) => {
   res.send(`Check API is running.... ${PORT}`);
 });
 // for initial payment
+
+const stripe = new Stripe(process.env.PAYMENT_SECRET_KEY);
 app.post("/create-payment-intent", async (req, res) => {
   try {
-    const { price } = req.body;
+    const job = req.body;
+    const { price, success_url, cancel_url } = job;
 
     // Ensure that price is a valid number and greater than 0
     if (!price || isNaN(price) || price <= 0) {
@@ -68,23 +69,33 @@ app.post("/create-payment-intent", async (req, res) => {
     // Convert price to cents (Stripe requires amounts in the smallest currency unit)
     const amount = parseInt(price * 100);
 
-    // Create a payment intent with Stripe
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
-      currency: "usd",
+    const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-    });
+      mode: "payment",
+      line_items: [{
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: job.title,
+          },
+          unit_amount: amount,
+        },
+        quantity: 1,
+      }],
+      success_url: `${success_url}`,
+      cancel_url: `${cancel_url}`,
+    })
 
-    // Send back the client secret from the payment intent
-    res.status(200).json({
-      clientSecret: paymentIntent.client_secret,
-    });
+    await res.json({ url: session.url, session });
+
+
   } catch (err) {
     console.error("Error creating payment intent: ", err);
 
     // Respond with an error status and message
     res.status(500).json({
       error: "Payment intent creation failed. Please try again.",
+      message: err.message,
     });
   }
 });
@@ -97,6 +108,7 @@ app.use("/api/app", appRoutes);
 app.use("/api/job", jobRoutes);
 app.use("/api/languagecost", languageCostRoutes);
 app.use("/api/notification", notification);
+app.use("/api/payment", paymentRoutes);
 
 // static files in production remove for vercel
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));

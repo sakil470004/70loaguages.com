@@ -17,6 +17,29 @@ import toast from "react-hot-toast";
 import APP_URL from "../../../../APP_URL";
 
 const JobCard = ({ job, handleDelete }) => {
+  const handlePayment = (job) => {
+    fetch(`${APP_URL}/create-payment-intent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price: job.budget, ...job, success_url: `${window.location.origin}/dashboard/paymentDetails/${job?.posterId}?success=true&jobId=${job?._id}`,
+        cancel_url: `${window.location.origin}/dashboard/paymentDetails/${job?.posterId}?cancelled=true&jobId=${job?._id}` // Redirect to this URL after payment
+
+
+      }), // Convert price to cents
+    }).then((res) => {
+      if (res.ok) return res.json();
+      return res.json().then(({ error }) => Promise.reject(error));
+    }).then(({ url }) => {
+      window.location = url;
+    })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+  }
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-6 relative border border-gray-100 hover:border-blue-500">
       <div className="flex items-center mb-4">
@@ -77,12 +100,13 @@ const JobCard = ({ job, handleDelete }) => {
             </button>
           </>
         ) : (
-          <Link
-            to={`/dashboard/payment/${job?._id}`}
+          <button
+            // to={`/dashboard/payment/${job?._id}`}
+            onClick={() => { handlePayment(job) }}
             className="btn btn-sm btn-warning text-white  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
           >
             PAY <MdPayments className="ml-2" />
-          </Link>
+          </button>
         )}
       </div>
     </div>

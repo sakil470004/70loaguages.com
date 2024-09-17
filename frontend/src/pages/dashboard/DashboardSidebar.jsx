@@ -5,6 +5,7 @@ import {
   MdMessage,
   MdAccountCircle,
   MdHome,
+  MdPayments,
 } from "react-icons/md";
 import { GrLanguage, GrUserAdmin } from "react-icons/gr";
 import { BsPeople, BsWrenchAdjustableCircle } from "react-icons/bs";
@@ -81,6 +82,12 @@ const DashboardSidebar = () => {
             <Link to="/dashboard/profile" className="flex items-center">
               <MdAccountCircle className="text-xl" />
               <span className="ml-2">Profile</span>
+            </Link>
+          </li>
+          <li className="mb-4">
+            <Link to={`paymentDetails/${authUser._id}`} className="flex items-center">
+              <MdPayments className="text-xl" />
+              <span className="ml-2">Payment Details</span>
             </Link>
           </li>
           {admin && (

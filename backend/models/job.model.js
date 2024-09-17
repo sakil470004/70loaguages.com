@@ -57,6 +57,17 @@ const jobSchema = new mongoose.Schema(
       enum: ["Open", "In Progress", "Completed", "Closed"],
       default: "Open",
     },
+    // payment status
+    paymentStatus: {
+      type: String,
+      enum: ["Pending", "Paid"],
+      default: "Pending",
+    },
+    // payment id
+    paymentId: {
+      type: String,
+      default: null,
+    },
     createdAt: {
       type: Date,
       default: Date.now,
