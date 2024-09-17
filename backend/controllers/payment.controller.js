@@ -2,7 +2,7 @@ import Payment from "../models/payment.model";
 
 
 // Get all notifications for the current user
-export const getAllNotificationsForCurrentUser = async (req, res) => {
+export const getAllPaymentCurrentUser = async (req, res) => {
     const { userId } = req.params; // Assuming req.user contains the authenticated user
     console.log(userId);
     // get job id from quiery
