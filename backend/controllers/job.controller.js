@@ -147,3 +147,17 @@ export const getAllTakerJob = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+// it may be used for testing
+export const postAllOFJob = async (req, res) => {
+  try {
+    const jobs = req.body;
+    jobs.forEach(async (job) => {
+      let newJob = new Job(job);
+      await newJob.save();
+    });
+    res.status(201).json({ message: "All job posted" });
+  } catch (error) {
+    console.log("Error in job controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}

@@ -24,8 +24,8 @@ const JobCard = ({ job, handleDelete }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        price: job.budget, ...job, success_url: `${window.location.origin}/dashboard/paymentDetails/${job?.posterId}?success=true&jobId=${job?._id}`,
-        cancel_url: `${window.location.origin}/dashboard/paymentDetails/${job?.posterId}?cancelled=true&jobId=${job?._id}` // Redirect to this URL after payment
+        price: job.budget, ...job, success_url: `${window.location.origin}/dashboard/paymentDetails/${job?.posterId}?success=true&jobId=${job?._id}&amount=${job.budget}`, // Redirect to this URL after payment
+        cancel_url: `${window.location.origin}/dashboard/paymentDetails/${job?.posterId}?cancelled=true` // Redirect to this URL after payment
 
 
       }), // Convert price to cents
@@ -104,8 +104,9 @@ const JobCard = ({ job, handleDelete }) => {
             // to={`/dashboard/payment/${job?._id}`}
             onClick={() => { handlePayment(job) }}
             className="btn btn-sm btn-warning text-white  flex justify-center items-center py-2 hover:bg-yellow-500 transition-all duration-300"
+            disabled={job?.paymentStatus === "Paid"}
           >
-            PAY <MdPayments className="ml-2" />
+            {job?.paymentStatus==="Paid"?"Paid":"PAY"} <MdPayments className="ml-2" />
           </button>
         )}
       </div>

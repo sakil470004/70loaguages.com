@@ -7,7 +7,8 @@ import {
   getCurrentUserJob,
   deleteJob,
   updateJob,
-  getAllTakerJob
+  getAllTakerJob,
+  postAllOFJob
 } from "../controllers/job.controller.js";
 
 const router = express.Router();
@@ -25,6 +26,8 @@ router.put("/updateJob/:id", updateJob);
 
 // delete by jobId
 router.delete("/delete/:id", deleteJob);
+// danger for only test
+// router.post("/postAllOFJob", postAllOFJob);
 
 
 export default router;
