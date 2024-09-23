@@ -1,5 +1,6 @@
 .background {
-	background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/bg.webp");
+	/* background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/bg.webp"); */
+	background: linear-gradient(rgba(29, 158, 175, 0.2), rgb(73, 73, 170));
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;

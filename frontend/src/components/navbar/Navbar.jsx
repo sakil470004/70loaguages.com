@@ -13,14 +13,16 @@ const Navbar = () => {
   const [notification, setNotification] = useState(false);
 
   useEffect(() => {
-    const fetchNotification = async () => {
-      const res = await fetch(
-        `${APP_URL}/api/notification/getAllNotificationForCurrentUser/${authUser?._id}`
-      );
-      const data = await res.json();
-      setNotification(data.length > 0);
-    };
-    fetchNotification();
+    if (authUser) {
+      const fetchNotification = async () => {
+        const res = await fetch(
+          `${APP_URL}/api/notification/getAllNotificationForCurrentUser/${authUser?._id}`
+        );
+        const data = await res.json();
+        setNotification(data.length > 0);
+      };
+      fetchNotification();
+    }
   }, [authUser?._id]);
 
   //   const { logout, cartTotalType } = useAuth();
@@ -154,7 +156,7 @@ const Navbar = () => {
             )}
             {authUser && (
               <li>
-                <Link to={"/chat"}>Chat  <BiConversation className="text-blue-400"/></Link>
+                <Link to={"/chat"}>Chat  <BiConversation className="text-blue-400" /></Link>
               </li>
             )}
             {authUser && (
@@ -188,8 +190,8 @@ const Navbar = () => {
           {authUser && (
             <>
               <li>
-              <Link  to={"/chat"}>Chat <BiConversation className="text-blue-400"/></Link>
-            </li>
+                <Link to={"/chat"}>Chat <BiConversation className="text-blue-400" /></Link>
+              </li>
               <li>
                 <Link to={"/dashboard"}>Dashboard</Link>
               </li>

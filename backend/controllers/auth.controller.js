@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
     if (newUser) {
       // Generate JWT token here
       // add extra staff in res object
-      await generateTokenAndSetCookie(newUser._id, res);
+      const token = generateTokenAndSetCookie(newUser._id, res);
       // save the user to the database
       await newUser.save();
 
@@ -48,6 +48,7 @@ export const signup = async (req, res) => {
         profilePic: newUser.profilePic,
         message: "User Created Successfully",
         referredBy: newUser?.referredBy || "",
+        jwt: token
       });
     } else {
       res.status(400).json({ error: "Invalid user data" });
@@ -71,8 +72,8 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid username or password" });
     }
     // generate JWT token here and set it in the cookie
-    await generateTokenAndSetCookie(user._id, res);
-    
+    const token = generateTokenAndSetCookie(user._id, res);
+
     res.status(200).json({
       _id: user._id,
       fullName: user.fullName,
@@ -80,6 +81,7 @@ export const login = async (req, res) => {
       profilePic: user.profilePic,
       message: "User Login Successfully",
       referredBy: user?.referredBy || "",
+      jwt: token
     });
   } catch (error) {
     console.log("Error in login controller", error.message);
@@ -90,7 +92,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     // clear the cookie//it will remove the jwt cookie // and automatically logout the user from the application
-    res.cookie("jwt", "", { maxAge: 0 });
+    // res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "User Logout Successfully" });
   } catch (error) {
     console.log("Error in logout controller", error.message);
