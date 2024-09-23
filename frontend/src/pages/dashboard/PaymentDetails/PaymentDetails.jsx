@@ -22,7 +22,7 @@ const PaymentDetails = () => {
             })
     }
     useEffect(() => {
-        document.title = "Payment Details | 70Languages";
+        // document.title = "Payment Details | 70Languages";
         // get argument from link
         const url = new URL(window.location.href);
         const success = url?.searchParams.get("success");

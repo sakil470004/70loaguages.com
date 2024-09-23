@@ -5,6 +5,8 @@ import logo from "../../assets/logo.png";
 import { useAuthContext } from "../../context/AuthContext";
 import LogoutButton from "../sidebar/LogoutButton";
 import { useEffect, useState } from "react";
+import APP_URL from "../../../APP_URL";
+import { BiConversation } from "react-icons/bi";
 
 const Navbar = () => {
   const { authUser } = useAuthContext();
@@ -13,7 +15,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchNotification = async () => {
       const res = await fetch(
-        `http://localhost:5000/api/notification/getAllNotificationForCurrentUser/${authUser?._id}`
+        `${APP_URL}/api/notification/getAllNotificationForCurrentUser/${authUser?._id}`
       );
       const data = await res.json();
       setNotification(data.length > 0);
@@ -150,11 +152,11 @@ const Navbar = () => {
                 </li>
               </>
             )}
-            {/* {authUser && (
+            {authUser && (
               <li>
                 <Link to={"/chat"}>Chat  <BiConversation className="text-blue-400"/></Link>
               </li>
-            )} */}
+            )}
             {authUser && (
               <li>
                 <Link to={"/dashboard"}>Dashboard</Link>
@@ -185,9 +187,9 @@ const Navbar = () => {
           )}
           {authUser && (
             <>
-              {/* <li>
+              <li>
               <Link  to={"/chat"}>Chat <BiConversation className="text-blue-400"/></Link>
-            </li> */}
+            </li>
               <li>
                 <Link to={"/dashboard"}>Dashboard</Link>
               </li>

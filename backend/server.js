@@ -14,7 +14,7 @@ import notification from "./routes/notification.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
-// import { app, server } from "./socket/socket.js";
+import { app, server } from "./socket/socket.js";
 
 // payment gateway
 import Stripe from "stripe";
@@ -22,7 +22,7 @@ import Stripe from "stripe";
 
 import cors from "cors";
 
-const app = express();
+// const app = express();
 app.use(cors());
 
 //  it will give the current root directory name
@@ -119,7 +119,7 @@ app.use("/api/payment", paymentRoutes);
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectToMongoDB();
 
   console.log(`Server running on port ${PORT}`);
