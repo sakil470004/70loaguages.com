@@ -14,7 +14,7 @@ const useSendMessage = () => {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+					Authorization: `Bearer ${JSON.parse(localStorage.getItem("chat-user"))?.jwt}`,
 				},
 				body: JSON.stringify({ message }),
 			});

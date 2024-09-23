@@ -8,7 +8,7 @@ import {
   MdPayments,
 } from "react-icons/md";
 import { GrLanguage, GrUserAdmin } from "react-icons/gr";
-import { BsPeople, BsWrenchAdjustableCircle } from "react-icons/bs";
+import { BsChatDots, BsPeople, BsWrenchAdjustableCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useAuthContext } from "../../context/AuthContext";
@@ -38,60 +38,65 @@ const DashboardSidebar = () => {
         aria-label="close sidebar"
         className="drawer-overlay"
       ></label>
-      <ul className="menu bg-purple-500 text-white min-h-full w-80 p-4">
+      <ul className="menu bg-purple-500 text-white min-h-full w-80 font-bold font-serif px-4">
         <div className="mb-8">
-          <div className="flex items-center mb-4 cursor-pointer">
+          <div className="flex items-center mb-2 cursor-pointer">
             <div className="w-16  rounded-full bg-black  mr-2">
               <img src={logo} alt="Dashboard Icon" />
             </div>
             <span className="text-2xl font-bold">70Language</span>
           </div>
-          <li className="mb-4">
+          <li className="mb-2">
             <Link to="/dashboard/jobList" className="flex items-center">
               <MdWork className="text-xl" />
               <span className="ml-2">My Posted Job</span>
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="mb-2">
             <Link to="/dashboard/addJob" className="flex items-center">
               <MdPostAdd className="text-xl" />
               <span className="ml-2">Post a Job</span>
             </Link>
           </li>
-
-          <li className="mb-4">
+          <li>
+            <Link to="/chat" className="flex items-center">
+              <BsChatDots className="text-xl" />
+              <span className="ml-2">Chat</span>
+            </Link>
+          </li>
+          <li className="mb-2">
             <Link to="/dashboard/appliedJob" className="flex items-center">
               <SiJamboard className="text-xl" />
               <span className="ml-2">Applied Job</span>
             </Link>
           </li>
 
-          <li className="mb-4">
+          <li className="mb-2">
             <Link to="/dashboard" className="flex items-center">
               <MdMessage className="text-xl" />
               <span className="ml-2">Responses</span>
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="mb-2">
             <Link to="/dashboard/refer" className="flex items-center">
               <BsPeople className="text-xl" />
               <span className="ml-2">Referred People</span>
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="mb-2">
             <Link to="/dashboard/profile" className="flex items-center">
               <MdAccountCircle className="text-xl" />
               <span className="ml-2">Profile</span>
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="mb-2">
             <Link to={`paymentDetails/${authUser._id}`} className="flex items-center">
               <MdPayments className="text-xl" />
               <span className="ml-2">Payment Details</span>
             </Link>
           </li>
           {admin && (
-            <li className="mb-4">
+            <li className="mb-2">
               <Link
                 to="/dashboard/adjustvariable"
                 className="flex items-center"
@@ -102,7 +107,7 @@ const DashboardSidebar = () => {
             </li>
           )}
           {admin && (
-            <li className="mb-4">
+            <li className="mb-2">
               <Link to="/dashboard/wordPerCost" className="flex items-center">
                 <GrLanguage className="text-xl" />
                 <span className="ml-2">Language Word/Cost</span>
@@ -110,7 +115,7 @@ const DashboardSidebar = () => {
             </li>
           )}
           {admin && (
-            <li className="mb-4">
+            <li className="mb-2">
               <Link to="/dashboard/makeadmin" className="flex items-center">
                 <GrUserAdmin className="text-xl" />
                 <span className="ml-2">Make Admin</span>
@@ -128,6 +133,7 @@ const DashboardSidebar = () => {
               <span className="ml-2">Home</span>
             </Link>
           </li>
+         
           <li>
             <Link to="/dashboard" className="flex items-center">
               <MdLogout className="text-xl" />
