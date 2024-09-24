@@ -1,6 +1,6 @@
 import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
-
+import cover from "../../assets/cover.png";
 const Conversation = ({ conversation, lastIdx, emoji }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
@@ -15,7 +15,13 @@ const Conversation = ({ conversation, lastIdx, emoji }) => {
       >
         <div className={`avatar ${isOnline ? "online" : ""}`}>
           <div className="w-12 rounded-full">
-            <img src={conversation?.profilePic} alt="user avatar" />
+            <img src={conversation?.profilePic} alt="user avatar"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = cover;
+              }
+              }
+            />
           </div>
         </div>
 

@@ -6,6 +6,7 @@ import { AiFillPicture, AiOutlineMail } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../../../context/AuthContext";
 import { HiIdentification } from "react-icons/hi";
+import cover from "../../../assets/cover.png";
 import APP_URL from "../../../../APP_URL";
 const ReferredPeople = () => {
   const { authUser } = useAuthContext();
@@ -127,6 +128,11 @@ const ReferredTable = () => {
                         <img
                           src={user?.profilePic}
                           alt={`${user?.fullName}'s Avatar`}
+                          title={`${user?.fullName}'s Avatar`}
+                          onError={(e) => {
+                            e.target.src = cover;
+                          }
+                          }
                         />
                       </div>
                     </div>
@@ -195,20 +201,20 @@ const ReferLink = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ refereeEmail:email, link , referrerName: authUser?.fullName }),
+          body: JSON.stringify({ refereeEmail: email, link, referrerName: authUser?.fullName }),
         });
         const data = await res.json();
-          toast.success("Email sent successfully");
-          // clear the input field
-          
-          setEmail("");
-     
+        toast.success("Email sent successfully");
+        // clear the input field
+
+        setEmail("");
+
       } catch (error) {
         console.log(error);
       }
     };
     sendEmail();
-  
+
   };
   const handleCopyClick = () => {
     navigator.clipboard.writeText(link);

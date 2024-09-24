@@ -11,6 +11,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { AiFillPicture } from "react-icons/ai";
 import toast from "react-hot-toast";
+import cover from "../../../assets/cover.png";
 import { useAuthContext } from "../../../context/AuthContext";
 import APP_URL from "../../../../APP_URL";
 const MakeAdmin = () => {
@@ -128,6 +129,12 @@ const MakeAdmin = () => {
                         <img
                           src={user?.profilePic}
                           alt={`${user?.fullName}'s Avatar`}
+                          title={`${user?.fullName}'s Avatar`}
+                          onError={(e) => {
+                            e.target.src = cover;
+
+                          }
+                          }
                         />
                       </div>
                     </div>
