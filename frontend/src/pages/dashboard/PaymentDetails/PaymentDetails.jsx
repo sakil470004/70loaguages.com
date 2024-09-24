@@ -91,6 +91,13 @@ const PaymentDetails = () => {
                                 </tr>
                             ))
                             }
+                            {
+                                payments.length === 0 && (
+                                    <tr>
+                                        <td colSpan="3" className="text-center font-bold text-red-500 py-2">No payment history</td>
+                                    </tr>
+                                )
+                            }
                         </tbody>
                     </table>
                 </div>
