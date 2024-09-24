@@ -47,10 +47,12 @@
 ### Frontend
 1. Change the `APP_URL` file to the backend link if needed.
 2. Navigate to the frontend directory:
+3. install dependency
+4. Now, run build command
    ```sh
    cd frontend
    npm install
-   npm run dev
+   npm run build
    ```
 
 ### Backend
