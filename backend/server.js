@@ -1,4 +1,4 @@
-// import path from "path";
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -26,7 +26,7 @@ import cors from "cors";
 app.use(cors());
 
 //  it will give the current root directory name
-// const __dirname = path.resolve();
+const __dirname = path.resolve();
 
 dotenv.config();
 
@@ -46,14 +46,14 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-app.get("/", (req, res) => {
-  // root route
-  res.send(`Root API is running.... ${PORT}`);
-});
-app.get("/check", (req, res) => {
-  // root route
-  res.send(`Check API is running.... ${PORT}`);
-});
+// app.get("/", (req, res) => {
+//   // root route
+//   res.send(`Root API is running.... ${PORT}`);
+// });
+// app.get("/check", (req, res) => {
+//   // root route
+//   res.send(`Check API is running.... ${PORT}`);
+// });
 // for initial payment
 
 const stripe = new Stripe(process.env.PAYMENT_SECRET_KEY);
@@ -112,12 +112,12 @@ app.use("/api/notification", notification);
 app.use("/api/payment", paymentRoutes);
 
 // static files in production remove for vercel
-// app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 // // any file without the routes above will be served from the frontend/dist folder
 // // redirect backend server to frontend server
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname,"..", "frontend", "dist", "index.html"));
+});
 
 server.listen(PORT, () => {
   connectToMongoDB();

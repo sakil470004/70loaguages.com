@@ -133,12 +133,17 @@ const DashboardSidebar = () => {
               <span className="ml-2">Home</span>
             </Link>
           </li>
-         
+
           <li>
-            <Link to="/dashboard" className="flex items-center">
+            <button onClick={
+              () => {
+                localStorage.removeItem("chat-user")
+                window.location.href = "/"
+              }
+            } className="flex items-center">
               <MdLogout className="text-xl" />
               <span className="ml-2">Logout</span>
-            </Link>
+            </button>
           </li>
         </div>
       </ul>
