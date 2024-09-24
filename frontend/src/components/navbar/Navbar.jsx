@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo.png";
+import cover from "../../assets/cover.png";
 
 import { useAuthContext } from "../../context/AuthContext";
 import LogoutButton from "../sidebar/LogoutButton";
@@ -214,7 +215,13 @@ const Navbar = () => {
                 onClick={handleProfile}
                 className="w-12 rounded-full border-2 border-black group-hover:border-yellow-300"
               >
-                <img src={authUser?.profilePic || "/public/placeholder.jpg"} />
+                <img src={authUser?.profilePic || cover}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = cover;
+                  }
+                  }
+                />
               </div>
             </div>
           </>

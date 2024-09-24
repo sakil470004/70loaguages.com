@@ -3,7 +3,7 @@ import { FaPlusCircle, FaMinusCircle, FaSave } from "react-icons/fa";
 import APP_URL from "../../../../APP_URL";
 import { useAuthContext } from "../../../context/AuthContext";
 import toast from "react-hot-toast";
-
+import cover from "../../../assets/cover.png";
 const UserProfile = () => {
   const { authUser } = useAuthContext();
   const userId = authUser._id;
@@ -159,7 +159,12 @@ const UserProfile = () => {
       </div>
       <div>
         <img
-          src={userData?.profilePic || "/images/default-profile.jpg"}
+          src={userData?.profilePic }
+          onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = cover;
+                  }
+                  }
           alt="User Profile"
           className="w-full h-full object-cover"
         />
