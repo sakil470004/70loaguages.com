@@ -39,6 +39,31 @@ const userSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    // language proficiency type array and default value is empty array
+    languageProficiency: [
+      {
+        type: String,
+        default: [],
+      },
+    ],
+    // translation year of experience type number and default value is 0
+    translationYearOfExperience: {
+      type: Number,
+      default: 0,
+    },
+    // certification type array of object and default value is empty array
+    certification: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        year: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
 
     // for commission based system
     referredBy: {
