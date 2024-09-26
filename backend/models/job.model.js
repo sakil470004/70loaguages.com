@@ -11,6 +11,14 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+// source language name
+// note : need to remove default value after db update
+    sourceLanguageName: {
+      type: String,
+      required: true,
+      default: "english",
+    },
+
     languageName: {
       type: String,
       required: true,

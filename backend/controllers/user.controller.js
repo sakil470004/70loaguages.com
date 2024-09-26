@@ -160,7 +160,7 @@ export const updateUser = async (req, res) => {
 export const getAllUserForRefresh = async (req, res) => {
   try {
     const allUsers = await User.find();
-    console.log(allUsers);
+    // console.log(allUsers);
     res.status(200).json(allUsers);
   } catch (error) {
     console.log("Error in user controller", error.message);
@@ -178,6 +178,18 @@ export const addAllThePrevUser = async (req, res) => {
       .json({ message: "All users added successfully", data: result });
   } catch (error) {
     console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+// delete all user
+export const deleteAllUsers = async (req, res) => {
+  try {
+    // delete all users
+    const result = await User.deleteMany();
+    res.status(200).json({ message: "All users deleted successfully" ,result});
+    
+  } catch (error) {
+    console.log("Error in user controller on delete all user", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

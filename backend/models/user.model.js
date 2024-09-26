@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 // filed and it's default value
 // fullName
 // username
@@ -27,65 +28,60 @@ const userSchema = new mongoose.Schema(
       required: true,
       enum: ["male", "female"],
     },
-
     profilePic: {
       type: String,
       default: "",
     },
-    //  language type array and default value is empty array
-    languages: [
-      {
-        type: String,
-        default: [],
-      },
-    ],
+    // language type array and default value is empty array
+    languages: {
+      type: [String],
+      default: [],
+    },
     // language proficiency type array and default value is empty array
-    languageProficiency: [
-      {
-        type: String,
-        default: [],
-      },
-    ],
+    languageProficiency: {
+      type: [String],
+      default: [],
+    },
     // translation year of experience type number and default value is 0
     translationYearOfExperience: {
       type: Number,
       default: 0,
     },
     // certification type array of object and default value is empty array
-    certification: [
-      {
-        name: {
-          type: String,
-          required: true,
+    certification: {
+      type: [
+        {
+          title: {
+            type: String,
+            required: true,
+          },
+          year: {
+            type: Number,
+            required: true,
+          },
         },
-        year: {
-          type: Number,
-          required: true,
-        },
-      },
-    ],
-
+      ],
+      default: [],
+    },
     // for commission based system
     referredBy: {
       type: mongoose.Schema.Types.ObjectId,
-      userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
+      ref: "User",
       default: null,
     },
-    commissions: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        default: [],
-      },
-    ],
+    commissions: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+      default: [],
+    },
     admin: {
       type: Boolean,
       default: false,
     },
-    // createdAt, updatedAt => Member since <createdAt>
   },
   { timestamps: true }
 );
