@@ -11,12 +11,18 @@ import toast from "react-hot-toast";
 
 const LanguageWordPerCost = () => {
   const [languageCosts, setLanguageCosts] = useState([]);
+  const [languages, setLanguages] = useState([]); // New state to hold languages
 
   // Fetch all language costs when component mounts
   useEffect(() => {
     fetch(`${APP_URL}/api/languagecost/all`)
       .then((res) => res.json())
       .then((data) => setLanguageCosts(data));
+
+    // Fetch all languages for dropdown
+    fetch(`${APP_URL}/api/languageManagement/getAllLanguage`)
+      .then((res) => res.json())
+      .then((data) => setLanguages(data)); // Assuming the API returns a list of language objects
   }, []);
 
   const [editingId, setEditingId] = useState(null);
@@ -33,7 +39,7 @@ const LanguageWordPerCost = () => {
   const handleEdit = (language) => {
     setEditingId(language._id);
     setEditData({
-      languageName: language.languageName,
+      languageName: language.languageName.toLowerCase(),
       languageCost: language.languageCost,
     });
   };
@@ -61,10 +67,10 @@ const LanguageWordPerCost = () => {
             prevData.map((lang) =>
               lang._id === id
                 ? {
-                    ...lang,
-                    languageName: editData.languageName,
-                    languageCost: editData.languageCost,
-                  }
+                  ...lang,
+                  languageName: editData.languageName,
+                  languageCost: editData.languageCost,
+                }
                 : lang
             )
           );
@@ -106,17 +112,16 @@ const LanguageWordPerCost = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message==="Language Cost Added") {
+        if (data.message === "Language Cost Added") {
           setLanguageCosts((prevData) => [...prevData, data?._doc]);
           setNewLanguageData({
             languageName: "",
             languageCost: 0,
           });
           toast.success(data.message);
-        }else if(data.message==="Language Cost Already Exist"){
-            toast.error("Language Cost Already Exist");
-        } 
-        else {
+        } else if (data.message === "Language Cost Already Exist") {
+          toast.error("Language Cost Already Exist Edit existing one");
+        } else {
           toast.error("Failed to add new language cost");
         }
       })
@@ -127,7 +132,7 @@ const LanguageWordPerCost = () => {
   };
 
   return (
-    <div className="min-h-screenp-6">
+    <div className="min-h-screen p-6">
       <div className="container mx-auto">
         <h1 className="text-4xl font-extrabold mb-10 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-500">
           Language Costs Management
@@ -153,22 +158,10 @@ const LanguageWordPerCost = () => {
                   key={language?._id}
                   className={`hover:bg-gray-100 ${idx % 2 ? "bg-gray-50" : ""}`}
                 >
-                  <td className="p-4 border-b text-gray-800">
-                    {editingId === language?._id ? (
-                      <input
-                        type="text"
-                        value={editData?.languageName}
-                        onChange={(e) =>
-                          setEditData({
-                            ...editData,
-                            languageName: e.target.value,
-                          })
-                        }
-                        className="border rounded px-2 py-1 focus:ring-2 focus:ring-blue-300"
-                      />
-                    ) : (
-                      language?.languageName
-                    )}
+                  <td className="p-4 uppercase border-b text-gray-800">
+
+                    {language?.languageName}
+
                   </td>
                   <td className="p-4 border-b text-gray-800">
                     {editingId === language?._id ? (
@@ -232,8 +225,8 @@ const LanguageWordPerCost = () => {
             Add New Language Cost
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
+            {/* Dropdown for Language Selection */}
+            <select
               value={newLanguageData.languageName}
               onChange={(e) =>
                 setNewLanguageData({
@@ -241,9 +234,16 @@ const LanguageWordPerCost = () => {
                   languageName: e.target.value,
                 })
               }
-              placeholder="Language Name"
               className="border rounded w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
-            />
+            >
+              <option value="">Select Language</option>
+              {languages.map((lang) => (
+                <option key={lang._id} value={lang?.englishName}>
+                  {lang?.englishName} - {lang?.nativeName}
+                </option>
+              ))}
+            </select>
+
             <input
               type="number"
               value={newLanguageData.languageCost}

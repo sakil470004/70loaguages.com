@@ -154,10 +154,10 @@ const LanguageManagement = () => {
                 </h1>
 
                 {/* Table Section */}
-                <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
-                    <table className="w-full overflow-auto table-auto border-collapse">
-                        <thead>
-                            <tr className="bg-gradient-to-r from-blue-500 to-teal-500 text-white">
+                <div className="bg-white  max-h-[450px] overflow-auto  shadow-lg rounded-lg p-6 mb-8">
+                    <table className="w-full sm:table-auto lg:table-fixed  border-collapse ">
+                        <thead className="">
+                            <tr className=" w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white">
                                 <th className="border-b p-4 text-left font-medium">Language Code</th>
                                 <th className="border-b p-4 text-left font-medium">English & Native Name</th>
 
@@ -166,7 +166,7 @@ const LanguageManagement = () => {
                                 <th className="border-b p-4 text-center font-medium">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                             {languages.map((language, idx) => (
                                 <tr key={language?._id} className={`hover:bg-gray-100 ${idx % 2 ? "bg-gray-50" : ""}`}>
                                     <td className="p-4 border-b text-gray-800">
@@ -258,7 +258,7 @@ const LanguageManagement = () => {
                                             language?.countryCodes.join(", ")
                                         )}
                                     </td>
-                                    <td className="p-4 border-b text-center">
+                                    <td className="p-4 border-b text-center flex justify-center items-center">
                                         {editingId === language?._id ? (
                                             <>
                                                 <button
