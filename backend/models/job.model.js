@@ -11,8 +11,8 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-// source language name
-// note : need to remove default value after db update
+    // source language name
+    // note : need to remove default value after db update
     sourceLanguageName: {
       type: String,
       required: true,
@@ -33,6 +33,23 @@ const jobSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    // const Complexity level "basic", "intermediate", "advanced"
+    complexityLevel: {
+      type: String,
+      required: true,
+      enum: ["basic", "intermediate", "advanced"],
+    },
+    // required certification boolean
+    requiredCertification: {
+      type: Boolean,
+      required: true,
+    },
+    category:{
+      type: String,
+      required: true,
+      default: "General",
+    },
+
     deadline: {
       type: Date,
       required: true,

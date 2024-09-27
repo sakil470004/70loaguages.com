@@ -1,11 +1,12 @@
 import { MdOutlineWork, MdAccessTime, MdLanguage } from "react-icons/md";
-import { FaMoneyBillWave, FaArrowLeft } from "react-icons/fa";
+import { FaMoneyBillWave, FaArrowLeft, FaCertificate } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../../components/navbar/Navbar";
-import { useState, useEffect } from "react";
-import { BsPeople } from "react-icons/bs";
+import { BsPeople, BsCardChecklist } from "react-icons/bs";
 import { SiStatuspage } from "react-icons/si";
+import { IoMdOptions } from "react-icons/io";
+import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import { useState, useEffect } from "react";
 import APP_URL from "../../../APP_URL";
 import { useAuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
@@ -14,7 +15,8 @@ const JobDetails = ({ job }) => {
   const [disabled, setDisabled] = useState(false);
   const { authUser } = useAuthContext();
   const navigate = useNavigate();
-  // update job here add takerId to job
+
+  // Update job here: add takerId to job
   const handleAppliedJob = () => {
     if (authUser._id === job.posterId) {
       return;
@@ -33,11 +35,12 @@ const JobDetails = ({ job }) => {
           toast.error("Job not found");
           return;
         }
-        // send notification to poster
+
+        // Send notification to poster
         const newNotification = {
           userId: job.posterId,
-          title: `User ${authUser.username} has accept your job `,
-          message: `User ${authUser.username} has applied for your job which title is "${job.title}"`,
+          title: `User ${authUser.username} has accepted your job`,
+          message: `User ${authUser.username} has applied for your job titled "${job.title}"`,
         };
         fetch(`${APP_URL}/api/notification/create/`, {
           method: "POST",
@@ -45,17 +48,14 @@ const JobDetails = ({ job }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newNotification),
-        })
-          .then((res) => res.json())
-          .then((data) =>toast.success(data.message)),
-          
+        }).then((res) => res.json()).then((data) => toast.success(data.message));
+
         navigate(-1);
       });
   };
 
   useEffect(() => {
     if (job.takerId === authUser._id) {
-      // console.log("job taker id", job.takerId, authUser._id);
       setDisabled(true);
     }
     if (job.status === "Closed") {
@@ -65,11 +65,12 @@ const JobDetails = ({ job }) => {
       setDisabled(true);
     }
   }, [job, authUser._id]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-50 to-pink-100 ">
-      <div className="container mx-auto ">
+    <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-50 to-pink-100">
+      <div className="container mx-auto">
         <Navbar className="bg-inherit" />
-        <div className="  p-5 my-5 ">
+        <div className="p-5 my-5">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <button
               onClick={() => navigate(-1)}
@@ -89,11 +90,34 @@ const JobDetails = ({ job }) => {
               </p>
             </div>
             <div className="space-y-6">
+            <div className="flex items-center text-gray-700">
+                <MdLanguage className="text-3xl text-blue-600 mr-3" />
+                <span className="text-xl">
+                  Source Language: {job.sourceLanguageName}
+                </span>
+              </div>
+              
               <div className="flex items-center text-gray-700">
                 <MdLanguage className="text-3xl text-green-600 mr-3" />
                 <span className="text-xl">
-                  {job.languageName} - ${job.languageCost}/word
+              Target Language:{job.languageName} - ${job.languageCost}/word
                 </span>
+              </div>
+              <div className="flex items-center text-gray-700">
+                <IoMdOptions className="text-3xl text-yellow-600 mr-3" />
+                <span className="text-xl">
+                  Complexity Level: {job.complexityLevel}
+                </span>
+              </div>
+              <div className="flex items-center text-gray-700">
+                <FaCertificate className="text-3xl text-red-600 mr-3" />
+                <span className="text-xl">
+                  Required Certification: {job.requiredCertification ? "Yes" : "No"}
+                </span>
+              </div>
+              <div className="flex items-center text-gray-700">
+                <BsCardChecklist className="text-3xl text-purple-600 mr-3" />
+                <span className="text-xl">Category: {job.category}</span>
               </div>
               <div className="flex items-center text-gray-700">
                 <MdAccessTime className="text-3xl text-yellow-600 mr-3" />
@@ -138,10 +162,7 @@ const ViewJobPage = () => {
   useEffect(() => {
     fetch(`${APP_URL}/api/job/getCurrentJob/${id}`)
       .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setJob(data);
-      });
+      .then((data) => setJob(data));
   }, [id]);
 
   return <JobDetails job={job} />;
