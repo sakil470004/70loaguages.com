@@ -12,6 +12,8 @@ const languagecostSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      // need lowercase to search
+      lowercase: true,
     },
     languageCost: {
       type: Number,

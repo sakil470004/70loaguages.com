@@ -12,6 +12,7 @@ import jobRoutes from "./routes/job.routes.js";
 import languageCostRoutes from "./routes/languagecost.routes.js";
 import notification from "./routes/notification.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
+import languageManagement from "./routes/languageManagement.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
@@ -110,6 +111,7 @@ app.use("/api/job", jobRoutes);
 app.use("/api/languagecost", languageCostRoutes);
 app.use("/api/notification", notification);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/languageManagement", languageManagement);
 
 // static files in production remove for vercel
 app.use(express.static(path.join(__dirname, "../frontend/dist")));

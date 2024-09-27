@@ -19,11 +19,16 @@ export const getAllNotificationsForCurrentUser = async (req, res) => {
 };
 // Create a new notification for the current user
 export const createNotification = async (req, res) => {
-  const newNotification = req.body;
+  try {
+    const newNotification = req.body;
 
-  const notification = await Notification.create(newNotification);
+    const notification = await Notification.create(newNotification);
 
-  res.status(201).json(notification);
+    res.status(201).json(notification);
+  } catch (error) {
+    console.log("Error in createNotification", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 // Delete a specific notification for the current user

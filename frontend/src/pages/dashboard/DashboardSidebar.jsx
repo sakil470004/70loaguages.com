@@ -116,6 +116,14 @@ const DashboardSidebar = () => {
           )}
           {admin && (
             <li className="mb-2">
+              <Link to="/dashboard/languageManagement" className="flex items-center">
+                <GrLanguage className="text-xl" />
+                <span className="ml-2">Language Management</span>
+              </Link>
+            </li>
+          )}
+          {admin && (
+            <li className="mb-2">
               <Link to="/dashboard/makeadmin" className="flex items-center">
                 <GrUserAdmin className="text-xl" />
                 <span className="ml-2">Make Admin</span>
