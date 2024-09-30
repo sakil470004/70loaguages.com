@@ -13,7 +13,7 @@ const UserProfile = () => {
     { value: "intermediate", label: "Intermediate", color: "bg-yellow-500 text-white" },
     { value: "advanced", label: "Advanced", color: "bg-green-500 text-white" },
   ];
-  const proficiencyColors={
+  const proficiencyColors = {
     basic: "bg-red-500 text-white",
     intermediate: "bg-yellow-500 text-white",
     advanced: "bg-green-500 text-white",
@@ -25,6 +25,7 @@ const UserProfile = () => {
     languages: [],
     languageProficiency: [],
     translationYearOfExperience: 0,
+    availability: true,
   });
 
   const [newLanguages, setNewLanguages] = useState([{ language: "", proficiency: "" }]);
@@ -43,6 +44,7 @@ const UserProfile = () => {
           languageProficiency: data.languageProficiency,
           translationYearOfExperience: data.translationYearOfExperience,
           profilePic: data.profilePic,
+          availability: data.availability,
         });
 
         if (data.languages && data.languageProficiency) {
@@ -54,8 +56,7 @@ const UserProfile = () => {
         }
       });
   }, [userId]);
-
-  // Add new language input
+  
   const handleAddLanguageInput = () => {
     setNewLanguages([...newLanguages, { language: "", proficiency: "" }]);
   };
@@ -142,42 +143,42 @@ const UserProfile = () => {
         </div>
 
         <div className="mb-6">
-        <label className="block text-sm font-semibold text-gray-700">
-          Languages and Proficiency
-        </label>
-        {newLanguages.map((langObj, index) => (
-          <div key={index} className="mb-3">
-            <div className="flex items-center space-x-3 mb-2">
-              <input
-                type="text"
-                value={langObj.language}
-                onChange={(e) => handleLanguageChange(index, "language", e.target.value)}
-                placeholder="Enter a language"
-                className="flex-grow block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none"
-              />
-              <select
-                value={langObj.proficiency}
-                onChange={(e) => handleLanguageChange(index, "proficiency", e.target.value)}
-                className={`flex-grow block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none ${proficiencyColors[langObj.proficiency]?? proficiencyColors.basic}`}
-              >
-                {proficiencyOptions.map((option) => (
-                  <option key={option?.value} className={`${option?.color}`} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              {newLanguages.length > 1 && (
-                <button onClick={() => handleRemoveLanguageInput(index)} className="text-red-500 hover:text-red-700">
-                  <FaMinusCircle size={22} />
-                </button>
-              )}
+          <label className="block text-sm font-semibold text-gray-700">
+            Languages and Proficiency
+          </label>
+          {newLanguages.map((langObj, index) => (
+            <div key={index} className="mb-3">
+              <div className="flex items-center space-x-3 mb-2">
+                <input
+                  type="text"
+                  value={langObj.language}
+                  onChange={(e) => handleLanguageChange(index, "language", e.target.value)}
+                  placeholder="Enter a language"
+                  className="flex-grow block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none"
+                />
+                <select
+                  value={langObj.proficiency}
+                  onChange={(e) => handleLanguageChange(index, "proficiency", e.target.value)}
+                  className={`flex-grow block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none ${proficiencyColors[langObj.proficiency] ?? proficiencyColors.basic}`}
+                >
+                  {proficiencyOptions.map((option) => (
+                    <option key={option?.value} className={`${option?.color}`} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                {newLanguages.length > 1 && (
+                  <button onClick={() => handleRemoveLanguageInput(index)} className="text-red-500 hover:text-red-700">
+                    <FaMinusCircle size={22} />
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
-        <button onClick={handleAddLanguageInput} className="mt-3 text-blue-500 hover:text-blue-700 flex items-center">
-          <FaPlusCircle size={22} className="mr-2" /> Add another language
-        </button>
-      </div>
+          ))}
+          <button onClick={handleAddLanguageInput} className="mt-3 text-blue-500 hover:text-blue-700 flex items-center">
+            <FaPlusCircle size={22} className="mr-2" /> Add another language
+          </button>
+        </div>
 
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-700">
@@ -191,6 +192,13 @@ const UserProfile = () => {
             }
             className="mt-2 block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none"
           />
+        </div>
+        <div className="my-2 flex gap-4">
+          <label htmlFor="profileavailability" className="select-none font-bold text-xl cursor-pointer" >Availability
+          </label>
+          <input id="profileavailability" type="checkbox" className="toggle toggle-success" value={userData?.availability} onChange={(e) => {
+            setUserData({ ...userData, availability: e.target.checked })
+          }} />
         </div>
 
         <button

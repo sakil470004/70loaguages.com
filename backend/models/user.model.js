@@ -47,6 +47,11 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    // user availability is boolean and default value is false
+    availability: {
+      type: Boolean,
+      default: true,
+    },
     // certification type array of object and default value is empty array
     certification: {
       type: [

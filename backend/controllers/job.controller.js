@@ -78,6 +78,8 @@ export const addJob = async (req, res) => {
     });
     // console.log(users);
     users.forEach(async (user) => {
+      if (user._id.toString() === posterId.toString()) return;
+      if (user.availability === false) return;
       let notification = new Notification({
         userId: user._id,
         title,

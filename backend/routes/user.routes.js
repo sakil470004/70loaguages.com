@@ -26,9 +26,9 @@ router.put("/updateUser/:userId", updateUser);
 // note this is testing route
 // // special case for what to change model
 // router.get("/getAllUsers", getAllUserForRefresh);
-// // this route is used to add all the previous user 
+// // // this route is used to add all the previous user 
 // router.post("/addAllThePrevUser", addAllThePrevUser);
-// // delete all users 
+// // // delete all users 
 // router.delete("/deleteAllUsers", deleteAllUsers);
 //note finish testing route
 
