@@ -83,6 +83,11 @@ const userSchema = new mongoose.Schema(
       ],
       default: [],
     },
+    // tier it number and default value is 1 means basic user=> tier 1
+    tier: {
+      type: Number,
+      default: 1,
+    },
     admin: {
       type: Boolean,
       default: false,

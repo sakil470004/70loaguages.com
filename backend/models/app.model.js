@@ -21,6 +21,22 @@ const appSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    // how many person need to go for tier 1
+    tier1: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    tier2: {
+      type: Number,
+      required: true,
+      default: 1,
+    },
+    tier3: {
+      type: Number,
+      required: true,
+      default: 1,
+    },
   },
   { timestamps: true }
 );
