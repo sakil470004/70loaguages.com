@@ -21,22 +21,66 @@ const appSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    // how many person need to go for tier 1
+    //  tier1 is object is has commission and number of user
     tier1: {
-      type: Number,
-      required: true,
-      default: 0,
+      commission: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      numberOfUser: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
     },
+    //  tier2 is object is has commission and number of user
     tier2: {
-      type: Number,
-      required: true,
-      default: 1,
+      commission: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      numberOfUser: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
     },
+    //  tier3 is object is has commission and number of user
     tier3: {
-      type: Number,
-      required: true,
-      default: 1,
+      commission: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      numberOfUser: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
     },
+    // sale Rep Commission 
+    saleRepCommission: {
+      initialCommission: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      midTimeCommission: {
+        type: Number,
+        required: true,
+        default: 0,
+      }
+      ,
+      finalCommission: {
+        type: Number,
+        required: true,
+        default: 0,
+      }
+      
+    },
+    // 
   },
   { timestamps: true }
 );
