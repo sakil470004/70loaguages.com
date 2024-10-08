@@ -41,7 +41,7 @@ const AudioTranscription = () => {
             });
 
             // Log the transcription text in the console
-            console.log(transcription.text);
+            setTranscription(transcription.text||"Erorr in transcription");
             toast.success("Transcription completed! Check console for text.");
         } catch (error) {
             toast.error("Error during transcription.");

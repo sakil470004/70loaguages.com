@@ -3,9 +3,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import nodemailer from "nodemailer";
-import fs from "fs";
-import OpenAI from "openai";
-import multer from "multer";
+// import fs from "fs";
+// import OpenAI from "openai";
+// import multer from "multer";
 import cors from "cors";
 import Stripe from "stripe";
 
@@ -30,39 +30,39 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-// Initialize the OpenAI client
-const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
-// Multer setup for handling file uploads
-const upload = multer({ dest: "uploads/" });
+// // Initialize the OpenAI client
+// const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
+// // Multer setup for handling file uploads
+// const upload = multer({ dest: "uploads/" });
 
 // Route for transcribing audio files using OpenAI's Whisper model
-app.post("/transcribe", upload.single("audio"), async (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No audio file provided." });
-  }
+// app.post("/transcribe", upload.single("audio"), async (req, res) => {
+//   if (!req.file) {
+//     return res.status(400).json({ error: "No audio file provided." });
+//   }
 
-  const audioFilePath = req.file.path;
+//   const audioFilePath = req.file.path;
 
-  try {
-    // Use OpenAI's Whisper API to transcribe the audio
-    const transcription = await openai.audio.transcriptions.create({
-      file: fs.createReadStream(audioFilePath),
-      model: "whisper-1",
-    });
+//   try {
+//     // Use OpenAI's Whisper API to transcribe the audio
+//     const transcription = await openai.audio.transcriptions.create({
+//       file: fs.createReadStream(audioFilePath),
+//       model: "whisper-1",
+//     });
 
-    // Return the transcription result to the client
-    await console.log("Transcription:", transcription);
-    res.status(200).json({ transcription: transcription.text });
-  } catch (error) {
-    console.error("Error processing transcription:", error.message || error);
-    res.status(500).json({ error: "Error processing transcription." });
-  } finally {
-    // Clean up the uploaded file after processing
-    fs.unlink(audioFilePath, (err) => {
-      if (err) console.error("Failed to delete temp file:", err);
-    });
-  }
-});
+//     // Return the transcription result to the client
+//     await console.log("Transcription:", transcription);
+//     res.status(200).json({ transcription: transcription.text });
+//   } catch (error) {
+//     console.error("Error processing transcription:", error.message || error);
+//     res.status(500).json({ error: "Error processing transcription." });
+//   } finally {
+//     // Clean up the uploaded file after processing
+//     fs.unlink(audioFilePath, (err) => {
+//       if (err) console.error("Failed to delete temp file:", err);
+//     });
+//   }
+// });
 
 // Payment intent creation route using Stripe
 const stripe = new Stripe(process.env.PAYMENT_SECRET_KEY);
