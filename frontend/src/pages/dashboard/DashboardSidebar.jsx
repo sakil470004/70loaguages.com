@@ -7,7 +7,7 @@ import {
   MdHome,
   MdPayments,
 } from "react-icons/md";
-import { GrLanguage, GrUserAdmin } from "react-icons/gr";
+import { GrLanguage, GrUserAdmin, GrVirtualMachine } from "react-icons/gr";
 import { BsChatDots, BsPeople, BsWrenchAdjustableCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
@@ -87,6 +87,12 @@ const DashboardSidebar = () => {
             <Link to="/dashboard/profile" className="flex items-center">
               <MdAccountCircle className="text-xl" />
               <span className="ml-2">Profile</span>
+            </Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/dashboard/aiTranscription" className="flex items-center">
+              <GrVirtualMachine className="text-xl" />
+              <span className="ml-2">AI Translation</span>
             </Link>
           </li>
           <li className="mb-2">

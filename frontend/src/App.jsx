@@ -20,6 +20,7 @@ import UserProfile from "./pages/dashboard/UserProfile/UserProfile";
 import AppliedJob from "./pages/dashboard/AppliedJob/AppliedJob";
 import PaymentDetails from "./pages/dashboard/PaymentDetails/PaymentDetails";
 import LanguageManagement from "./pages/dashboard/LanguageManagement/LanguageManagement";
+import AudioTranscription from "./pages/dashboard/AITranscription/AITranscription";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -74,6 +75,7 @@ function App() {
           <Route path="appliedJob" element={<AppliedJob />} />
           <Route path="paymentDetails/:userId" element={<PaymentDetails />} />
           <Route path="languageManagement" element={<LanguageManagement />} />
+          <Route path="aiTranscription" element={<AudioTranscription />} />
         </Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
