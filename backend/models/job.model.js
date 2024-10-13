@@ -43,6 +43,7 @@ const jobSchema = new mongoose.Schema(
     requiredCertification: {
       type: Boolean,
       required: true,
+      default: false,
     },
     category:{
       type: String,

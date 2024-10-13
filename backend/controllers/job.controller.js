@@ -78,12 +78,22 @@ export const addJob = async (req, res) => {
     });
     // console.log(users);
     users.forEach(async (user) => {
-      if (user._id.toString() === posterId.toString()) return;
+      // remove notification for the user who posted the job
+      // if (user._id.toString() === posterId.toString()) return;
+      // remove notification for the user who availability is false
       if (user.availability === false) return;
+      // remove notification for the user who don't have certification if certification is required
+      if (job?.requiredCertification) {
+        if (user?.certification.length === 0) return;
+      }
+      // match language proficiency
+      if (!user.languageProficiency.includes(job.complexityLevel)) return;
+
       let notification = new Notification({
         userId: user._id,
         title,
         message,
+        link: "/jobDetail/" + newJob._id
       });
       await notification.save();
     });
