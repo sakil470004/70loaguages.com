@@ -8,6 +8,7 @@ import cover from "../../../assets/cover.png";
 const UserProfile = () => {
   const { authUser } = useAuthContext();
   const userId = authUser._id;
+
   const proficiencyOptions = [
     { value: "basic", label: "Basic", color: "bg-red-500 text-white" },
     { value: "intermediate", label: "Intermediate", color: "bg-yellow-500 text-white" },
@@ -17,7 +18,8 @@ const UserProfile = () => {
     basic: "bg-red-500 text-white",
     intermediate: "bg-yellow-500 text-white",
     advanced: "bg-green-500 text-white",
-  }
+  };
+
   const [userData, setUserData] = useState({
     fullName: "",
     username: "",
@@ -26,10 +28,11 @@ const UserProfile = () => {
     languageProficiency: [],
     translationYearOfExperience: 0,
     availability: true,
+    certification: [],
   });
 
   const [newLanguages, setNewLanguages] = useState([{ language: "", proficiency: "" }]);
-
+  const [newCertificates, setNewCertificates] = useState([{ title: "", year: "" }]);
 
   // Fetch user data on component mount
   useEffect(() => {
@@ -45,6 +48,7 @@ const UserProfile = () => {
           translationYearOfExperience: data.translationYearOfExperience,
           profilePic: data.profilePic,
           availability: data.availability,
+          certification: data.certification || [], // Initialize certification
         });
 
         if (data.languages && data.languageProficiency) {
@@ -54,14 +58,18 @@ const UserProfile = () => {
           }));
           setNewLanguages(languagesWithProficiency.length ? languagesWithProficiency : [{ language: "", proficiency: "" }]);
         }
+        console.log(data);
+        // Set certificate data
+        if (data.certification) {
+          setNewCertificates(data.certification.length ? data.certification : [{ title: "", year: "" }]);
+        }
       });
   }, [userId]);
-  
+
   const handleAddLanguageInput = () => {
     setNewLanguages([...newLanguages, { language: "", proficiency: "" }]);
   };
 
-  // Remove a language input
   const handleRemoveLanguageInput = (index) => {
     const updatedLanguages = newLanguages.filter((_, i) => i !== index);
     setNewLanguages(updatedLanguages);
@@ -73,20 +81,34 @@ const UserProfile = () => {
     setNewLanguages(updatedLanguages);
   };
 
-  // Handle profile update, converting proficiency to strings before sending
+  const handleAddCertificate = () => {
+    setNewCertificates([...newCertificates, { title: "", year: "" }]);
+  };
+
+  const handleRemoveCertificate = (index) => {
+    const updatedCertificates = newCertificates.filter((_, i) => i !== index);
+    setNewCertificates(updatedCertificates);
+  };
+
+  const handleCertificateChange = (index, field, value) => {
+    const updatedCertificates = [...newCertificates];
+    updatedCertificates[index][field] = value;
+    setNewCertificates(updatedCertificates);
+  };
+
   const handleUpdate = async () => {
     const updatedLanguages = newLanguages
       .filter((lang) => lang.language !== "") // Remove empty language inputs
-      .map((lang) => {
-        return { language: lang.language, proficiency: lang.proficiency }; // Convert to object for clarity
-      });
+      .map((lang) => ({ language: lang.language, proficiency: lang.proficiency }));
+
+    const updatedCertificates = newCertificates.filter((cert) => cert.title !== "" && cert.year !== ""); // Remove empty certificates
 
     const updatedData = {
       ...userData,
-      languages: updatedLanguages.map((lang) => lang.language), // Extract only languages
-      languageProficiency: updatedLanguages.map((lang) => lang.proficiency), // Extract only proficiencies
+      languages: updatedLanguages.map((lang) => lang.language),
+      languageProficiency: updatedLanguages.map((lang) => lang.proficiency),
+      certification: updatedCertificates, // Update certificates
     };
-
 
     const response = await fetch(`${APP_URL}/api/users/updateUser/${userId}`, {
       method: "PUT",
@@ -106,9 +128,7 @@ const UserProfile = () => {
   return (
     <div className="grid lg:grid-cols-2 gap-4">
       <div className="max-w-2xl mx-auto w-full p-8 bg-white shadow-lg rounded-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Update Profile
-        </h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Update Profile</h2>
 
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-700">Full Name</label>
@@ -143,9 +163,7 @@ const UserProfile = () => {
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-700">
-            Languages and Proficiency
-          </label>
+          <label className="block text-sm font-semibold text-gray-700">Languages and Proficiency</label>
           {newLanguages.map((langObj, index) => (
             <div key={index} className="mb-3">
               <div className="flex items-center space-x-3 mb-2">
@@ -180,45 +198,60 @@ const UserProfile = () => {
           </button>
         </div>
 
+        {/* Certificates Section */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-700">
-            Years of Translation Experience
-          </label>
-          <input
-            type="number"
-            value={userData.translationYearOfExperience}
-            onChange={(e) =>
-              setUserData({ ...userData, translationYearOfExperience: e.target.value })
-            }
-            className="mt-2 block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none"
-          />
+          <label className="block text-sm font-semibold text-gray-700">Certificates</label>
+          {newCertificates.map((cert, index) => (
+            <div key={index} className="mb-3">
+              <div className="grid grid-cols-4 items-center space-x-3 mb-2">
+                <input
+                  type="text"
+                  value={cert.title}
+                  onChange={(e) => handleCertificateChange(index, "title", e.target.value)}
+                  placeholder="Certificate Title"
+                  className="col-span-3 block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none"
+                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    value={cert.year}
+                    onChange={(e) => handleCertificateChange(index, "year", e.target.value)}
+                    placeholder="Year"
+                    className="flex-grow block w-full border border-gray-300 rounded-lg p-3 bg-gray-50 focus:ring focus:ring-blue-200 focus:outline-none"
+                  />
+                  {newCertificates.length > 1 && (
+                    <button onClick={() => handleRemoveCertificate(index)} className="text-red-500 hover:text-red-700">
+                      <FaMinusCircle size={22} />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+          <button onClick={handleAddCertificate} className="mt-3 text-blue-500 hover:text-blue-700 flex items-center">
+            <FaPlusCircle size={22} className="mr-2" /> Add another certificate
+          </button>
         </div>
-        <div className="my-2 flex gap-4">
+        {/* availability : it updated before data even come that's way we need to do condition that if there is username then we input availability*/}
+        {userData?.username && <div className="my-2 flex gap-4">
           <label htmlFor="profileavailability" className="select-none font-bold text-xl cursor-pointer" >Availability
           </label>
-          <input id="profileavailability" type="checkbox" className="toggle toggle-success" value={userData?.availability} onChange={(e) => {
+          <input id="profileavailability" type="checkbox" className="toggle toggle-success" defaultChecked={userData?.availability} onChange={(e) => {
             setUserData({ ...userData, availability: e.target.checked })
           }} />
-        </div>
-
+        </div>}
+        {/* Update Button */}
         <button
           onClick={handleUpdate}
-          className="w-full bg-blue-500 text-white font-semibold px-4 py-3 rounded-lg hover:bg-blue-600 flex items-center justify-center transition-all duration-200"
+          className="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 focus:ring focus:ring-blue-200 focus:outline-none transition ease-in-out duration-200"
         >
-          <FaSave className="mr-2" size={18} /> Save Profile
+          Update Profile
         </button>
       </div>
 
-      <div>
-        <img
-          src={userData?.profilePic}
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = cover;
-          }}
-          alt="User Profile"
-          className="w-full h-full object-cover"
-        />
+      <div className="max-w-2xl mx-auto w-full p-8 bg-white shadow-lg rounded-lg">
+        <img src={userData.profilePic || cover} alt="Profile Cover" className="rounded-lg w-full" />
+        <h3 className="text-xl mt-4 text-center font-semibold">{userData.fullName}</h3>
       </div>
     </div>
   );

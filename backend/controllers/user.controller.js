@@ -154,7 +154,50 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+export const addCertificate = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { title, year } = req.body;
+    const user = await User.findOne({
+      _id: userId
+    });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    // add certificate to user
+    user.certification.push({ title, year });
+    await user.save();
+    res.status(200).json({ message: "Certificate added successfully" });
+  } catch (error) {
+    console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+export const updateCertificate = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { certification } = req.body;
+    const user
+      = await User.findOne({
+        _id: userId
+      });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    // update certificate
+    user.certification = certification;
+    await user.save();
+    res.status(200).json({ message: "Certificate updated successfully" });
 
+  } catch (error) {
+    console.log("Error in user controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
+
+// note : development purpose
 //! only for development purpose
 // get all users
 export const getAllUserForRefresh = async (req, res) => {
@@ -167,7 +210,7 @@ export const getAllUserForRefresh = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-// add all the previous user
+//! add all the previous user
 export const addAllThePrevUser = async (req, res) => {
   try {
     const users = req.body;
@@ -181,13 +224,13 @@ export const addAllThePrevUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-// delete all user
+//! delete all user
 export const deleteAllUsers = async (req, res) => {
   try {
     // delete all users
     const result = await User.deleteMany();
-    res.status(200).json({ message: "All users deleted successfully" ,result});
-    
+    res.status(200).json({ message: "All users deleted successfully", result });
+
   } catch (error) {
     console.log("Error in user controller on delete all user", error.message);
     res.status(500).json({ error: "Internal Server Error" });
