@@ -44,7 +44,7 @@ const DashboardSidebar = () => {
             <div className="w-16  rounded-full bg-black  mr-2">
               <img src={logo} alt="Dashboard Icon" />
             </div>
-            <span className="text-2xl font-bold">70Language</span>
+            <span className="text-2xl font-bold">70Languages</span>
           </div>
           <li className="mb-2">
             <Link to="/dashboard/jobList" className="flex items-center">
