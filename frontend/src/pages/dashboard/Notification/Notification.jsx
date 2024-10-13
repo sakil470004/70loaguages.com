@@ -5,13 +5,13 @@ import moment from "moment"; // For time formatting
 import APP_URL from "../../../../APP_URL";
 import { useAuthContext } from "../../../context/AuthContext";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Notification = ({ notification, handleDelete, handleRead }) => {
   return (
     <div
-      className={`flex items-center justify-between bg-white p-4 rounded-lg shadow-md mb-4 border ${
-        notification.isRead ? "border-green-500" : "border-gray-300"
-      }`}
+      className={`flex items-center justify-between bg-white p-4 rounded-lg shadow-md mb-4 border ${notification.isRead ? "border-green-500" : "border-gray-300"
+        }`}
     >
       <div className="flex items-center">
         <FaBell className="text-xl text-blue-500 mr-3" />
@@ -29,6 +29,13 @@ const Notification = ({ notification, handleDelete, handleRead }) => {
         </div>
       </div>
       <div className="flex space-x-2">
+        {notification?.link && <Link
+          to={notification.link}
+          className="btn btn-sm bg-blue-500 text-white flex items-center justify-center hover:bg-blue-600"
+        >
+          View
+        </Link>}
+
         {!notification.isRead && (
           <button
             onClick={() => handleRead(notification._id)}
@@ -37,6 +44,7 @@ const Notification = ({ notification, handleDelete, handleRead }) => {
             <FaCheckCircle className="mr-1" /> Read
           </button>
         )}
+
         <button
           onClick={() => handleDelete(notification._id)}
           className="btn btn-sm bg-red-500 text-white flex items-center justify-center hover:bg-red-600"
@@ -142,7 +150,7 @@ const NotificationsPage = () => {
 
       {notifications.length === 0 ? (
         <div>
-        <img src="https://img.icons8.com/ios/452/nothing-found.png" alt="No notifications found" className="w-40 h-40 mx-auto" />
+          <img src="https://img.icons8.com/ios/452/nothing-found.png" alt="No notifications found" className="w-40 h-40 mx-auto" />
           <h3 className="text-xl text-red-500 font-bold text-center">No notifications found</h3>
         </div>
       ) : (

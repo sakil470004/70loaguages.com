@@ -28,7 +28,7 @@ const JobCard = ({ job }) => {
         <div className="flex items-center">
           <MdLanguage className="text-xl text-green-500 mr-2" />
           <span>
-            {job?.languageName} - ${job?.languageCost}/word
+            {job?.sourceLanguageName} {"=>"} {job?.languageName} - ${job?.languageCost}/word
           </span>
         </div>
         <div className="flex items-center">

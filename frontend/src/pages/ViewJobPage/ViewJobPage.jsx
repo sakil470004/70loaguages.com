@@ -78,75 +78,81 @@ const JobDetails = ({ job }) => {
             >
               <FaArrowLeft className="mr-2" /> Back to Jobs
             </button>
-            <div className="mb-6">
-              <div className="flex items-center mb-3">
-                <MdOutlineWork className="text-4xl text-blue-600 mr-3" />
-                <h1 className="text-3xl font-extrabold text-gray-800">
-                  {job.title}
-                </h1>
-              </div>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                {job.description}
-              </p>
-            </div>
-            <div className="space-y-6">
-            <div className="flex items-center text-gray-700">
-                <MdLanguage className="text-3xl text-blue-600 mr-3" />
-                <span className="text-xl">
-                  Source Language: {job.sourceLanguageName}
-                </span>
-              </div>
-              
-              <div className="flex items-center text-gray-700">
-                <MdLanguage className="text-3xl text-green-600 mr-3" />
-                <span className="text-xl">
-              Target Language:{job.languageName} - ${job.languageCost}/word
-                </span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <IoMdOptions className="text-3xl text-yellow-600 mr-3" />
-                <span className="text-xl">
-                  Complexity Level: {job.complexityLevel}
-                </span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <FaCertificate className="text-3xl text-red-600 mr-3" />
-                <span className="text-xl">
-                  Required Certification: {job.requiredCertification ? "Yes" : "No"}
-                </span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <BsCardChecklist className="text-3xl text-purple-600 mr-3" />
-                <span className="text-xl">Category: {job.category}</span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <MdAccessTime className="text-3xl text-yellow-600 mr-3" />
-                <span className="text-xl">
-                  Deadline: {job?.deadline?.split("T")[0]}
-                </span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <BsPeople className="text-3xl text-yellow-600 mr-3" />
-                <span className="text-xl">Poster ID: {job?.posterId}</span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <SiStatuspage className="text-3xl text-yellow-600 mr-3" />
-                <span className="text-xl">Status: {job?.status}</span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <FaMoneyBillWave className="text-3xl text-purple-600 mr-3" />
-                <span className="text-xl">Budget: ${job.budget}</span>
-              </div>
-            </div>
-            <div className="mt-8 flex justify-end">
-              <button
-                onClick={handleAppliedJob}
-                disabled={disabled}
-                className="btn btn-primary btn-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-purple-500 hover:to-blue-500"
-              >
-                {job?.takerId ? "This Job is Already Accepted" : "Apply"}
-              </button>
-            </div>
+            {
+              job?._id && <div>
+
+
+                <div className="mb-6">
+                  <div className="flex items-center mb-3">
+                    <MdOutlineWork className="text-4xl text-blue-600 mr-3" />
+                    <h1 className="text-3xl font-extrabold text-gray-800">
+                      {job.title}
+                    </h1>
+                  </div>
+                  <p className="text-gray-700 text-lg leading-relaxed">
+                    {job.description}
+                  </p>
+                </div>
+                <div className="space-y-6">
+                  <div className="flex items-center text-gray-700">
+                    <MdLanguage className="text-3xl text-blue-600 mr-3" />
+                    <span className="text-xl">
+                      Source Language: {job.sourceLanguageName}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center text-gray-700">
+                    <MdLanguage className="text-3xl text-green-600 mr-3" />
+                    <span className="text-xl">
+                      Target Language:{job.languageName} - ${job.languageCost}/word
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <IoMdOptions className="text-3xl text-yellow-600 mr-3" />
+                    <span className="text-xl">
+                      Complexity Level: {job.complexityLevel}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <FaCertificate className="text-3xl text-red-600 mr-3" />
+                    <span className="text-xl">
+                      Required Certification: {job.requiredCertification ? "Yes" : "No"}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <BsCardChecklist className="text-3xl text-purple-600 mr-3" />
+                    <span className="text-xl">Category: {job.category}</span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <MdAccessTime className="text-3xl text-yellow-600 mr-3" />
+                    <span className="text-xl">
+                      Deadline: {job?.deadline?.split("T")[0]}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <BsPeople className="text-3xl text-yellow-600 mr-3" />
+                    <span className="text-xl">Poster ID: {job?.posterId}</span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <SiStatuspage className="text-3xl text-yellow-600 mr-3" />
+                    <span className="text-xl">Status: {job?.status}</span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <FaMoneyBillWave className="text-3xl text-purple-600 mr-3" />
+                    <span className="text-xl">Budget: ${job.budget}</span>
+                  </div>
+                </div>
+                <div className="mt-8 flex justify-end">
+                  <button
+                    onClick={handleAppliedJob}
+                    disabled={disabled}
+                    className="btn btn-primary btn-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-purple-500 hover:to-blue-500"
+                  >
+                    {job?.takerId ? "This Job is Already Accepted" : "Apply"}
+                  </button>
+                </div>
+              </div> || <div className="text-center text-2xl text-red-500">Job not found OR Job is Removed</div>
+            }
           </div>
         </div>
         <Footer />

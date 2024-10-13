@@ -20,7 +20,9 @@ const Navbar = () => {
           `${APP_URL}/api/notification/getAllNotificationForCurrentUser/${authUser?._id}`
         );
         const data = await res.json();
-        setNotification(data.length > 0);
+        // if isRead is false then set notification to true
+        const hasUnread = data.some((n) => n.isRead === false);
+        setNotification(hasUnread);
       };
       fetchNotification();
     }
