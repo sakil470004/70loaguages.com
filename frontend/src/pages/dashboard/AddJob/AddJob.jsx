@@ -39,7 +39,10 @@ const AddJob = () => {
   // Automatically calculate the budget based on word count and selected language cost
   useEffect(() => {
     if (selectedLanguage && wordCount) {
-      setBudget((selectedLanguage.languageCost * wordCount).toFixed(2));
+      let cost = (selectedLanguage.languageCost * wordCount).toFixed(2)
+      // increase cost by 10% // 10% commission from customer
+      cost = (cost * 1.1).toFixed(2);
+      setBudget(cost);
     }
   }, [selectedLanguage, wordCount]);
 
@@ -272,9 +275,8 @@ const AddJob = () => {
           <div className="text-center">
             <button
               type="submit"
-              className={`btn btn-primary w-full mt-4 py-3 px-5 ${
-                loading ? "loading loading-dots" : ""
-              }`}
+              className={`btn btn-primary w-full mt-4 py-3 px-5 ${loading ? "loading loading-dots" : ""
+                }`}
               disabled={loading}
             >
               Submit Job
