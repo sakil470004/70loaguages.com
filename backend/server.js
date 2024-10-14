@@ -18,6 +18,7 @@ import languageCostRoutes from "./routes/languagecost.routes.js";
 import notification from "./routes/notification.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import languageManagement from "./routes/languageManagement.routes.js";
+import reviewRoutes from "./routes/review.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
@@ -126,6 +127,7 @@ app.use("/api/languagecost", languageCostRoutes);
 app.use("/api/notification", notification);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/languageManagement", languageManagement);
+app.use("/api/review", reviewRoutes);
 
 // Serve static files in production
 const __dirname = path.resolve();
